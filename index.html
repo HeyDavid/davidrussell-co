@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>David Russell</title>
+<meta name="description" content="Solo operator in South Florida building small, evergreen ventures." />
+<meta property="og:title" content="David Russell" />
+<meta property="og:description" content="Solo operator in South Florida building small, evergreen ventures." />
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --border: #2a2f3a;
+    --text: #e8eaef;
+    --muted: #8d95a3;
+    --accent: #ffb547;
+    --link: #ffd28a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  a { color: var(--link); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  a:hover { border-bottom-color: var(--link); }
+
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 96px 24px 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .mark {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mark-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: 56px;
+    line-height: 1.05;
+    margin: 0 0 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 40px; }
+    .wrap { padding: 64px 20px 60px; }
+  }
+
+  .lede {
+    font-size: 19px;
+    color: var(--text);
+    margin: 0 0 48px;
+    max-width: 540px;
+  }
+
+  .ventures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+  @media (max-width: 600px) {
+    .ventures { grid-template-columns: 1fr; }
+  }
+
+  .venture {
+    display: block;
+    padding: 16px 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .venture:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    border-bottom-color: var(--accent);
+  }
+  .venture .name {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0 0 4px;
+    color: var(--text);
+  }
+  .venture .desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .contact {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .soon {
+    color: var(--muted);
+    font-size: 13px;
+    font-style: italic;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="mark"><span class="mark-dot"></span>David Russell</div>
+
+    <h1>Building small, sharp, evergreen things from South Florida.</h1>
+
+    <p class="lede">Solo operator. I make websites, software tools, and content for businesses that want to grow without the bloat.</p>
+
+    <div class="ventures">
+      <a class="venture" href="https://letschatmarketing.com">
+        <p class="name">Let's Chat &rarr;</p>
+        <p class="desc">Productized websites and AI tools for service businesses.</p>
+      </a>
+      <a class="venture" href="https://makermargin.co">
+        <p class="name">Maker Margin &rarr;</p>
+        <p class="desc">Tools and field notes for Etsy sellers.</p>
+      </a>
+      <a class="venture" href="https://scamcapital.com">
+        <p class="name">ScamCapital &rarr;</p>
+        <p class="desc">Independent reporting on financial scams.</p>
+      </a>
+      <a class="venture" href="https://github.com/HeyDavid">
+        <p class="name">GitHub &rarr;</p>
+        <p class="desc">Open source side projects and tools.</p>
+      </a>
+    </div>
+
+    <p class="contact">Reach me: <a href="mailto:david@letschat.studio">david@letschat.studio</a> &middot; <a href="https://twitter.com/heydavidr">@heydavidr</a></p>
+
+    <p class="soon">A personal newsletter is on the way.</p>
+  </main>
+</body>
+</html>
