@@ -1,162 +1,600 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>David Russell</title>
-<meta name="description" content="Solo operator in South Florida building small, evergreen ventures." />
-<meta property="og:title" content="David Russell" />
-<meta property="og:description" content="Solo operator in South Florida building small, evergreen ventures." />
 <style>
-  :root {
-    --bg: #0f1115;
-    --panel: #171a21;
-    --border: #2a2f3a;
-    --text: #e8eaef;
-    --muted: #8d95a3;
-    --accent: #ffb547;
-    --link: #ffd28a;
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* ============================================
+     davidrussell.co — v2.1
+     Dreamy watercolor background + ChatGPT icons
+     More breathing room, larger type
+     ============================================ */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, "Inter", "Söhne", "Segoe UI", sans-serif;
+    color: #2c2417;
+    background: #fdfbf7;
+    line-height: 1.65;
     font-size: 17px;
-    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
     min-height: 100vh;
   }
-  a { color: var(--link); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
-  a:hover { border-bottom-color: var(--link); }
 
-  .wrap {
-    max-width: 640px;
+  /* THE FEELING OF BEING IN A CLOUD — soft suspended pastel light,
+     pure CSS gradients, no literal cloud picture. Drifts very slowly. */
+  .cloud-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 80vw 65vh at 18% 22%, rgba(228, 215, 248, 0.42), transparent 68%),
+      radial-gradient(ellipse 70vw 55vh at 82% 65%, rgba(255, 220, 195, 0.38), transparent 68%),
+      radial-gradient(ellipse 75vw 55vh at 48% 92%, rgba(204, 232, 213, 0.38), transparent 68%),
+      radial-gradient(ellipse 60vw 50vh at 72% 12%, rgba(200, 222, 240, 0.32), transparent 68%);
+    animation: gentleSky 90s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .cloud-layer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65vw 50vh at 30% 75%, rgba(252, 230, 215, 0.30), transparent 70%),
+      radial-gradient(ellipse 55vw 45vh at 90% 35%, rgba(225, 218, 248, 0.28), transparent 70%);
+    animation: gentleSky 70s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes gentleSky {
+    from { transform: scale(1) translate(0, 0); }
+    to   { transform: scale(1.06) translate(-30px, 20px); }
+  }
+
+  /* CONTENT scaffold — wider canvas, real breathing room */
+  main { position: relative; z-index: 1; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 56px; }
+  a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; transition: opacity 0.2s; }
+  a:hover { opacity: 0.6; }
+
+  /* NAV — full-width bar, centered inner content */
+  nav.top {
+    padding: 36px 0 28px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+  nav.top .nav-inner {
+    max-width: 980px;
     margin: 0 auto;
-    padding: 96px 24px 80px;
-    min-height: 100vh;
+    padding: 0 56px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .mark {
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    display: inline-flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
   }
-  .mark-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
+  nav.top a { border-bottom: none; font-size: 15px; color: #5a5142; transition: color 0.2s; }
+  nav.top a:hover { color: #c75d3c; }
+  nav.top .name img {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+  nav.top ul { display: flex; gap: 32px; list-style: none; font-size: 15px; }
+
+  /* HERO — asymmetric editorial layout, contemporary artist style */
+  .hero {
+    padding: 64px 0 144px;
+  }
+  .hero-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 56px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .hero-text { display: flex; flex-direction: column; min-width: 0; }
+  .hero-wordmark {
+    width: 100%;
+    max-width: min(560px, 100%);
+    height: auto;
+    margin-bottom: 36px;
+    margin-left: -8px; /* visual optical alignment with text below */
+  }
+  .hero-text .lede {
+    font-size: 21px;
+    color: #4a4133;
+    max-width: min(52ch, calc(100vw - 64px));
+    margin-bottom: 36px;
+    line-height: 1.55;
+  }
+  .hero-image {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(44, 36, 23, 0.18);
+    transform: rotate(-1.2deg);
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .hero-image:hover { transform: rotate(0deg); }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    display: block;
+  }
+  .hero-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(44, 36, 23, 0.12));
+    pointer-events: none;
+  }
+  /* Mobile stack */
+  @media (max-width: 820px) {
+    nav.top .nav-inner {
+      flex-direction: column;
+      gap: 18px;
+      padding: 0 32px;
+      align-items: center;
+    }
+    nav.top ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 24px;
+    }
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding: 0 32px;
+      width: 100%;
+      max-width: 100%;
+    }
+    .hero-image { max-width: min(360px, calc(100vw - 64px)); margin: 0 auto; transform: rotate(-1deg); }
+    .hero-wordmark { margin-left: 0; }
+    .hero-text,
+    .hero-text .lede,
+    .capture {
+      width: 100%;
+      max-width: 100%;
+    }
+    .hero-text .lede { overflow-wrap: break-word; }
+    .ventures,
+    .finds {
+      grid-template-columns: 1fr;
+    }
   }
 
-  h1 {
-    font-size: 56px;
-    line-height: 1.05;
-    margin: 0 0 24px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  @media (max-width: 600px) {
-    h1 { font-size: 40px; }
-    .wrap { padding: 64px 20px 60px; }
+  @media (max-width: 560px) {
+    .hero { padding-top: 44px; }
+    .hero-grid { padding: 0 24px; }
+    .hero-text .lede {
+      max-width: calc(100vw - 48px);
+      overflow-wrap: anywhere;
+    }
+    .capture {
+      width: 100%;
+      max-width: none;
+      border-radius: 28px;
+      flex-direction: column;
+    }
+    .capture input {
+      min-width: 0;
+      width: 100%;
+      text-align: center;
+    }
+    .capture button {
+      width: 100%;
+    }
   }
 
-  .lede {
-    font-size: 19px;
-    color: var(--text);
-    margin: 0 0 48px;
-    max-width: 540px;
+  /* Email capture — frosted glass */
+  .capture {
+    display: flex;
+    gap: 8px;
+    max-width: min(480px, calc(100vw - 64px));
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    box-shadow: 0 12px 32px rgba(44, 36, 23, 0.1);
   }
+  .capture input {
+    flex: 1;
+    padding: 14px 22px;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    color: #2c2417;
+    outline: none;
+  }
+  .capture input::placeholder { color: #8a7d63; }
+  .capture button {
+    padding: 14px 28px;
+    border: none;
+    background: #2c2417;
+    color: #fdfbf7;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .capture button:hover { background: #4a3f2c; }
 
+  /* SECTION — frosted glass card with real breathing room */
+  section.card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 32px;
+    padding: 96px 80px;
+    margin-bottom: 56px;
+    box-shadow: 0 16px 48px rgba(44, 36, 23, 0.08);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  section.card.in-view { opacity: 1; transform: translateY(0); }
+
+  /* SECTION HEADER — icon + label */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    background-image: url('./assets/icons-5.png');
+    background-size: 500% 100%;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+  }
+  .section-icon.feather { background-position: 0% 50%; }    /* Writing */
+  .section-icon.hammer { background-position: 25% 50%; }    /* Building */
+  .section-icon.wand { background-position: 50% 50%; }      /* Performing */
+  .section-icon.heart-leaf { background-position: 75% 50%; }/* Things I like */
+  .section-icon.airplane { background-position: 100% 50%; } /* Find me */
+
+  .label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #8a7d63;
+    font-weight: 500;
+  }
+  section.card h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 38px;
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    margin-bottom: 40px;
+    line-height: 1.18;
+    max-width: 24ch;
+  }
+  section.card h2 em { font-style: italic; color: #6a5d44; }
+
+  /* ESSAYS list */
+  .essays-list { list-style: none; }
+  .essays-list li {
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(44, 36, 23, 0.1);
+  }
+  .essays-list li:last-child { border-bottom: none; }
+  .essays-list a { display: block; border-bottom: none; }
+  .essays-list .essay-title {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    transition: color 0.2s;
+    line-height: 1.25;
+  }
+  .essays-list a:hover .essay-title { color: #c75d3c; }
+  .essays-list .essay-meta { font-size: 14px; color: #8a7d63; }
+  .essays-list .essay-dek { font-size: 16px; color: #5a5142; margin-top: 8px; line-height: 1.55; }
+
+  /* VENTURES grid */
   .ventures {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 56px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
-  @media (max-width: 600px) {
-    .ventures { grid-template-columns: 1fr; }
-  }
-
   .venture {
-    display: block;
-    padding: 16px 18px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    transition: border-color 0.15s, transform 0.15s;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: transform 0.2s, background 0.2s;
   }
-  .venture:hover {
-    border-color: var(--accent);
-    transform: translateY(-1px);
-    border-bottom-color: var(--accent);
+  .venture:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.75); }
+  .venture-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #c75d3c;
+    margin-bottom: 10px;
+    font-weight: 500;
   }
-  .venture .name {
-    font-weight: 600;
-    font-size: 16px;
-    margin: 0 0 4px;
-    color: var(--text);
-  }
-  .venture .desc {
-    font-size: 13px;
-    color: var(--muted);
-    margin: 0;
-  }
-
-  .contact {
-    color: var(--muted);
-    font-size: 15px;
-    margin-bottom: 24px;
-  }
-
-  .soon {
-    color: var(--muted);
-    font-size: 13px;
+  .venture-name {
+    font-family: "Fraunces", Georgia, serif;
     font-style: italic;
-    margin: 0;
+    font-size: 26px;
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .venture-desc { font-size: 15px; color: #5a5142; line-height: 1.55; }
+
+  /* FINDS list */
+  .finds {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 32px;
+  }
+  .find {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(44, 36, 23, 0.08);
+  }
+  .find-name { font-size: 16px; font-weight: 500; }
+  .find-why { font-size: 14px; color: #8a7d63; margin-top: 2px; }
+
+  /* CONTACT */
+  .socials {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 17px;
+  }
+  .socials a { border-bottom: 1px solid #2c2417; padding-bottom: 2px; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 80px 32px 56px;
+    font-size: 14px;
+    color: #8a7d63;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 820px) {
+    .ventures,
+    .finds {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* MOTION reduce */
+  @media (prefers-reduced-motion: reduce) {
+    .cloud-layer, .headshot-wrap { animation: none !important; }
+    section.card { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="mark"><span class="mark-dot"></span>David Russell</div>
 
-    <h1>Building small, sharp, evergreen things from South Florida.</h1>
+<div class="cloud-layer"></div>
 
-    <p class="lede">Solo operator. I make websites, software tools, and content for businesses that want to grow without the bloat.</p>
+<nav class="top">
+  <div class="nav-inner">
+    <a href="/" class="name" style="border:none;">
+      <img src="./assets/wordmark-clean.png" alt="David Russell.">
+    </a>
+    <ul>
+      <li><a href="#essays">writing</a></li>
+      <li><a href="#ventures">building</a></li>
+      <li><a href="#performing">performing</a></li>
+      <li><a href="#contact">find me</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <div class="ventures">
-      <a class="venture" href="https://letschatmarketing.com">
-        <p class="name">Let's Chat &rarr;</p>
-        <p class="desc">Productized websites and AI tools for service businesses.</p>
-      </a>
-      <a class="venture" href="https://makermargin.co">
-        <p class="name">Maker Margin &rarr;</p>
-        <p class="desc">Tools and field notes for Etsy sellers.</p>
-      </a>
-      <a class="venture" href="https://scamcapital.com">
-        <p class="name">ScamCapital &rarr;</p>
-        <p class="desc">Independent reporting on financial scams.</p>
-      </a>
-      <a class="venture" href="https://github.com/HeyDavid">
-        <p class="name">GitHub &rarr;</p>
-        <p class="desc">Open source side projects and tools.</p>
-      </a>
+<main>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <img class="hero-wordmark" src="./assets/wordmark-clean.png" alt="David Russell.">
+        <p class="lede">Solo founder in South Florida. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0; color:inherit;">Moolaguides</a>. Co-founded <a href="https://syllble.com" style="border-bottom:1px solid #c5b8a0; color:inherit;">Syllble</a>, a collaborative fiction publishing company that's produced 105+ novels. Currently running Let's Chat plus a few smaller ventures, and quietly making magic, music, and noise on the side.</p>
+        <form class="capture" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="your email, get the new stuff first">
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div class="hero-image">
+        <img src="./assets/headshot.jpg" alt="David Russell">
+      </div>
     </div>
+  </section>
 
-    <p class="contact">Reach me: <a href="mailto:david@letschat.studio">david@letschat.studio</a> &middot; <a href="https://twitter.com/heydavidr">@heydavidr</a></p>
+  <div class="wrap">
 
-    <p class="soon">A personal newsletter is on the way.</p>
-  </main>
+    <section class="card" id="essays">
+      <div class="section-head">
+        <div class="section-icon feather"></div>
+        <p class="label">Writing</p>
+      </div>
+      <h2>Notes from the workbench. <em>Short, occasional, never spam.</em></h2>
+      <ul class="essays-list">
+        <li>
+          <a href="#">
+            <div class="essay-title">Why I stopped using Divi</div>
+            <div class="essay-meta">May 2026 · 4 min</div>
+            <div class="essay-dek">A practical post-mortem on dropping the page-builder stack and what I moved to.</div>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <div class="essay-title">What Etsy fees actually cost</div>
+            <div class="essay-meta">April 2026 · 6 min</div>
+            <div class="essay-dek">Origin story for Maker Margin and the math nobody on Etsy talks about out loud.</div>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <div class="essay-title">The case for being tiny on purpose</div>
+            <div class="essay-meta">March 2026 · 3 min</div>
+            <div class="essay-dek">Why I'm shipping a portfolio of small ventures instead of one big company.</div>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <div class="essay-title">A scam-detection quiz, and why it works</div>
+            <div class="essay-meta">February 2026 · 5 min</div>
+            <div class="essay-dek">An idea I'm building into ScamCapital. Making the lesson land by tricking the reader.</div>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="card" id="ventures">
+      <div class="section-head">
+        <div class="section-icon hammer"></div>
+        <p class="label">Building</p>
+      </div>
+      <h2>What I'm working on, in plain sight.</h2>
+      <div class="ventures">
+        <a href="https://letschatmarketing.com" class="venture" style="border-bottom:none;">
+          <div class="venture-tag">AGENCY</div>
+          <div class="venture-name">Let's Chat</div>
+          <div class="venture-desc">A small marketing agency for service businesses. Modern websites, AI receptionists, sharp consulting.</div>
+        </a>
+        <a href="https://makermargin.co" class="venture" style="border-bottom:none;">
+          <div class="venture-tag">TOOL</div>
+          <div class="venture-name">Maker Margin</div>
+          <div class="venture-desc">A free Etsy fee calculator that has saved sellers a lot of confusion (and a few thousand dollars).</div>
+        </a>
+        <a href="https://scamcapital.com" class="venture" style="border-bottom:none;">
+          <div class="venture-tag">RESOURCE</div>
+          <div class="venture-name">ScamCapital</div>
+          <div class="venture-desc">A scam-education hub. Playbooks on common scams plus an interactive quiz that's designed to fool you.</div>
+        </a>
+        <a href="#" class="venture" style="border-bottom:none; opacity: 0.55;">
+          <div class="venture-tag">SOMETHING NEW</div>
+          <div class="venture-name">In the workshop</div>
+          <div class="venture-desc">The next small thing. Subscribe up top, you'll see it before anyone else.</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" id="performing">
+      <div class="section-head">
+        <div class="section-icon wand"></div>
+        <p class="label">Performing</p>
+      </div>
+      <h2>The other half. <em>Magic, music, and the occasional stage.</em></h2>
+      <p style="font-size:17px; color:#5a5142; margin-bottom: 32px; max-width: 56ch; line-height: 1.65;">
+        Before the ventures, there was a kid doing card tricks in a backyard. That kid is still here. Somewhere along the way he picked up a guitar, a microphone, and a taste for getting in front of a room.
+      </p>
+      <div class="ventures">
+        <a href="#" class="venture" style="border-bottom:none;">
+          <div class="venture-tag">MAGIC</div>
+          <div class="venture-name">Close-up &amp; stage</div>
+          <div class="venture-desc">Card and coin work, parlor sets, occasional private events around South Florida.</div>
+        </a>
+        <a href="#" class="venture" style="border-bottom:none;">
+          <div class="venture-tag">MUSIC</div>
+          <div class="venture-name">Guitar &amp; vocals</div>
+          <div class="venture-desc">Acoustic, mostly. Original work and the songs people want to hear.</div>
+        </a>
+        <a href="#" class="venture" style="border-bottom:none;">
+          <div class="venture-tag">COMEDY &amp; ACTING</div>
+          <div class="venture-name">Reels &amp; reactions</div>
+          <div class="venture-desc">Short-form on Instagram. Sketches, real moments, the stuff that makes the internet feel less broken.</div>
+        </a>
+        <a href="#" class="venture" style="border-bottom:none; opacity: 0.6;">
+          <div class="venture-tag">SPEAKING</div>
+          <div class="venture-name">In the works</div>
+          <div class="venture-desc">Talks on building small ventures, AI tooling, and what 10+ years of marketing taught me. Drop me a line if you're curating.</div>
+        </a>
+      </div>
+      <p style="font-size:14px; color:#8a7d63; margin-top: 28px; font-style: italic;">
+        Best place to follow the performing side: <a href="https://instagram.com/heydavidr" style="border-bottom:1px solid #c5b8a0; text-decoration:none;">@heydavidr on Instagram</a>.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div class="section-icon heart-leaf"></div>
+        <p class="label">Things I like</p>
+      </div>
+      <h2>A short list of stuff that's earned its keep.</h2>
+      <div class="finds">
+        <div class="find">
+          <div class="find-name">Astro</div>
+          <div class="find-why">For shipping fast websites that don't fight you.</div>
+        </div>
+        <div class="find">
+          <div class="find-name">Cloudflare</div>
+          <div class="find-why">Free DNS that doesn't make you read the manual.</div>
+        </div>
+        <div class="find">
+          <div class="find-name">Beehiiv</div>
+          <div class="find-why">Newsletters without the Substack baggage.</div>
+        </div>
+        <div class="find">
+          <div class="find-name">Claude + ChatGPT</div>
+          <div class="find-why">My two collaborators. Routing rules below.</div>
+        </div>
+        <div class="find">
+          <div class="find-name">"The Practice"</div>
+          <div class="find-why">Seth Godin · still the best book on shipping.</div>
+        </div>
+        <div class="find">
+          <div class="find-name">A good espresso machine</div>
+          <div class="find-why">The single best return on a hundred dollars.</div>
+        </div>
+      </div>
+      <p style="font-size:13px; color:#8a7d63; margin-top:32px; font-style: italic;">Some of these are affiliate links. I only list things I actually use.</p>
+    </section>
+
+    <section class="card" id="contact">
+      <div class="section-head">
+        <div class="section-icon airplane"></div>
+        <p class="label">Find me</p>
+      </div>
+      <h2>Doors are open. <em>Most of them, anyway.</em></h2>
+      <div class="socials">
+        <a href="mailto:dmrussell7@gmail.com">email</a>
+        <a href="https://linkedin.com">linkedin</a>
+        <a href="https://x.com">x</a>
+        <a href="https://github.com/HeyDavid">github</a>
+        <a href="#">youtube</a>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<footer>
+  © David Russell · Coral Springs, Florida<br>
+  <span style="opacity:0.6;">running effectively, on purpose</span>
+</footer>
+
+<script>
+  // Fade-up sections as they enter viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('section.card').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
