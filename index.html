@@ -78,7 +78,7 @@
   nav.top a { border-bottom: none; font-size: 15px; color: #5a5142; transition: color 0.2s; }
   nav.top a:hover { color: #c75d3c; }
   nav.top .name img {
-    height: 28px;
+    height: 36px;
     width: auto;
     display: block;
   }
@@ -93,36 +93,33 @@
     margin: 0 auto;
     padding: 0 56px;
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 80px;
+    grid-template-columns: 0.85fr 1.15fr; /* photo LEFT, text RIGHT (David looks toward subscribe form) */
+    gap: 88px;
     align-items: center;
   }
-  .hero-text { display: flex; flex-direction: column; min-width: 0; }
+  .hero-text { display: flex; flex-direction: column; }
   .hero-wordmark {
     width: 100%;
-    max-width: min(560px, 100%);
+    max-width: 720px;
     height: auto;
-    margin-bottom: 36px;
-    margin-left: -8px; /* visual optical alignment with text below */
+    margin-bottom: 40px;
+    margin-left: -8px;
   }
   .hero-text .lede {
-    font-size: 21px;
+    font-size: 22px;
     color: #4a4133;
-    max-width: min(52ch, calc(100vw - 64px));
-    margin-bottom: 36px;
+    max-width: 56ch;
+    margin-bottom: 40px;
     line-height: 1.55;
   }
   .hero-image {
     position: relative;
     aspect-ratio: 4 / 5;
     width: 100%;
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
     box-shadow: 0 32px 80px rgba(44, 36, 23, 0.18);
-    transform: rotate(-1.2deg);
-    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   }
-  .hero-image:hover { transform: rotate(0deg); }
   .hero-image img {
     width: 100%;
     height: 100%;
@@ -134,72 +131,26 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(44, 36, 23, 0.12));
+    background: linear-gradient(180deg, transparent 60%, rgba(44, 36, 23, 0.10));
     pointer-events: none;
   }
   /* Mobile stack */
   @media (max-width: 820px) {
-    nav.top .nav-inner {
-      flex-direction: column;
-      gap: 18px;
-      padding: 0 32px;
-      align-items: center;
-    }
-    nav.top ul {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px 24px;
-    }
     .hero-grid {
       grid-template-columns: 1fr;
       gap: 48px;
       padding: 0 32px;
-      width: 100%;
-      max-width: 100%;
     }
-    .hero-image { max-width: min(360px, calc(100vw - 64px)); margin: 0 auto; transform: rotate(-1deg); }
+    .hero-image { max-width: 360px; margin: 0 auto; }
     .hero-wordmark { margin-left: 0; }
-    .hero-text,
-    .hero-text .lede,
-    .capture {
-      width: 100%;
-      max-width: 100%;
-    }
-    .hero-text .lede { overflow-wrap: break-word; }
-    .ventures,
-    .finds {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .hero { padding-top: 44px; }
-    .hero-grid { padding: 0 24px; }
-    .hero-text .lede {
-      max-width: calc(100vw - 48px);
-      overflow-wrap: anywhere;
-    }
-    .capture {
-      width: 100%;
-      max-width: none;
-      border-radius: 28px;
-      flex-direction: column;
-    }
-    .capture input {
-      min-width: 0;
-      width: 100%;
-      text-align: center;
-    }
-    .capture button {
-      width: 100%;
-    }
+    .hero-text .lede { max-width: 100%; }
   }
 
   /* Email capture — frosted glass */
   .capture {
     display: flex;
     gap: 8px;
-    max-width: min(480px, calc(100vw - 64px));
+    max-width: 480px;
     padding: 8px;
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(14px);
@@ -254,19 +205,17 @@
     gap: 14px;
     margin-bottom: 32px;
   }
-  .section-icon {
-    width: 44px;
-    height: 44px;
-    background-image: url('./assets/icons-5.png');
-    background-size: 500% 100%;
-    background-repeat: no-repeat;
+  /* Editorial section markers — Fraunces italic numbers, no icon graphics */
+  .section-num {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 400;
+    color: #c75d3c;
+    line-height: 1;
     flex-shrink: 0;
+    min-width: 44px;
   }
-  .section-icon.feather { background-position: 0% 50%; }    /* Writing */
-  .section-icon.hammer { background-position: 25% 50%; }    /* Building */
-  .section-icon.wand { background-position: 50% 50%; }      /* Performing */
-  .section-icon.heart-leaf { background-position: 75% 50%; }/* Things I like */
-  .section-icon.airplane { background-position: 100% 50%; } /* Find me */
 
   .label {
     font-size: 13px;
@@ -368,13 +317,6 @@
     line-height: 1.7;
   }
 
-  @media (max-width: 820px) {
-    .ventures,
-    .finds {
-      grid-template-columns: 1fr;
-    }
-  }
-
   /* MOTION reduce */
   @media (prefers-reduced-motion: reduce) {
     .cloud-layer, .headshot-wrap { animation: none !important; }
@@ -404,16 +346,16 @@
 
   <section class="hero">
     <div class="hero-grid">
+      <div class="hero-image">
+        <img src="./assets/headshot.jpg" alt="David Russell">
+      </div>
       <div class="hero-text">
         <img class="hero-wordmark" src="./assets/wordmark-clean.png" alt="David Russell.">
-        <p class="lede">Solo founder in South Florida. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0; color:inherit;">Moolaguides</a>. Co-founded <a href="https://syllble.com" style="border-bottom:1px solid #c5b8a0; color:inherit;">Syllble</a>, a collaborative fiction publishing company that's produced 105+ novels. Currently running Let's Chat plus a few smaller ventures, and quietly making magic, music, and noise on the side.</p>
+        <p class="lede">Solo founder in South Florida. I run, I build, I try to have fun about it. Marketer for a decade. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0; color:inherit;">Moolaguides</a>. Co-founded <a href="https://syllble.com" style="border-bottom:1px solid #c5b8a0; color:inherit;">Syllble</a>, where we've published 105+ novels. Currently running Let's Chat plus a few smaller ventures.</p>
         <form class="capture" onsubmit="event.preventDefault();">
           <input type="email" placeholder="your email, get the new stuff first">
           <button type="submit">Subscribe</button>
         </form>
-      </div>
-      <div class="hero-image">
-        <img src="./assets/headshot.jpg" alt="David Russell">
       </div>
     </div>
   </section>
@@ -422,34 +364,34 @@
 
     <section class="card" id="essays">
       <div class="section-head">
-        <div class="section-icon feather"></div>
+        <span class="section-num">1.</span>
         <p class="label">Writing</p>
       </div>
       <h2>Notes from the workbench. <em>Short, occasional, never spam.</em></h2>
       <ul class="essays-list">
         <li>
-          <a href="#">
+          <a href="/writing/why-i-stopped-using-divi/">
             <div class="essay-title">Why I stopped using Divi</div>
             <div class="essay-meta">May 2026 · 4 min</div>
             <div class="essay-dek">A practical post-mortem on dropping the page-builder stack and what I moved to.</div>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/writing/what-etsy-fees-actually-cost/">
             <div class="essay-title">What Etsy fees actually cost</div>
             <div class="essay-meta">April 2026 · 6 min</div>
             <div class="essay-dek">Origin story for Maker Margin and the math nobody on Etsy talks about out loud.</div>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/writing/the-case-for-being-tiny-on-purpose/">
             <div class="essay-title">The case for being tiny on purpose</div>
             <div class="essay-meta">March 2026 · 3 min</div>
             <div class="essay-dek">Why I'm shipping a portfolio of small ventures instead of one big company.</div>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/writing/a-scam-detection-quiz-and-why-it-works/">
             <div class="essay-title">A scam-detection quiz, and why it works</div>
             <div class="essay-meta">February 2026 · 5 min</div>
             <div class="essay-dek">An idea I'm building into ScamCapital. Making the lesson land by tricking the reader.</div>
@@ -460,7 +402,7 @@
 
     <section class="card" id="ventures">
       <div class="section-head">
-        <div class="section-icon hammer"></div>
+        <span class="section-num">2.</span>
         <p class="label">Building</p>
       </div>
       <h2>What I'm working on, in plain sight.</h2>
@@ -490,7 +432,7 @@
 
     <section class="card" id="performing">
       <div class="section-head">
-        <div class="section-icon wand"></div>
+        <span class="section-num">3.</span>
         <p class="label">Performing</p>
       </div>
       <h2>The other half. <em>Magic, music, and the occasional stage.</em></h2>
@@ -526,42 +468,42 @@
 
     <section class="card">
       <div class="section-head">
-        <div class="section-icon heart-leaf"></div>
-        <p class="label">Things I like</p>
+        <span class="section-num">4.</span>
+        <p class="label">Background</p>
       </div>
-      <h2>A short list of stuff that's earned its keep.</h2>
+      <h2>A decade of marketing, two ventures with my name on the door, and a lot of late nights shipping.</h2>
       <div class="finds">
         <div class="find">
-          <div class="find-name">Astro</div>
-          <div class="find-why">For shipping fast websites that don't fight you.</div>
+          <div class="find-name">Marketing operator · 10+ years</div>
+          <div class="find-why">Paid, content, brand, productized — most channels, most stages.</div>
         </div>
         <div class="find">
-          <div class="find-name">Cloudflare</div>
-          <div class="find-why">Free DNS that doesn't make you read the manual.</div>
+          <div class="find-name">Moolaguides · founder &amp; exit</div>
+          <div class="find-why">Built it, sold it. <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0;">Covered in College Magazine</a>.</div>
         </div>
         <div class="find">
-          <div class="find-name">Beehiiv</div>
-          <div class="find-why">Newsletters without the Substack baggage.</div>
+          <div class="find-name">Syllble · co-founder</div>
+          <div class="find-why">Collaborative fiction publishing. 105+ novels and counting.</div>
         </div>
         <div class="find">
-          <div class="find-name">Claude + ChatGPT</div>
-          <div class="find-why">My two collaborators. Routing rules below.</div>
+          <div class="find-name">Let's Chat · current</div>
+          <div class="find-why">Productized agency for service businesses. Websites, AI, the parts in between.</div>
         </div>
         <div class="find">
-          <div class="find-name">"The Practice"</div>
-          <div class="find-why">Seth Godin · still the best book on shipping.</div>
+          <div class="find-name">Maker Margin · current</div>
+          <div class="find-why">Free fee calculator for Etsy sellers. Quietly compounding.</div>
         </div>
         <div class="find">
-          <div class="find-name">A good espresso machine</div>
-          <div class="find-why">The single best return on a hundred dollars.</div>
+          <div class="find-name">Magic · 20+ years</div>
+          <div class="find-why">Card and coin work since I was a kid. Still the best icebreaker I've got.</div>
         </div>
       </div>
-      <p style="font-size:13px; color:#8a7d63; margin-top:32px; font-style: italic;">Some of these are affiliate links. I only list things I actually use.</p>
+      <p style="font-size:14px; color:#5a5142; margin-top:32px;">More detail on <a href="https://www.linkedin.com/in/heydavidr/" style="border-bottom:1px solid #c5b8a0; color:inherit;">LinkedIn</a>. Tools and books I actually use are on the <a href="/recommended/" style="border-bottom:1px solid #c5b8a0; color:inherit;">recommended</a> page.</p>
     </section>
 
     <section class="card" id="contact">
       <div class="section-head">
-        <div class="section-icon airplane"></div>
+        <span class="section-num">5.</span>
         <p class="label">Find me</p>
       </div>
       <h2>Doors are open. <em>Most of them, anyway.</em></h2>
@@ -579,8 +521,7 @@
 </main>
 
 <footer>
-  © David Russell · Coral Springs, Florida<br>
-  <span style="opacity:0.6;">running effectively, on purpose</span>
+  © David Russell · Coral Springs, Florida
 </footer>
 
 <script>
@@ -592,8 +533,8 @@
       }
     });
   }, { threshold: 0.15 });
-
   document.querySelectorAll('section.card').forEach(el => observer.observe(el));
+
 </script>
 
 </body>
