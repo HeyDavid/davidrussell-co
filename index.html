@@ -100,14 +100,30 @@
     align-items: start;
   }
   .hero-text { display: flex; flex-direction: column; padding-top: 8px; }
-  .hero-wordmark {
+  .hero-art {
     width: 100%;
     max-width: 920px;
-    height: auto;
+    height: 240px;
     margin-bottom: 28px;
     margin-left: 0;
     display: block;
     background: transparent;
+  }
+  .hero-art-fallback {
+    width: 100%;
+    max-width: 920px;
+    height: 240px;
+    margin-bottom: 28px;
+    margin-left: 0;
+    display: none;
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 28% 32%, rgba(255, 131, 93, 0.30), transparent 12%),
+      radial-gradient(circle at 72% 34%, rgba(199, 93, 60, 0.22), transparent 14%),
+      radial-gradient(circle at 48% 58%, rgba(74, 65, 51, 0.16), transparent 30%),
+      linear-gradient(135deg, rgba(253, 251, 247, 0.00), rgba(253, 251, 247, 0.18)),
+      linear-gradient(180deg, rgba(48, 39, 30, 0.06), rgba(48, 39, 30, 0.00));
+    box-shadow: inset 0 0 0 1px rgba(74, 65, 51, 0.06);
   }
   .hero-text .lede {
     font-size: 23px;
@@ -160,8 +176,16 @@
       padding: 0 20px;
     }
     .hero-image { max-width: 360px; margin: 0 auto; }
-    .hero-wordmark { margin-left: 0; }
+    .hero-art,
+    .hero-art-fallback {
+      height: 160px;
+      margin-left: 0;
+    }
     .hero-text .lede { max-width: 100%; }
+  }
+  @media (max-width: 599px) {
+    .hero-art { display: none; }
+    .hero-art-fallback { display: block; }
   }
 
   /* Email capture — frosted glass */
@@ -370,7 +394,8 @@
         <img src="./assets/headshot.jpg" alt="David Russell">
       </div>
       <div class="hero-text">
-        <img class="hero-wordmark" src="./assets/wordmark-transparent.png?v=2" alt="David Russell.">
+        <canvas id="hero-art" class="hero-art" aria-hidden="true"></canvas>
+        <div class="hero-art-fallback" aria-hidden="true"></div>
         <p class="lede">Solo founder in South Florida. I run, I build, I try to have fun about it. Marketer for a decade. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0; color:inherit;">Moolaguides</a>. Co-founded <a href="https://syllble.com" style="border-bottom:1px solid #c5b8a0; color:inherit;">Syllble</a>, where we've published 105+ novels. Currently running Let's Chat plus a few smaller ventures.</p>
         <form class="capture" onsubmit="event.preventDefault();">
           <input type="email" placeholder="your email, get the new stuff first">
@@ -545,16 +570,270 @@
 </footer>
 
 <script>
+  (() => {
+    const art = document.getElementById('hero-art');
+    const fallback = document.querySelector('.hero-art-fallback');
+    if (!art || !fallback) return;
+
+    const ctx = art.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileWidth = window.matchMedia('(max-width: 599px)');
+    const particles = [];
+    const pointer = { x: 0, y: 0, active: false };
+    let raf = 0;
+    let dpr = 1;
+    let width = 0;
+    let height = 0;
+    let resizeTimer = 0;
+
+    const TAU = Math.PI * 2;
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const smooth = (t) => t * t * (3 - 2 * t);
+    const hash = (x, y, z = 0) => {
+      const n = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453123;
+      return n - Math.floor(n);
+    };
+
+    const noise = (x, y, z = 0) => {
+      const x0 = Math.floor(x);
+      const y0 = Math.floor(y);
+      const xf = x - x0;
+      const yf = y - y0;
+      const u = smooth(xf);
+      const v = smooth(yf);
+      const a = hash(x0, y0, z);
+      const b = hash(x0 + 1, y0, z);
+      const c = hash(x0, y0 + 1, z);
+      const d = hash(x0 + 1, y0 + 1, z);
+      return lerp(lerp(a, b, u), lerp(c, d, u), v) * 2 - 1;
+    };
+
+    const flowAngle = (x, y, t) => {
+      const n1 = noise(x * 0.006, y * 0.006, t * 0.12);
+      const n2 = noise(x * 0.012 + 80, y * 0.012 - 40, t * 0.18);
+      const n3 = noise(x * 0.024 - 20, y * 0.024 + 30, t * 0.24);
+      return (n1 * 0.55 + n2 * 0.3 + n3 * 0.15) * TAU * 2.3;
+    };
+
+    const drawBackdrop = () => {
+      const w = width || art.clientWidth;
+      const h = height || art.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = 'rgba(253, 251, 247, 0.02)';
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(199, 93, 60, 0.16)';
+      ctx.lineWidth = 1;
+      const bands = 18;
+      for (let i = 0; i < bands; i += 1) {
+        const y = (h / (bands - 1)) * i;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        for (let x = 0; x <= w; x += 18) {
+          const offset = Math.sin(i * 0.8 + x * 0.02) * 4 + Math.cos(x * 0.015 + i) * 3;
+          ctx.lineTo(x, y + offset);
+        }
+        ctx.stroke();
+      }
+    };
+
+    const spawn = (particle, edgeOnly = true) => {
+      const margin = 24;
+      const side = Math.floor(Math.random() * 4);
+      let x = Math.random() * width;
+      let y = Math.random() * height;
+      if (edgeOnly) {
+        if (side === 0) { x = -margin; y = Math.random() * height; }
+        if (side === 1) { x = width + margin; y = Math.random() * height; }
+        if (side === 2) { x = Math.random() * width; y = -margin; }
+        if (side === 3) { x = Math.random() * width; y = height + margin; }
+      }
+      particle.x = x;
+      particle.y = y;
+      particle.px = x;
+      particle.py = y;
+      particle.vx = (Math.random() - 0.5) * 0.4;
+      particle.vy = (Math.random() - 0.5) * 0.4;
+      particle.age = 0;
+      particle.life = 160 + Math.random() * 140;
+      particle.accent = particle.index % 10 === 0;
+    };
+
+    const setup = () => {
+      if (mobileWidth.matches) {
+        art.style.display = 'none';
+        fallback.style.display = 'block';
+        if (raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+        return;
+      }
+
+      art.style.display = 'block';
+      fallback.style.display = 'none';
+
+      const rect = art.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      art.width = Math.round(width * dpr);
+      art.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawBackdrop();
+
+      particles.length = 0;
+      const count = width < 700 ? 120 : 168;
+      for (let i = 0; i < count; i += 1) {
+        const particle = { index: i };
+        spawn(particle, true);
+        particle.age = Math.random() * particle.life;
+        particles.push(particle);
+      }
+
+      if (reducedMotion.matches) {
+        renderStatic();
+      } else {
+        start();
+      }
+    };
+
+    const renderStatic = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      drawBackdrop();
+      const t = performance.now() * 0.0002;
+      particles.forEach((p) => drawParticle(p, t, true));
+    };
+
+    const drawParticle = (particle, t, staticFrame = false) => {
+      particle.px = particle.x;
+      particle.py = particle.y;
+
+      const dx = particle.x - pointer.x;
+      const dy = particle.y - pointer.y;
+      const dist = Math.hypot(dx, dy);
+      let angle = flowAngle(particle.x, particle.y, t);
+      let vx = Math.cos(angle);
+      let vy = Math.sin(angle);
+
+      if (pointer.active && dist < 150) {
+        const force = Math.pow(1 - dist / 150, 2) * 2.8;
+        const awayX = dx / (dist || 1);
+        const awayY = dy / (dist || 1);
+        vx += awayX * force;
+        vy += awayY * force;
+      }
+
+      const drift = particle.accent ? 0.82 : 0.68;
+      particle.vx = particle.vx * 0.84 + vx * drift;
+      particle.vy = particle.vy * 0.84 + vy * drift;
+      const speed = particle.accent ? 0.92 : 0.78;
+      const mag = Math.hypot(particle.vx, particle.vy) || 1;
+      particle.vx = (particle.vx / mag) * speed;
+      particle.vy = (particle.vy / mag) * speed;
+
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.age += staticFrame ? particle.life : 1;
+
+      const fadeIn = clamp(particle.age / 60, 0, 1);
+      const fadeOut = clamp((particle.life - particle.age) / 60, 0, 1);
+      const alpha = fadeIn * fadeOut;
+      if (alpha <= 0 || particle.x < -40 || particle.x > width + 40 || particle.y < -40 || particle.y > height + 40 || particle.age >= particle.life) {
+        spawn(particle, true);
+        return;
+      }
+
+      ctx.strokeStyle = particle.accent
+        ? `rgba(199, 93, 60, ${0.32 * alpha})`
+        : `rgba(74, 65, 51, ${0.18 * alpha})`;
+      ctx.lineWidth = particle.accent ? 1.15 : 0.95;
+      ctx.beginPath();
+      ctx.moveTo(particle.px, particle.py);
+      ctx.lineTo(particle.x, particle.y);
+      ctx.stroke();
+    };
+
+    const frame = (time) => {
+      if (document.hidden || mobileWidth.matches || reducedMotion.matches) {
+        raf = 0;
+        return;
+      }
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.restore();
+
+      const t = time * 0.000035;
+      for (let i = 0; i < particles.length; i += 1) {
+        drawParticle(particles[i], t, false);
+      }
+
+      raf = requestAnimationFrame(frame);
+    };
+
+    const start = () => {
+      if (raf || mobileWidth.matches || reducedMotion.matches || document.hidden) return;
+      raf = requestAnimationFrame(frame);
+    };
+
+    const stop = () => {
+      if (!raf) return;
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    const onMove = (event) => {
+      if (mobileWidth.matches) return;
+      const rect = art.getBoundingClientRect();
+      pointer.x = clamp(event.clientX - rect.left, 0, width);
+      pointer.y = clamp(event.clientY - rect.top, 0, height);
+      pointer.active = true;
+      if (!reducedMotion.matches) start();
+    };
+
+    const onLeave = () => {
+      pointer.active = false;
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        stop();
+      } else if (!mobileWidth.matches && !reducedMotion.matches) {
+        start();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('pointerleave', onLeave);
+    window.addEventListener('blur', onLeave);
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(setup, 80);
+    });
+    reducedMotion.addEventListener('change', setup);
+    mobileWidth.addEventListener('change', setup);
+
+    setup();
+  })();
+
   // Fade-up sections as they enter viewport
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
       }
     });
   }, { threshold: 0.15 });
-  document.querySelectorAll('section.card').forEach(el => observer.observe(el));
-
+  document.querySelectorAll('section.card').forEach((el) => observer.observe(el));
 </script>
 
 </body>
