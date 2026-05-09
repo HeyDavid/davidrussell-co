@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>David Russell</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preload" as="image" href="./assets/headshot.jpg" fetchpriority="high">
 <style>
   /* ============================================
      davidrussell.co — v2.1
@@ -78,8 +80,8 @@
   nav.top a { border-bottom: none; font-size: 15px; color: #5a5142; transition: color 0.2s; }
   nav.top a:hover { color: #c75d3c; }
   nav.top .name img {
+    width: 174px;
     height: 36px;
-    width: auto;
     display: block;
   }
   nav.top ul { display: flex; gap: 32px; list-style: none; font-size: 15px; }
@@ -98,12 +100,13 @@
     align-items: center;
   }
   .hero-text { display: flex; flex-direction: column; }
-  .hero-wordmark {
+  .hero-art {
     width: 100%;
-    max-width: 720px;
-    height: auto;
-    margin-bottom: 40px;
-    margin-left: -8px;
+    height: 240px;
+    display: block;
+    margin-bottom: 32px;
+    border-radius: 28px;
+    background: transparent;
   }
   .hero-text .lede {
     font-size: 22px;
@@ -142,8 +145,17 @@
       padding: 0 32px;
     }
     .hero-image { max-width: 360px; margin: 0 auto; }
-    .hero-wordmark { margin-left: 0; }
+    .hero-art { height: 160px; }
     .hero-text .lede { max-width: 100%; }
+  }
+  @media (max-width: 599px) {
+    .hero-art {
+      background:
+        radial-gradient(circle at 18% 24%, rgba(199, 93, 60, 0.18), transparent 28%),
+        radial-gradient(circle at 76% 62%, rgba(74, 65, 51, 0.12), transparent 34%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.04));
+      box-shadow: inset 0 0 0 1px rgba(74, 65, 51, 0.08);
+    }
   }
 
   /* Email capture — frosted glass */
@@ -313,7 +325,7 @@
     text-align: center;
     padding: 80px 32px 56px;
     font-size: 14px;
-    color: #8a7d63;
+    color: #5a5142;
     line-height: 1.7;
   }
 
@@ -331,7 +343,7 @@
 <nav class="top">
   <div class="nav-inner">
     <a href="/" class="name" style="border:none;">
-      <img src="./assets/wordmark-clean.png" alt="David Russell.">
+      <img src="./assets/wordmark-nav.svg" width="174" height="36" alt="David Russell.">
     </a>
     <ul>
       <li><a href="#essays">writing</a></li>
@@ -347,10 +359,10 @@
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-image">
-        <img src="./assets/headshot.jpg" alt="David Russell">
+        <img src="./assets/headshot.jpg" width="900" height="1125" alt="David Russell" fetchpriority="high" decoding="async">
       </div>
       <div class="hero-text">
-        <img class="hero-wordmark" src="./assets/wordmark-clean.png" alt="David Russell.">
+        <canvas id="hero-art" class="hero-art" aria-hidden="true"></canvas>
         <p class="lede">Solo founder in South Florida. I run, I build, I try to have fun about it. Marketer for a decade. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0; color:inherit;">Moolaguides</a>. Co-founded <a href="https://syllble.com" style="border-bottom:1px solid #c5b8a0; color:inherit;">Syllble</a>, where we've published 105+ novels. Currently running Let's Chat plus a few smaller ventures.</p>
         <form class="capture" onsubmit="event.preventDefault();">
           <input type="email" placeholder="your email, get the new stuff first">
@@ -534,6 +546,183 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('section.card').forEach(el => observer.observe(el));
+
+  (function () {
+    const canvas = document.getElementById('hero-art');
+    if (!canvas) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const smallViewport = window.matchMedia('(max-width: 599px)');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let raf = 0;
+    let running = false;
+    let particles = [];
+    const cursor = { x: -9999, y: -9999, active: false };
+
+    function rand(seed) {
+      const value = Math.sin(seed * 127.1) * 43758.5453;
+      return value - Math.floor(value);
+    }
+
+    function smooth(n) {
+      return n * n * (3 - 2 * n);
+    }
+
+    function noise(x, y, t) {
+      const ix = Math.floor(x);
+      const iy = Math.floor(y);
+      const fx = x - ix;
+      const fy = y - iy;
+      const a = rand(ix + iy * 57 + t);
+      const b = rand(ix + 1 + iy * 57 + t);
+      const c = rand(ix + (iy + 1) * 57 + t);
+      const d = rand(ix + 1 + (iy + 1) * 57 + t);
+      const ux = smooth(fx);
+      const uy = smooth(fy);
+      return a + (b - a) * ux + (c - a) * uy + (d - b - c + a) * ux * uy;
+    }
+
+    function sizeCanvas() {
+      const box = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, Math.floor(box.width));
+      height = Math.max(1, Math.floor(box.height));
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function makeParticle(index) {
+      const edge = Math.floor(Math.random() * 4);
+      const p = {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        life: Math.random() * 180,
+        max: 140 + Math.random() * 90,
+        speed: 0.55 + Math.random() * 0.85,
+        accent: index % 10 === 0,
+      };
+      if (edge === 0) p.x = 0;
+      if (edge === 1) p.x = width;
+      if (edge === 2) p.y = 0;
+      if (edge === 3) p.y = height;
+      return p;
+    }
+
+    function resetParticles() {
+      const count = width < 760 ? 110 : 170;
+      particles = Array.from({ length: count }, (_, index) => makeParticle(index));
+    }
+
+    function drawStatic() {
+      sizeCanvas();
+      ctx.clearRect(0, 0, width, height);
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 90; i += 1) {
+        const x = (i * 37) % width;
+        const y = (i * 61) % height;
+        const len = 44 + (i % 8) * 8;
+        ctx.beginPath();
+        ctx.strokeStyle = i % 10 === 0 ? 'rgba(199, 93, 60, 0.24)' : 'rgba(74, 65, 51, 0.14)';
+        ctx.moveTo(x, y);
+        ctx.bezierCurveTo(x + len * 0.35, y - 18, x + len * 0.7, y + 22, x + len, y + 2);
+        ctx.stroke();
+      }
+    }
+
+    function step() {
+      if (!running) return;
+      frame += 1;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.restore();
+      ctx.lineWidth = 0.9;
+
+      particles.forEach((p, index) => {
+        const px = p.x;
+        const py = p.y;
+        const field = noise(p.x * 0.008, p.y * 0.008, frame * 0.002);
+        let angle = field * Math.PI * 4;
+
+        if (cursor.active) {
+          const dx = p.x - cursor.x;
+          const dy = p.y - cursor.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 120 && dist > 0.1) {
+            angle += Math.atan2(dy, dx) * (1 - dist / 120);
+          }
+        }
+
+        p.x += Math.cos(angle) * p.speed;
+        p.y += Math.sin(angle) * p.speed;
+        p.life += 1;
+
+        ctx.beginPath();
+        ctx.strokeStyle = p.accent ? 'rgba(199, 93, 60, 0.32)' : 'rgba(74, 65, 51, 0.18)';
+        ctx.moveTo(px, py);
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+
+        if (p.life > p.max || p.x < -20 || p.x > width + 20 || p.y < -20 || p.y > height + 20) {
+          particles[index] = makeParticle(index);
+        }
+      });
+
+      raf = requestAnimationFrame(step);
+    }
+
+    function start() {
+      if (running || prefersReduced.matches || smallViewport.matches || document.hidden) return;
+      running = true;
+      raf = requestAnimationFrame(step);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
+    }
+
+    function init() {
+      stop();
+      sizeCanvas();
+      resetParticles();
+      ctx.clearRect(0, 0, width, height);
+      if (smallViewport.matches) return;
+      if (prefersReduced.matches) {
+        drawStatic();
+        return;
+      }
+      drawStatic();
+      start();
+    }
+
+    canvas.addEventListener('pointermove', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      cursor.x = event.clientX - rect.left;
+      cursor.y = event.clientY - rect.top;
+      cursor.active = true;
+    });
+    canvas.addEventListener('pointerleave', () => { cursor.active = false; });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else start();
+    });
+    window.addEventListener('resize', init);
+    function watchMedia(query) {
+      if (query.addEventListener) query.addEventListener('change', init);
+      else query.addListener(init);
+    }
+    watchMedia(prefersReduced);
+    watchMedia(smallViewport);
+    init();
+  })();
 
 </script>
 
