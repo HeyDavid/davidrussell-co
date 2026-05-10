@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<meta name="robots" content="noindex">
+<title>The other half · David Russell</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, "Inter", "Söhne", "Segoe UI", sans-serif;
+    color: #2c2417;
+    background: #fdfbf7;
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  .cloud-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 80vw 65vh at 18% 22%, rgba(228, 215, 248, 0.42), transparent 68%),
+      radial-gradient(ellipse 70vw 55vh at 82% 65%, rgba(255, 220, 195, 0.38), transparent 68%),
+      radial-gradient(ellipse 75vw 55vh at 48% 92%, rgba(204, 232, 213, 0.38), transparent 68%),
+      radial-gradient(ellipse 60vw 50vh at 72% 12%, rgba(200, 222, 240, 0.32), transparent 68%);
+  }
+
+  main { position: relative; z-index: 1; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; transition: opacity 0.2s; }
+  a:hover { opacity: 0.6; }
+
+  .top-link {
+    display: inline-block;
+    font-size: 14px;
+    color: #5a5142;
+    border-bottom: 1px solid currentColor;
+    padding-top: 32px;
+  }
+
+  .hero {
+    padding: 24px 0 56px;
+  }
+  .hero p.label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #8a7d63;
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    line-height: 1.1;
+    margin-bottom: 22px;
+    max-width: 22ch;
+  }
+  .hero h1 em { font-style: italic; color: #6a5d44; }
+  .hero .lede {
+    font-size: 19px;
+    color: #4a4133;
+    max-width: 60ch;
+    line-height: 1.6;
+  }
+
+  .ventures {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(44, 36, 23, 0.12);
+  }
+  .venture {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(44, 36, 23, 0.1);
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    background: transparent;
+    transition: transform 0.2s;
+  }
+  .venture:hover { transform: translateY(-1px); opacity: 1; }
+  .venture-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #c75d3c;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .venture-name {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 24px;
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .venture-desc { font-size: 15px; color: #5a5142; line-height: 1.55; }
+
+  .background-note {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(44, 36, 23, 0.12);
+    font-size: 14px;
+    color: #8a7d63;
+    font-style: italic;
+  }
+
+  footer {
+    text-align: center;
+    padding: 64px 32px 48px;
+    font-size: 14px;
+    color: #8a7d63;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 20px; }
+    .hero { padding: 16px 0 40px; }
+    .ventures { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cloud-layer"></div>
+
+<main>
+  <div class="wrap">
+    <a href="/" class="top-link">&larr; Back to davidrussell.co</a>
+
+    <section class="hero">
+      <p class="label">The other half</p>
+      <h1>Magic, music, and the occasional stage.</h1>
+      <p class="lede">Before the ventures, there was a kid doing card tricks in a backyard. That kid is still here. Somewhere along the way he picked up a guitar, a microphone, and a taste for getting in front of a room.</p>
+    </section>
+
+    <div class="ventures">
+      <div class="venture">
+        <div class="venture-tag">MAGIC</div>
+        <div class="venture-name">Close-up &amp; stage</div>
+        <div class="venture-desc">Card and coin work, parlor sets, occasional private events around South Florida. 20+ years at it &mdash; the best icebreaker I've got.</div>
+      </div>
+      <div class="venture">
+        <div class="venture-tag">MUSIC</div>
+        <div class="venture-name">Guitar &amp; vocals</div>
+        <div class="venture-desc">Acoustic, mostly. Original work and the songs people want to hear.</div>
+      </div>
+      <div class="venture">
+        <div class="venture-tag">COMEDY &amp; ACTING</div>
+        <div class="venture-name">Reels &amp; reactions</div>
+        <div class="venture-desc">Short-form on Instagram. Sketches, real moments, the stuff that makes the internet feel less broken.</div>
+      </div>
+      <div class="venture" style="opacity: 0.7;">
+        <div class="venture-tag">SPEAKING</div>
+        <div class="venture-name">In the works</div>
+        <div class="venture-desc">Talks on building small ventures, AI tooling, and what 10+ years of marketing taught me. Drop me a line if you're curating.</div>
+      </div>
+    </div>
+
+    <p class="background-note">Best place to follow this side of things: <a href="https://instagram.com/heydavidr">@heydavidr on Instagram</a>.</p>
+  </div>
+</main>
+
+<footer>
+  &copy; David Russell &middot; South Florida
+</footer>
+
+</body>
+</html>

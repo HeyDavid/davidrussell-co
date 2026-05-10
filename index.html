@@ -95,8 +95,8 @@
     margin: 0 auto;
     padding: 0 32px;
     display: grid;
-    grid-template-columns: minmax(460px, 0.92fr) minmax(0, 1.08fr); /* photo LEFT, text RIGHT */
-    gap: 64px;
+    grid-template-columns: minmax(220px, 0.4fr) minmax(0, 1.6fr); /* photo LEFT (smaller), text RIGHT */
+    gap: 56px;
     align-items: start;
   }
   .hero-text { display: flex; flex-direction: column; padding-top: 8px; }
@@ -175,7 +175,7 @@
       gap: 28px;
       padding: 0 20px;
     }
-    .hero-image { max-width: 360px; margin: 0 auto; }
+    .hero-image { max-width: 180px; margin: 0 auto; }
     .hero-art,
     .hero-art-fallback {
       height: 160px;
@@ -248,18 +248,6 @@
     gap: 14px;
     margin-bottom: 24px;
   }
-  /* Editorial section markers — Fraunces italic numbers, no icon graphics */
-  .section-num {
-    font-family: "Fraunces", Georgia, serif;
-    font-style: italic;
-    font-size: 36px;
-    font-weight: 400;
-    color: #c75d3c;
-    line-height: 1;
-    flex-shrink: 0;
-    min-width: 44px;
-  }
-
   .label {
     font-size: 13px;
     text-transform: uppercase;
@@ -361,6 +349,79 @@
     line-height: 1.7;
   }
 
+  /* HERO SOCIAL — small icon row under email form */
+  .hero-social {
+    display: flex;
+    gap: 14px;
+    margin-top: 18px;
+    align-items: center;
+  }
+  .hero-social a {
+    border-bottom: none;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(74, 65, 51, 0.10);
+    color: #4a4133;
+    transition: background 0.18s, color 0.18s, transform 0.18s;
+  }
+  .hero-social a:hover { background: #2c2417; color: #fdfbf7; opacity: 1; transform: translateY(-1px); }
+  .hero-social a[aria-disabled="true"] { opacity: 0.45; cursor: default; }
+  .hero-social a[aria-disabled="true"]:hover { background: rgba(255, 255, 255, 0.55); color: #4a4133; transform: none; }
+  .hero-social svg { width: 18px; height: 18px; display: block; }
+
+  /* RECENT WRITING band — feature 3 essays just below hero */
+  .recent-writing {
+    max-width: 1360px;
+    margin: 0 auto 64px;
+    padding: 0 32px;
+  }
+  .recent-writing-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 22px;
+    border-top: 1px solid rgba(44, 36, 23, 0.12);
+    padding-top: 32px;
+  }
+  .recent-writing-head .label { font-size: 13px; }
+  .recent-writing-head a {
+    border-bottom: 1px solid currentColor;
+    font-size: 14px;
+    color: #5a5142;
+  }
+  .recent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .recent-card {
+    display: block;
+    border-bottom: none;
+    padding: 6px 0 4px;
+  }
+  .recent-card .essay-title {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .recent-card:hover .essay-title { color: #c75d3c; }
+  .recent-card .essay-meta { font-size: 13px; color: #8a7d63; margin-bottom: 8px; }
+  .recent-card .essay-dek { font-size: 15px; color: #5a5142; line-height: 1.55; }
+  @media (max-width: 820px) {
+    .recent-writing { padding: 0 20px; margin-bottom: 48px; }
+    .recent-grid { grid-template-columns: 1fr; gap: 18px; }
+    .recent-writing-head { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+
   /* MOTION reduce */
   @media (prefers-reduced-motion: reduce) {
     .cloud-layer, .headshot-wrap { animation: none !important; }
@@ -380,8 +441,7 @@
     <ul>
       <li><a href="#essays">writing</a></li>
       <li><a href="#ventures">building</a></li>
-      <li><a href="#performing">performing</a></li>
-      <li><a href="#contact">find me</a></li>
+      <li><a href="#contact">get in touch</a></li>
     </ul>
   </div>
 </nav>
@@ -396,12 +456,58 @@
       <div class="hero-text">
         <canvas id="hero-art" class="hero-art" aria-hidden="true"></canvas>
         <div class="hero-art-fallback" aria-hidden="true"></div>
-        <p class="lede">Solo founder in South Florida. I run, I build, I try to have fun about it. Marketer for a decade. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0; color:inherit;">Moolaguides</a>. Co-founded <a href="https://syllble.com" style="border-bottom:1px solid #c5b8a0; color:inherit;">Syllble</a>, where we've published 105+ novels. Currently running Let's Chat plus a few smaller ventures.</p>
-        <form class="capture" onsubmit="event.preventDefault();">
-          <input type="email" placeholder="your email, get the new stuff first">
+        <p class="lede">Solo founder in South Florida. I run, I build, I try to have fun about it. Marketer for a decade. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0; color:inherit;">Moolaguides</a>. Co-founded <strong>Syllble</strong>, publishing 105+ novels with authors around the world. Currently running Let's Chat plus a few smaller ventures.</p>
+        <form class="capture" id="hero-subscribe" action="https://embeds.beehiiv.com/pub_ed495df0-b44a-47ba-939c-eeb46089e27b" method="POST" target="_blank">
+          <input type="email" name="email" required placeholder="your email, get the new stuff first">
+          <input type="hidden" name="utm_source" value="davidrussell.co">
+          <input type="hidden" name="tags" value="dr-subscriber">
           <button type="submit">Subscribe</button>
         </form>
+        <div class="hero-social" aria-label="Follow David">
+          <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22zM8.34 8h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V22h-4.56v-6.13c0-1.46-.03-3.34-2.04-3.34-2.04 0-2.35 1.6-2.35 3.24V22H8.34z"/></svg>
+          </a>
+          <!-- PLACEHOLDER: Threads handle to claim -->
+          <a href="#" aria-disabled="true" aria-label="Threads (coming soon)" title="Threads — coming soon" onclick="event.preventDefault();">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.55 11.16c-.08-.04-.17-.08-.25-.11-.15-2.83-1.69-4.45-4.29-4.47h-.04c-1.55 0-2.85.66-3.65 1.87l1.43.98c.6-.91 1.54-1.1 2.22-1.1h.03c.84.01 1.48.25 1.89.73.3.34.5.82.6 1.42-.76-.13-1.58-.17-2.45-.12-2.46.14-4.05 1.58-3.94 3.57.05.99.55 1.85 1.39 2.42.71.48 1.62.71 2.57.66 1.25-.07 2.24-.55 2.92-1.42.52-.66.85-1.51 1-2.58.6.36 1.05.84 1.29 1.41.42 1 .44 2.65-.91 4-1.18 1.18-2.6 1.69-4.74 1.7-2.37-.02-4.16-.78-5.32-2.27C5.39 16.5 4.85 14.66 4.83 12c.02-2.66.56-4.5 1.61-5.85C7.6 4.66 9.39 3.9 11.76 3.88c2.39.02 4.21.78 5.42 2.28.59.74 1.04 1.66 1.34 2.74l1.79-.48c-.36-1.34-.93-2.5-1.7-3.46-1.55-1.92-3.81-2.91-6.84-2.94h-.01c-3.02.02-5.26 1.01-6.66 2.95C3.83 6.79 3.18 8.99 3.16 12v.02c.02 3.01.67 5.21 2.06 7.04 1.4 1.94 3.64 2.93 6.66 2.95h.01c2.69-.02 4.59-.72 6.15-2.27 2.04-2.03 1.98-4.58 1.31-6.13-.48-1.12-1.4-2.03-2.65-2.62zm-3.69 4.6c-.55.03-1.12-.07-1.49-.32-.31-.21-.5-.51-.52-.81-.02-.41.55-.85 1.49-.91.81-.04 1.59-.01 2.36.1-.11.86-.39 1.5-.83 1.97-.33.34-.78.5-1.41.53"/></svg>
+          </a>
+          <a href="https://x.com/heydavidr" target="_blank" rel="noopener" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <!-- PLACEHOLDER: BlueSky handle to claim -->
+          <a href="#" aria-disabled="true" aria-label="BlueSky (coming soon)" title="BlueSky — coming soon" onclick="event.preventDefault();">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.911.58-7.386 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078-.139-.017-.277-.035-.415-.056.14.017.279.036.415.056 2.67.296 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
+          </a>
+          <!-- PLACEHOLDER: Reddit handle to claim -->
+          <a href="#" aria-disabled="true" aria-label="Reddit (coming soon)" title="Reddit — coming soon" onclick="event.preventDefault();">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.804 12.717c.024.15.036.305.036.46 0 2.34-2.726 4.235-6.087 4.235s-6.088-1.895-6.088-4.234c0-.156.013-.31.037-.461a1.482 1.482 0 11.948-2.547c1.046-.752 2.484-1.232 4.087-1.293l.881-3.84a.343.343 0 01.412-.262l2.704.601a1.044 1.044 0 11-.106.434l-2.42-.539-.79 3.439c1.633.05 3.099.532 4.16 1.295a1.482 1.482 0 112.226 1.211zm-9.95 1.288a1.026 1.026 0 102.052 0 1.026 1.026 0 00-2.052 0zm6.067 1.026a1.026 1.026 0 100-2.052 1.026 1.026 0 000 2.052zm-3.043 1.504c-.812 0-1.587-.045-2.296-.121a.183.183 0 00-.198.246c.4 1.075 1.4 1.815 2.494 1.815s2.094-.74 2.494-1.815a.183.183 0 00-.198-.246c-.71.076-1.484.121-2.296.121z"/></svg>
+          </a>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <section class="recent-writing" aria-labelledby="recent-writing-label">
+    <div class="recent-writing-head">
+      <p class="label" id="recent-writing-label">Recent writing</p>
+      <a href="#essays">More essays &rarr;</a>
+    </div>
+    <div class="recent-grid">
+      <a class="recent-card" href="/writing/why-i-stopped-using-divi/">
+        <div class="essay-title">Why I stopped using Divi</div>
+        <div class="essay-meta">May 2026 &middot; 4 min</div>
+        <div class="essay-dek">A practical post-mortem on dropping the page-builder stack and what I moved to.</div>
+      </a>
+      <a class="recent-card" href="/writing/what-etsy-fees-actually-cost/">
+        <div class="essay-title">What Etsy fees actually cost</div>
+        <div class="essay-meta">April 2026 &middot; 6 min</div>
+        <div class="essay-dek">Origin story for Maker Margin and the math nobody on Etsy talks about out loud.</div>
+      </a>
+      <a class="recent-card" href="/writing/the-case-for-being-tiny-on-purpose/">
+        <div class="essay-title">The case for being tiny on purpose</div>
+        <div class="essay-meta">March 2026 &middot; 3 min</div>
+        <div class="essay-dek">Why I'm shipping a portfolio of small ventures instead of one big company.</div>
+      </a>
     </div>
   </section>
 
@@ -409,7 +515,6 @@
 
     <section class="card" id="essays">
       <div class="section-head">
-        <span class="section-num">1.</span>
         <p class="label">Writing</p>
       </div>
       <h2>Notes from the workbench. <em>Short, occasional, never spam.</em></h2>
@@ -447,7 +552,6 @@
 
     <section class="card" id="ventures">
       <div class="section-head">
-        <span class="section-num">2.</span>
         <p class="label">Building</p>
       </div>
       <h2>What I'm working on, in plain sight.</h2>
@@ -475,45 +579,8 @@
       </div>
     </section>
 
-    <section class="card" id="performing">
-      <div class="section-head">
-        <span class="section-num">3.</span>
-        <p class="label">Performing</p>
-      </div>
-      <h2>The other half. <em>Magic, music, and the occasional stage.</em></h2>
-      <p style="font-size:17px; color:#5a5142; margin-bottom: 32px; max-width: 56ch; line-height: 1.65;">
-        Before the ventures, there was a kid doing card tricks in a backyard. That kid is still here. Somewhere along the way he picked up a guitar, a microphone, and a taste for getting in front of a room.
-      </p>
-      <div class="ventures">
-        <a href="#" class="venture" style="border-bottom:none;">
-          <div class="venture-tag">MAGIC</div>
-          <div class="venture-name">Close-up &amp; stage</div>
-          <div class="venture-desc">Card and coin work, parlor sets, occasional private events around South Florida.</div>
-        </a>
-        <a href="#" class="venture" style="border-bottom:none;">
-          <div class="venture-tag">MUSIC</div>
-          <div class="venture-name">Guitar &amp; vocals</div>
-          <div class="venture-desc">Acoustic, mostly. Original work and the songs people want to hear.</div>
-        </a>
-        <a href="#" class="venture" style="border-bottom:none;">
-          <div class="venture-tag">COMEDY &amp; ACTING</div>
-          <div class="venture-name">Reels &amp; reactions</div>
-          <div class="venture-desc">Short-form on Instagram. Sketches, real moments, the stuff that makes the internet feel less broken.</div>
-        </a>
-        <a href="#" class="venture" style="border-bottom:none; opacity: 0.6;">
-          <div class="venture-tag">SPEAKING</div>
-          <div class="venture-name">In the works</div>
-          <div class="venture-desc">Talks on building small ventures, AI tooling, and what 10+ years of marketing taught me. Drop me a line if you're curating.</div>
-        </a>
-      </div>
-      <p style="font-size:14px; color:#8a7d63; margin-top: 28px; font-style: italic;">
-        Best place to follow the performing side: <a href="https://instagram.com/heydavidr" style="border-bottom:1px solid #c5b8a0; text-decoration:none;">@heydavidr on Instagram</a>.
-      </p>
-    </section>
-
     <section class="card">
       <div class="section-head">
-        <span class="section-num">4.</span>
         <p class="label">Background</p>
       </div>
       <h2>A decade of marketing, two ventures with my name on the door, and a lot of late nights shipping.</h2>
@@ -528,7 +595,7 @@
         </div>
         <div class="find">
           <div class="find-name">Syllble · co-founder</div>
-          <div class="find-why">Collaborative fiction publishing. 105+ novels and counting.</div>
+          <div class="find-why">Collaborative fiction publishing house. 105+ novels published with authors around the world.</div>
         </div>
         <div class="find">
           <div class="find-name">Let's Chat · current</div>
@@ -538,26 +605,20 @@
           <div class="find-name">Maker Margin · current</div>
           <div class="find-why">Free fee calculator for Etsy sellers. Quietly compounding.</div>
         </div>
-        <div class="find">
-          <div class="find-name">Magic · 20+ years</div>
-          <div class="find-why">Card and coin work since I was a kid. Still the best icebreaker I've got.</div>
-        </div>
       </div>
       <p style="font-size:14px; color:#5a5142; margin-top:32px;">More detail on <a href="https://www.linkedin.com/in/heydavidr/" style="border-bottom:1px solid #c5b8a0; color:inherit;">LinkedIn</a>. Tools and books I actually use are on the <a href="/recommended/" style="border-bottom:1px solid #c5b8a0; color:inherit;">recommended</a> page.</p>
     </section>
 
     <section class="card" id="contact">
       <div class="section-head">
-        <span class="section-num">5.</span>
-        <p class="label">Find me</p>
+        <p class="label">Get in touch</p>
       </div>
-      <h2>Doors are open. <em>Most of them, anyway.</em></h2>
+      <h2>Get in touch.</h2>
       <div class="socials">
         <a href="mailto:dmrussell7@gmail.com">email</a>
-        <a href="https://linkedin.com">linkedin</a>
-        <a href="https://x.com">x</a>
+        <a href="https://www.linkedin.com/in/heydavidr/">linkedin</a>
+        <a href="https://x.com/heydavidr">x</a>
         <a href="https://github.com/HeyDavid">github</a>
-        <a href="#">youtube</a>
       </div>
     </section>
 
@@ -566,7 +627,7 @@
 </main>
 
 <footer>
-  © David Russell · Coral Springs, Florida
+  © David Russell · South Florida
 </footer>
 
 <script>
