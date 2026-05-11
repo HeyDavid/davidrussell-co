@@ -1,0 +1,45 @@
+---
+const ventures = [
+  {
+    href: "https://letschatmarketing.com",
+    tag: "AGENCY",
+    name: "Let's Chat",
+    desc: "A small marketing agency for service businesses. Modern websites, AI receptionists, sharp consulting.",
+  },
+  {
+    href: "https://makermargin.co",
+    tag: "TOOL",
+    name: "Maker Margin",
+    desc: "A free Etsy fee calculator that has saved sellers a lot of confusion (and a few thousand dollars).",
+  },
+  {
+    href: "https://scamcapital.com",
+    tag: "RESOURCE",
+    name: "ScamCapital",
+    desc: "A scam-education hub. Playbooks on common scams plus an interactive quiz that's designed to fool you.",
+  },
+  {
+    href: "#",
+    tag: "SOMETHING NEW",
+    name: "In the workshop",
+    desc: "The next small thing. Subscribe up top, you'll see it before anyone else.",
+    muted: true,
+  },
+];
+---
+
+<section class="card" id="ventures">
+  <div class="section-head">
+    <p class="label">Building</p>
+  </div>
+  <h2>What I'm working on, in plain sight.</h2>
+  <div class="ventures">
+    {ventures.map((v) => (
+      <a href={v.href} class="venture" style={`border-bottom:none;${v.muted ? " opacity: 0.55;" : ""}`}>
+        <div class="venture-tag">{v.tag}</div>
+        <div class="venture-name">{v.name}</div>
+        <div class="venture-desc">{v.desc}</div>
+      </a>
+    ))}
+  </div>
+</section>
