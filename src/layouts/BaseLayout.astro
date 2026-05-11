@@ -1,0 +1,58 @@
+---
+import "@/styles/globals.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = "David Russell",
+  description = "Solo founder in South Florida. I run, I build, I try to have fun about it. Marketer for a decade. Currently running Let's Chat plus a few smaller ventures.",
+  noindex = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content={description}>
+<meta property="og:type" content="website">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+{noindex && <meta name="robots" content="noindex">}
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>{title}</title>
+</head>
+<body>
+
+<div class="cloud-layer"></div>
+
+<slot />
+
+<footer>
+  &copy; David Russell &middot; South Florida
+</footer>
+
+<script>
+  // Fade-up sections as they enter viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('section.card').forEach((el) => observer.observe(el));
+</script>
+
+</body>
+</html>
