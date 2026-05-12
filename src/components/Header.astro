@@ -1,15 +1,14 @@
 ---
+const today = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }).toUpperCase();
 ---
 
-<nav class="top">
-  <div class="nav-inner">
-    <a href="/" class="name" style="border:none;">
-      <img src="/assets/wordmark-transparent.png?v=2" alt="David Russell." />
-    </a>
-    <ul>
-      <li><a href="/writing/">writing</a></li>
-      <li><a href="/#ventures">building</a></li>
-      <li><a href="/#contact">get in touch</a></li>
-    </ul>
-  </div>
-</nav>
+<header class="masthead">
+  <a href="/" class="masthead-name">David Russell.</a>
+  <nav>
+    <a href="/#building">building</a>
+    <a href="/writing/">writing</a>
+    <a href="/recommended/">recommended</a>
+    <a href="/#contact">contact</a>
+  </nav>
+  <div class="masthead-meta">South Florida · Issue {today}</div>
+</header>

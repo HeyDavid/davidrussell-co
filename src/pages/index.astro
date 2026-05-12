@@ -2,21 +2,21 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Hero from "@/components/Hero.astro";
-import WritingTeaser from "@/components/WritingTeaser.astro";
 import Building from "@/components/Building.astro";
 import Background from "@/components/Background.astro";
+import WritingTeaser from "@/components/WritingTeaser.astro";
 import GetInTouch from "@/components/GetInTouch.astro";
+import Footer from "@/components/Footer.astro";
 ---
 
 <BaseLayout>
   <Header />
   <main>
     <Hero />
-    <div class="wrap">
-      <WritingTeaser />
-      <Building />
-      <Background />
-      <GetInTouch />
-    </div>
+    <Building />
+    <Background />
+    <WritingTeaser />
+    <GetInTouch />
   </main>
+  <Footer />
 </BaseLayout>

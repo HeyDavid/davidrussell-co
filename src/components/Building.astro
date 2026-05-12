@@ -1,45 +1,65 @@
 ---
-const ventures = [
+type Venture = {
+  num: string;
+  tag: string;
+  href: string;
+  name: string;
+  url: string;
+  desc: string;
+  muted?: boolean;
+};
+
+const ventures: Venture[] = [
   {
+    num: "01",
+    tag: "Agency",
     href: "https://letschatmarketing.com",
-    tag: "AGENCY",
-    name: "Let's Chat",
-    desc: "A small marketing agency for service businesses. Modern websites, AI receptionists, sharp consulting.",
+    name: "Let’s Chat Marketing",
+    url: "letschatmarketing.com",
+    desc: "A productized marketing agency for service businesses. Modern websites, AI receptionists, sharp consulting. Three verticals running underneath — Let’s Smile (dental), Let’s Counsel (legal), Let’s Fix (home services).",
   },
   {
+    num: "02",
+    tag: "Tool",
     href: "https://makermargin.co",
-    tag: "TOOL",
     name: "Maker Margin",
-    desc: "A free Etsy fee calculator that has saved sellers a lot of confusion (and a few thousand dollars).",
+    url: "makermargin.co",
+    desc: "Free Etsy fee calculator. Sellers plug in their numbers and find out what Etsy is actually taking. Quietly compounding.",
   },
   {
+    num: "03",
+    tag: "Resource",
     href: "https://scamcapital.com",
-    tag: "RESOURCE",
     name: "ScamCapital",
-    desc: "A scam-education hub. Playbooks on common scams plus an interactive quiz that's designed to fool you.",
+    url: "scamcapital.com",
+    desc: "Scam-education hub. Playbooks on the common cons, plus an interactive quiz designed to fool you so the pattern sticks.",
   },
   {
-    href: "#",
-    tag: "SOMETHING NEW",
+    num: "04",
+    tag: "TBD",
+    href: "#hero-subscribe",
     name: "In the workshop",
-    desc: "The next small thing. Subscribe up top, you'll see it before anyone else.",
+    url: "subscribe to see it first",
+    desc: "The next small thing. Newsletter subscribers see it before anyone else.",
     muted: true,
   },
 ];
 ---
 
-<section class="card" id="ventures">
-  <div class="section-head">
-    <p class="label">Building</p>
-  </div>
-  <h2>What I'm working on, in plain sight.</h2>
-  <div class="ventures">
+<section class="entry" id="building">
+  <span class="entry-num">i.</span>
+  <h2>What I&rsquo;m building right now.</h2>
+  <ol class="ventures-list">
     {ventures.map((v) => (
-      <a href={v.href} class="venture" style={`border-bottom:none;${v.muted ? " opacity: 0.55;" : ""}`}>
+      <li class:list={[v.muted ? "venture-muted" : ""]}>
+        <div class="venture-num">{v.num}</div>
+        <div class="venture-body">
+          <div class="venture-name"><a href={v.href}>{v.name}</a></div>
+          <div class="venture-url font-mono">{v.url}</div>
+          <div class="venture-desc">{v.desc}</div>
+        </div>
         <div class="venture-tag">{v.tag}</div>
-        <div class="venture-name">{v.name}</div>
-        <div class="venture-desc">{v.desc}</div>
-      </a>
+      </li>
     ))}
-  </div>
+  </ol>
 </section>
