@@ -26,10 +26,10 @@ const formatDate = (d: Date) =>
   <Header />
   <main>
     <article class="essay">
-      <a href="/writing/" class="back">&larr; All writing</a>
+      <a href="/writing/" class="back">← All writing</a>
       <h1>{post.data.title}</h1>
       <p class="post-meta-line font-mono">
-        {formatDate(post.data.publishDate)}{post.data.readTime && ` · ${post.data.readTime}`}
+        {formatDate(post.data.publishDate)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}
       </p>
       <div class="post-body">
         <Content />
