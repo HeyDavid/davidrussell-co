@@ -1,32 +1,26 @@
 ---
+const items = [
+  { when: "2026 →", what: "<strong>Let's Chat Marketing</strong> — productized agency, three verticals." },
+  { when: "2026 →", what: "<strong>Maker Margin</strong> — Etsy fee calculator, free, growing on its own." },
+  { when: "2025 →", what: "<strong>ScamCapital</strong> — independent brand. Authority and gravity, not warmth." },
+  { when: "2021 – 2024", what: "<strong>Syllble</strong>, co-founder. Collaborative fiction publishing house. 105+ novels with authors around the world." },
+  { when: "2016 – 2020", what: "<strong>Moolaguides</strong>, founder. Built it, sold it. <a href='https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/'>Covered in College Magazine</a>." },
+  { when: "2015 →", what: "<strong>Marketing operator.</strong> Paid, content, brand, productized. Most channels, most stages, 10+ years deep." },
+];
 ---
 
-<section class="card">
-  <div class="section-head">
-    <p class="label">Background</p>
-  </div>
-  <h2>A decade of marketing, two ventures with my name on the door, and a lot of late nights shipping.</h2>
-  <div class="finds">
-    <div class="find">
-      <div class="find-name">Marketing operator · 10+ years</div>
-      <div class="find-why">Paid, content, brand, productized — most channels, most stages.</div>
-    </div>
-    <div class="find">
-      <div class="find-name">Moolaguides · founder &amp; exit</div>
-      <div class="find-why">Built it, sold it. <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" style="border-bottom:1px solid #c5b8a0;">Covered in College Magazine</a>.</div>
-    </div>
-    <div class="find">
-      <div class="find-name">Syllble · co-founder</div>
-      <div class="find-why">Collaborative fiction publishing house. 105+ novels published with authors around the world.</div>
-    </div>
-    <div class="find">
-      <div class="find-name">Let's Chat · current</div>
-      <div class="find-why">Productized agency for service businesses. Websites, AI, the parts in between.</div>
-    </div>
-    <div class="find">
-      <div class="find-name">Maker Margin · current</div>
-      <div class="find-why">Free fee calculator for Etsy sellers. Quietly compounding.</div>
-    </div>
-  </div>
-  <p style="font-size:14px; color:#5a5142; margin-top:32px;">More detail on <a href="https://www.linkedin.com/in/heydavidr/" style="border-bottom:1px solid #c5b8a0; color:inherit;">LinkedIn</a>. Tools and books I actually use are on the <a href="/recommended/" style="border-bottom:1px solid #c5b8a0; color:inherit;">recommended</a> page.</p>
+<section class="entry">
+  <span class="entry-num">ii.</span>
+  <h2>The short version of what I&rsquo;ve been doing.</h2>
+  <ul class="timeline">
+    {items.map((i) => (
+      <li>
+        <div class="timeline-when font-mono">{i.when}</div>
+        <div class="timeline-what" set:html={i.what} />
+      </li>
+    ))}
+  </ul>
+  <p style="margin-top:24px; font-size:15px; color:var(--ink-faint); font-style:italic;">
+    Longer version on <a href="https://www.linkedin.com/in/heydavidr/" style="border-bottom:1px solid var(--rule-strong);">LinkedIn</a>. Tools, books, and people I actually recommend are on the <a href="/recommended/" style="border-bottom:1px solid var(--rule-strong);">recommended page</a>.
+  </p>
 </section>

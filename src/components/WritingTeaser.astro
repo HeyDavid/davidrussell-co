@@ -7,18 +7,16 @@ const latest = allPosts
   .slice(0, 3);
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short" }).toUpperCase();
 ---
 
-<section class="card" id="essays">
-  <div class="section-head">
-    <p class="label">Writing</p>
-  </div>
-  <h2>Notes from the workbench. <em>Short, occasional, never spam.</em></h2>
+<section class="entry" id="writing">
+  <span class="entry-num">iii.</span>
+  <h2>Writing &mdash; <em>short, occasional, never spam.</em></h2>
 
   {latest.length === 0 ? (
     <p class="writing-teaser">
-      First essays shipping soon — operator notes on building small ventures, dropping the page-builder stack, what Etsy fees actually cost, and the case for being tiny on purpose. <a href="#hero-subscribe">Subscribe up top</a> to get the first one in your inbox.
+      First essays shipping soon &mdash; operator notes on building small ventures, what Etsy fees actually cost, what AI is doing to service businesses, and the case for being tiny on purpose. <a href="#hero-subscribe">Subscribe up top</a> and you&rsquo;ll get the first one.
     </p>
   ) : (
     <>
@@ -33,9 +31,7 @@ const formatDate = (d: Date) =>
           </li>
         ))}
       </ul>
-      <p style="margin-top: 32px;">
-        <a href="/writing/" style="border-bottom: 1px solid #c5b8a0; color: #5a5142; font-size: 15px;">All writing &rarr;</a>
-      </p>
+      <p class="all-writing"><a href="/writing/">All writing &rarr;</a></p>
     </>
   )}
 </section>

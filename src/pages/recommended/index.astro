@@ -1,0 +1,112 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+type Item = { name: string; href?: string; tag?: string; why: string };
+type Group = { title: string; note?: string; items: Item[] };
+
+const groups: Group[] = [
+  {
+    title: "Tools I use every single day",
+    note: "If I had to pay double, I'd still pay.",
+    items: [
+      { name: "Claude (Pro)", href: "https://claude.ai", tag: "AI", why: "Strategy, writing, multi-step docs. The Cowork desktop client became my command center." },
+      { name: "ChatGPT (Plus)", href: "https://chatgpt.com", tag: "AI", why: "Code, image gen, second opinion. Canvas is criminally underrated for coding." },
+      { name: "Codex", href: "https://openai.com/codex", tag: "AI", why: "Parallel engineering when one Claude isn't enough." },
+      { name: "Cursor", href: "https://cursor.com", tag: "IDE", why: "The editor I actually open. Composer + tab is the keyboard combo that paid for itself in week one." },
+      { name: "Notion", href: "https://notion.so", tag: "OS", why: "Single source of truth for everything that isn't code. Command Center, sprints, brand guides, opportunity log." },
+      { name: "Supabase", href: "https://supabase.com", tag: "DB", why: "Postgres + auth + storage + edge. The cheapest path from idea to production for a solo." },
+      { name: "Vercel", href: "https://vercel.com", tag: "Hosting", why: "Deploy on push. Preview URLs. Nothing else gets out of the way like this." },
+      { name: "Cloudflare", href: "https://cloudflare.com", tag: "Edge", why: "DNS, R2, Workers, Pages. The Swiss army knife I forget I'm relying on until I need it." },
+      { name: "Framer", href: "https://framer.com", tag: "Web", why: "Marketing sites for ventures that don't need a dev. Indistinguishable from a polished custom build, in an afternoon." },
+      { name: "Beehiiv", href: "https://beehiiv.com", tag: "Email", why: "The newsletter platform I keep coming back to. Sane analytics, no Mailchimp drag." },
+    ],
+  },
+  {
+    title: "Books that actually changed how I work",
+    note: "Skipping the obvious ones everyone already names.",
+    items: [
+      { name: "The Mom Test", href: "https://www.momtestbook.com/", tag: "Book", why: "Rob Fitzpatrick. The only customer-research book I trust. Re-read every two years." },
+      { name: "Working in Public", href: "https://press.stripe.com/working-in-public", tag: "Book", why: "Nadia Asparouhova. About open source on the surface; really about modern indie reputation." },
+      { name: "Where Good Ideas Come From", tag: "Book", why: "Steven Johnson. Adjacent possible, slow hunches, exaptation. Frame for spotting evergreen niches." },
+      { name: "The Almanack of Naval Ravikant", href: "https://www.navalmanack.com/", tag: "Book", why: "Free online. The chapters on leverage and specific knowledge earn re-reads." },
+    ],
+  },
+  {
+    title: "People worth following",
+    note: "Operators, not gurus.",
+    items: [
+      { name: "Pieter Levels", href: "https://x.com/levelsio", tag: "Solo", why: "Public proof you can run a real business from a laptop. No team, no fluff, transparent revenue." },
+      { name: "Tony Dinh", href: "https://x.com/tdinh_me", tag: "Solo", why: "Builds in public, ships small tools that actually pay. Calm operator energy." },
+      { name: "Patrick Collison", href: "https://patrickcollison.com/", tag: "Builder", why: "Bookshelf and essays. The questions list alone is worth a read once a year." },
+    ],
+  },
+];
+
+const letsBrands = [
+  { src: "/logos/letsfix.png",   alt: "Let's Fix",   note: "Home services vertical, under Let's Chat Marketing." },
+  { src: "/logos/letsaudit.png", alt: "Let's Audit", note: "Audit-led lead magnet, also under Let's Chat." },
+];
+---
+
+<BaseLayout
+  title="Recommended &mdash; David Russell"
+  description="Tools, books, and people I actually use and recommend."
+>
+  <Header />
+  <main>
+    <section class="essay">
+      <h1>Recommended.</h1>
+      <p class="lede">
+        Short list of what I actually use and recommend &mdash; tools, books, people. No affiliate trickery. If it&rsquo;s on here, it&rsquo;s because I&rsquo;d be worse without it.
+      </p>
+
+      {groups.map((g) => (
+        <div class="rec-group">
+          <h3>{g.title}</h3>
+          {g.note && <p class="rec-group-note">{g.note}</p>}
+          <ul class="rec-list">
+            {g.items.map((i) => (
+              <li>
+                <div>
+                  <div class="rec-name">
+                    {i.href
+                      ? <a href={i.href}>{i.name}</a>
+                      : i.name
+                    }
+                  </div>
+                  <div class="rec-why">{i.why}</div>
+                </div>
+                {i.tag && <div class="rec-tag">{i.tag}</div>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      <div class="rec-group">
+        <h3>What I&rsquo;m building under one roof</h3>
+        <p class="rec-group-note">
+          Let&rsquo;s Chat Marketing is the agency. These are the verticals living inside it &mdash; same playbook, different rooms.
+        </p>
+        <div class="rec-logos">
+          {letsBrands.map((b) => (
+            <div style="text-align:center;">
+              <img src={b.src} alt={b.alt} />
+              <div class="font-mono" style="font-size:11px; color:var(--ink-faint); margin-top:8px; letter-spacing:0.06em; text-transform:uppercase;">{b.alt}</div>
+            </div>
+          ))}
+        </div>
+        <p style="margin-top:16px; font-size:15px; color:var(--ink-faint); font-style:italic;">
+          More verticals &mdash; Let&rsquo;s Smile (dental), Let&rsquo;s Counsel (legal) &mdash; in the pipeline. Logos to come.
+        </p>
+      </div>
+
+      <p style="margin-top:48px; font-size:15px; color:var(--ink-faint); font-style:italic;">
+        Missing something obvious? <a href="mailto:dmrussell7@gmail.com" style="border-bottom:1px solid var(--rule-strong);">Tell me</a>. I update this list whenever I swap a habit.
+      </p>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
