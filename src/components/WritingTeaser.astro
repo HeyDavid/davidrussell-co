@@ -11,12 +11,11 @@ const formatDate = (d: Date) =>
 ---
 
 <section class="entry" id="writing">
-  <span class="entry-num">iii.</span>
-  <h2>Writing &mdash; <em>short, occasional, never spam.</em></h2>
+  <h2>Writing. <em>Short, occasional, never spam.</em></h2>
 
   {latest.length === 0 ? (
     <p class="writing-teaser">
-      First essays shipping soon &mdash; operator notes on building small ventures, what Etsy fees actually cost, what AI is doing to service businesses, and the case for being tiny on purpose. <a href="#hero-subscribe">Subscribe up top</a> and you&rsquo;ll get the first one.
+      First essays shipping soon. Operator notes on building small ventures, what Etsy fees actually cost, what AI is doing to service businesses, and the case for being tiny on purpose. <a href="#hero-subscribe">Subscribe up top</a> and you&rsquo;ll get the first one.
     </p>
   ) : (
     <>
@@ -25,7 +24,7 @@ const formatDate = (d: Date) =>
           <li>
             <a href={`/writing/${post.id}/`}>
               <div class="post-title">{post.data.title}</div>
-              <div class="post-meta">{formatDate(post.data.publishDate)}{post.data.readTime && ` · ${post.data.readTime}`}</div>
+              <div class="post-meta">{formatDate(post.data.publishDate)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</div>
               {post.data.description && <div class="post-dek">{post.data.description}</div>}
             </a>
           </li>
