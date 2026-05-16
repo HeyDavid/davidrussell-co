@@ -12,6 +12,9 @@ const posts = allPosts.sort(
 const formatDate = (d: Date) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "short" }).toUpperCase();
 
+const formatMeta = (post: (typeof posts)[number]) =>
+  post.data.status === "coming-soon" ? "COMING SOON" : formatDate(post.data.publishDate);
+
 const hasPosts = posts.length > 0;
 ---
 
@@ -40,7 +43,7 @@ const hasPosts = posts.length > 0;
             <li>
               <a href={`/writing/${post.id}/`}>
                 <div class="post-title">{post.data.title}</div>
-                <div class="post-meta">{formatDate(post.data.publishDate)}</div>
+                <div class="post-meta">{formatMeta(post)}</div>
                 {post.data.description && <div class="post-dek">{post.data.description}</div>}
               </a>
             </li>

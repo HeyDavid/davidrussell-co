@@ -17,19 +17,24 @@ const { Content } = await render(post);
 
 const formatDate = (d: Date) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }).toUpperCase();
+
+const metaLine =
+  post.data.status === "coming-soon"
+    ? "DRAFT - COMING SOON"
+    : formatDate(post.data.publishDate);
 ---
 
 <BaseLayout
-  title={`${post.data.title} — David Russell`}
+  title={`${post.data.title} - David Russell`}
   description={post.data.description ?? "Short, occasional, never spam."}
 >
   <Header />
   <main>
     <article class="essay">
-      <a href="/writing/" class="back">← All writing</a>
+      <a href="/writing/" class="back">Back to all writing</a>
       <h1>{post.data.title}</h1>
       <p class="post-meta-line font-mono">
-        {formatDate(post.data.publishDate)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}
+        {metaLine}{post.data.readTime ? ` / ${post.data.readTime}` : ""}
       </p>
       <div class="post-body">
         <Content />

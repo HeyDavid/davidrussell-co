@@ -1,15 +1,64 @@
 ---
 ---
 
-<section class="entry" id="contact">
-  <h2>Want to talk?</h2>
-  <p>Email is best. I&rsquo;m around on the usual places too, same handle on every one.</p>
-  <div class="contact-row">
-    <a href="mailto:david@letschatmarketing.com">david@letschatmarketing.com</a>
-    <a href="https://www.linkedin.com/in/heydavidr/">LinkedIn</a>
-    <a href="https://x.com/heydavidr">X</a>
-    <a href="https://github.com/HeyDavid">GitHub</a>
-    <a href="https://www.threads.com/@heydavidr">Threads</a>
-    <a href="https://bsky.app/profile/heydavidr.bsky.social">Bluesky</a>
+<section class="entry contact-invite" id="contact" aria-labelledby="contact-title">
+  <div>
+    <div class="section-kicker">Contact</div>
+    <h2 id="contact-title">Working on something? Tell me about it.</h2>
+    <p>One short note is enough. If it is useful, David will reply manually.</p>
   </div>
+
+  <form class="contact-form" id="contact-form">
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+    </label>
+    <label>
+      <span>Message</span>
+      <input type="text" name="message" placeholder="What are you building?" maxlength="160" />
+    </label>
+    <button type="submit">Send note</button>
+    <p class="subscribe-status" id="contact-status" role="status" aria-live="polite" hidden></p>
+  </form>
 </section>
+
+<script>
+  (() => {
+    const form = document.getElementById("contact-form") as HTMLFormElement | null;
+    const status = document.getElementById("contact-status") as HTMLElement | null;
+    if (!form || !status) return;
+
+    const BEEHIIV_PUB = "pub_ed495df0-b44a-47ba-939c-eeb46089e27b";
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const email = String(data.get("email") ?? "").trim();
+      if (!email) return;
+
+      const button = form.querySelector("button");
+      if (button) {
+        button.disabled = true;
+        button.textContent = "Sending";
+      }
+
+      data.set("email", email);
+      data.set("utm_source", "davidrussell.co");
+      data.set("tags", "dr-subscriber");
+      data.set("referring_site", "davidrussell.co/contact");
+
+      fetch(`https://embeds.beehiiv.com/${BEEHIIV_PUB}`, {
+        method: "POST",
+        mode: "no-cors",
+        body: data,
+      }).finally(() => {
+        form.reset();
+        status.hidden = false;
+        status.textContent = "Got it. Check your inbox to confirm subscription.";
+        if (button) {
+          button.disabled = false;
+          button.textContent = "Send note";
+        }
+      });
+    });
+  })();
+</script>

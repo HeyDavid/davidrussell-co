@@ -1,68 +1,155 @@
 ---
+const lanes = [
+  {
+    label: "Founder",
+    href: "/lets-chat/",
+    title: "Let's Chat",
+    detail: "Productized marketing systems for service businesses.",
+  },
+  {
+    label: "Creator",
+    href: "/performing/",
+    title: "Performing",
+    detail: "Video, voice, and live work with a little bite.",
+  },
+  {
+    label: "Background",
+    href: "/background/",
+    title: "Operator notes",
+    detail: "Ten years in marketing, publishing, tools, and small bets.",
+  },
+];
 ---
 
-<section class="hero">
-  <div class="hero-byline">
-    <div class="hero-portrait">
-      <img src="/assets/headshot.jpg" alt="David Russell" />
+<section class="hero" aria-labelledby="hero-title">
+  <canvas class="flow-field" id="flow-field" aria-hidden="true"></canvas>
+  <div class="hero-content">
+    <div class="hero-byline">
+      <div class="hero-portrait">
+        <img src="/assets/headshot.jpg" alt="David Russell" width="96" height="96" fetchpriority="high" />
+      </div>
+      <div class="hero-byline-text">
+        David Russell<br />
+        South Florida
+      </div>
     </div>
-    <div class="hero-byline-text">
-      By <strong>David Russell</strong><br />
-      Solo founder, South Florida
+
+    <h1 id="hero-title">I build useful things, then write down what survived contact with reality.</h1>
+
+    <p class="identity-line">
+      CEO of Let's Chat, content creator, indie operator. South Florida.
+    </p>
+
+    <div class="lane-grid" aria-label="Ways into the site">
+      {lanes.map((lane) => (
+        <a class="lane-card" href={lane.href}>
+          <span>{lane.label}</span>
+          <strong>{lane.title}</strong>
+          <small>{lane.detail}</small>
+        </a>
+      ))}
     </div>
   </div>
 
-  <h1>I build small, <em>sharp</em> ventures and write about what actually works.</h1>
-
-  <p class="hero-lede">
-    Ten years marketing. Built and sold <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/">Moolaguides</a>. Co-founded <strong>Syllble Publishing House</strong>, publishing over 115 novels featuring authors around the world. <strong>Maker Margin</strong> is a suite of tools for creative entrepreneurs. <a href="https://letschatmarketing.com">Let&rsquo;s Chat</a> is a productized agency. <a href="https://scamcapital.com">ScamCapital</a> is a scam-education hub. New ideas always in incubation. Reach out if you have investment or business opportunities.
-  </p>
-
-  <div class="subscribe">
-    <span class="subscribe-label">The newsletter.</span>
-    <form class="subscribe-form" id="hero-subscribe">
-      <input type="email" name="email" required placeholder="your email" />
-      <button type="submit">subscribe &rarr;</button>
-    </form>
-    <p class="subscribe-status" id="hero-subscribe-status" role="status" aria-live="polite" hidden></p>
-  </div>
-
-  <div class="hero-social" aria-label="Find David elsewhere">
-    <span>Elsewhere:</span>
-    <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://x.com/heydavidr" target="_blank" rel="noopener">X</a>
-    <a href="https://www.threads.com/@heydavidr" target="_blank" rel="noopener">Threads</a>
-    <a href="https://bsky.app/profile/heydavidr.bsky.social" target="_blank" rel="noopener">Bluesky</a>
-    <a href="https://github.com/HeyDavid" target="_blank" rel="noopener">GitHub</a>
-  </div>
+  <a class="scroll-cue" href="#featured-work" id="scroll-cue" aria-label="Scroll to keep reading">
+    <span>Scroll to keep reading</span>
+  </a>
 </section>
 
 <script>
   (() => {
-    const form = document.getElementById('hero-subscribe') as HTMLFormElement | null;
-    const status = document.getElementById('hero-subscribe-status') as HTMLElement | null;
-    if (!form || !status) return;
-    const BEEHIIV_PUB = 'pub_ed495df0-b44a-47ba-939c-eeb46089e27b';
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const input = form.querySelector('input[name="email"]') as HTMLInputElement | null;
-      const email = input?.value?.trim();
-      if (!email) return;
-      const button = form.querySelector('button') as HTMLButtonElement | null;
-      if (button) { button.disabled = true; button.textContent = 'subscribing…'; }
-      const body = new FormData();
-      body.append('email', email);
-      body.append('utm_source', 'davidrussell.co');
-      body.append('tags', 'dr-subscriber');
-      fetch(`https://embeds.beehiiv.com/${BEEHIIV_PUB}`, {
-        method: 'POST',
-        mode: 'no-cors',
-        body,
-      }).finally(() => {
-        form.hidden = true;
-        status.hidden = false;
-        status.textContent = "On the list. Check your inbox to confirm.";
+    const boot = () => {
+      const canvas = document.getElementById("flow-field") as HTMLCanvasElement | null;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) return;
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const pointer = { x: 0.62, y: 0.38, active: false };
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let frame = 0;
+      let raf = 0;
+
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.max(1, Math.floor(rect.width));
+        height = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+
+      const draw = () => {
+        frame += prefersReduced ? 0 : 0.009;
+        ctx.clearRect(0, 0, width, height);
+
+        const gradient = ctx.createLinearGradient(0, 0, width, height);
+        gradient.addColorStop(0, "rgba(184, 66, 26, 0.16)");
+        gradient.addColorStop(0.48, "rgba(41, 82, 89, 0.12)");
+        gradient.addColorStop(1, "rgba(21, 21, 21, 0.08)");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+
+        const spacing = width < 680 ? 24 : 30;
+        const mouseX = pointer.x * width;
+        const mouseY = pointer.y * height;
+
+        ctx.lineWidth = 1;
+        for (let y = -spacing; y < height + spacing; y += spacing) {
+          for (let x = -spacing; x < width + spacing; x += spacing) {
+            const dx = x - mouseX;
+            const dy = y - mouseY;
+            const distance = Math.max(1, Math.sqrt(dx * dx + dy * dy));
+            const pull = pointer.active ? Math.min(1.8, 160 / distance) : 0.35;
+            const angle =
+              Math.sin(x * 0.008 + frame) +
+              Math.cos(y * 0.01 - frame * 1.4) +
+              Math.atan2(dy, dx) * pull;
+            const length = spacing * (0.38 + Math.min(0.55, 80 / distance));
+            const alpha = 0.12 + Math.min(0.34, 70 / distance);
+
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(28, 22, 17, ${alpha})`;
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
+            ctx.stroke();
+          }
+        }
+
+        if (!prefersReduced) raf = window.requestAnimationFrame(draw);
+      };
+
+      const move = (event: PointerEvent) => {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = (event.clientX - rect.left) / rect.width;
+        pointer.y = (event.clientY - rect.top) / rect.height;
+        pointer.active = true;
+      };
+
+      resize();
+      draw();
+      window.addEventListener("resize", resize, { passive: true });
+      canvas.addEventListener("pointermove", move, { passive: true });
+      canvas.addEventListener("pointerleave", () => {
+        pointer.active = false;
       });
-    });
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) window.cancelAnimationFrame(raf);
+        else if (!prefersReduced) draw();
+      });
+    };
+
+    const scrollCue = document.getElementById("scroll-cue");
+    const fadeCue = () => scrollCue?.classList.add("is-hidden");
+    window.addEventListener("scroll", fadeCue, { once: true, passive: true });
+
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(boot, { timeout: 900 });
+    } else {
+      globalThis.setTimeout(boot, 120);
+    }
   })();
 </script>

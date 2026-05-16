@@ -4,14 +4,19 @@ import "@/styles/globals.css";
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
   noindex?: boolean;
 }
 
 const {
   title = "David Russell",
-  description = "Solo founder in South Florida. I build small, sharp ventures. Let's Chat, Maker Margin, ScamCapital, and new ideas in incubation.",
+  description = "CEO of Let's Chat, content creator, indie operator in South Florida.",
+  image = "/assets/og-home.svg",
   noindex = false,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://davidrussell.co").toString();
+const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toString();
 ---
 
 <!DOCTYPE html>
@@ -20,13 +25,26 @@ const {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
 <meta property="og:type" content="website">
 <meta property="og:title" content={title}>
 <meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={socialImage}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={socialImage}>
 {noindex && <meta name="robots" content="noindex">}
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="mask-icon" href="/assets/favicon.svg" color="#b8421a">
+<meta name="theme-color" content="#f7f3ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-TileColor" content="#151515">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -34,7 +52,9 @@ const {
 </head>
 <body>
 
+<!-- Site shell -->
 <div class="page">
+  <!-- Primary content slot -->
   <slot />
 </div>
 

@@ -1,64 +1,59 @@
 ---
-type Venture = {
-  num: string;
-  tag: string;
-  href: string;
+type Work = {
   name: string;
   url: string;
-  desc: string;
-  muted?: boolean;
+  href: string;
+  note: string;
 };
 
-const ventures: Venture[] = [
+const work: Work[] = [
   {
-    num: "01",
-    tag: "Agency",
-    href: "https://letschatmarketing.com",
-    name: "Let’s Chat Marketing",
+    name: "Let's Chat",
     url: "letschatmarketing.com",
-    desc: "A productized marketing agency for service businesses. Modern websites, AI receptionists, sharp consulting. Verticals include Let’s Smile (dental), Let’s Counsel (legal), and Let’s Fix (home services).",
+    href: "https://letschatmarketing.com",
+    note: "Productized marketing for service businesses.",
   },
   {
-    num: "02",
-    tag: "Tools",
-    href: "https://makermargin.co",
     name: "Maker Margin",
     url: "makermargin.co",
-    desc: "A suite of tools for creative entrepreneurs. Starting with a free Etsy fee calculator. Quietly compounding.",
+    href: "https://makermargin.co",
+    note: "Tools for Etsy sellers and creative operators.",
   },
   {
-    num: "03",
-    tag: "Resource",
-    href: "https://scamcapital.com",
-    name: "ScamCapital",
-    url: "scamcapital.com",
-    desc: "Scam-education hub. Playbooks on the common cons, plus an interactive quiz designed to fool you so the pattern sticks.",
-  },
-  {
-    num: "04",
-    tag: "Incubating",
-    href: "#hero-subscribe",
-    name: "New ideas in incubation",
-    url: "subscribe to see them first",
-    desc: "The next small thing. Newsletter subscribers see it before anyone else. Open to partners and investors.",
-    muted: true,
+    name: "Thomas Steed",
+    url: "thomassteed.com",
+    href: "https://thomassteed.com",
+    note: "A personal site with a clean editorial spine.",
   },
 ];
 ---
 
-<section class="entry" id="building">
-  <h2>What I&rsquo;m building right now.</h2>
-  <ol class="ventures-list">
-    {ventures.map((v) => (
-      <li class:list={[v.muted ? "venture-muted" : ""]}>
-        <div class="venture-num">{v.num}</div>
-        <div class="venture-body">
-          <div class="venture-name"><a href={v.href}>{v.name}</a></div>
-          <div class="venture-url font-mono">{v.url}</div>
-          <div class="venture-desc">{v.desc}</div>
+<section class="entry featured-work" id="featured-work" aria-labelledby="featured-title">
+  <div class="section-kicker">Featured work</div>
+  <h2 id="featured-title">Live things, not screenshots.</h2>
+  <p>
+    A short selection of current builds and client-style experiments. Each preview is the live site scaled down so the work has to stand on its own.
+  </p>
+
+  <div class="preview-grid">
+    {work.map((item) => (
+      <article class="preview-card">
+        <a class="preview-frame" href={item.href} target="_blank" rel="noopener" aria-label={`View ${item.name} live`}>
+          <iframe
+            src={item.href}
+            title={`${item.name} live preview`}
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            tabindex="-1"
+          ></iframe>
+          <span class="preview-overlay">View live</span>
+        </a>
+        <div class="preview-copy">
+          <h3>{item.name}</h3>
+          <span>{item.url}</span>
+          <p>{item.note}</p>
         </div>
-        <div class="venture-tag">{v.tag}</div>
-      </li>
+      </article>
     ))}
-  </ol>
+  </div>
 </section>

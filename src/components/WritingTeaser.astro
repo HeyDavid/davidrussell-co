@@ -4,33 +4,28 @@ import { getCollection } from "astro:content";
 const allPosts = await getCollection("writing", ({ data }) => !data.draft);
 const latest = allPosts
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 4);
 
-const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "short" }).toUpperCase();
+const formatMeta = (post: (typeof latest)[number]) =>
+  post.data.status === "coming-soon"
+    ? "COMING SOON"
+    : post.data.publishDate.toLocaleDateString("en-US", { year: "numeric", month: "short" }).toUpperCase();
 ---
 
-<section class="entry" id="writing">
-  <h2>Writing. <em>Short, occasional, never spam.</em></h2>
+<section class="entry" id="writing" aria-labelledby="writing-title">
+  <div class="section-kicker">Writing</div>
+  <h2 id="writing-title">Drafts with a point of view.</h2>
 
-  {latest.length === 0 ? (
-    <p class="writing-teaser">
-      First essays shipping soon. Operator notes on building small ventures, what Etsy fees actually cost, what AI is doing to service businesses, and the case for being tiny on purpose. <a href="#hero-subscribe">Subscribe up top</a> and you&rsquo;ll get the first one.
-    </p>
-  ) : (
-    <>
-      <ul class="writing-list">
-        {latest.map((post) => (
-          <li>
-            <a href={`/writing/${post.id}/`}>
-              <div class="post-title">{post.data.title}</div>
-              <div class="post-meta">{formatDate(post.data.publishDate)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</div>
-              {post.data.description && <div class="post-dek">{post.data.description}</div>}
-            </a>
-          </li>
-        ))}
-      </ul>
-      <p class="all-writing"><a href="/writing/">All writing &rarr;</a></p>
-    </>
-  )}
+  <ul class="writing-list">
+    {latest.map((post) => (
+      <li>
+        <a href={`/writing/${post.id}/`}>
+          <div class="post-title">{post.data.title}</div>
+          <div class="post-meta">{formatMeta(post)}{post.data.readTime ? ` / ${post.data.readTime}` : ""}</div>
+          {post.data.description && <div class="post-dek">{post.data.description}</div>}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <p class="all-writing"><a href="/writing/">All writing</a></p>
 </section>

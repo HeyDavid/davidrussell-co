@@ -2,6 +2,22 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="foot">
-  &copy; {year} David Russell &middot; South Florida
+<footer class="foot" aria-label="Footer">
+  <div class="footer-brand">
+    <a href="/" class="footer-logo">David Russell.</a>
+    <p>CEO of Let's Chat, content creator, indie operator.</p>
+    <span>South Florida / {year}</span>
+  </div>
+  <nav aria-label="Site lanes">
+    <a href="/lets-chat/">Founder</a>
+    <a href="/performing/">Creator</a>
+    <a href="/background/">Background</a>
+    <a href="/writing/">Writing</a>
+    <a href="/performing/">Performing</a>
+  </nav>
+  <div class="footer-contact">
+    <a href="mailto:david@letschatmarketing.com">david@letschatmarketing.com</a>
+    <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://x.com/heydavidr" target="_blank" rel="noopener">Twitter/X</a>
+  </div>
 </footer>

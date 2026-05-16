@@ -1,16 +1,17 @@
 ---
 const items = [
-  { when: "2026 →", what: "<strong>Let’s Chat Marketing.</strong> Productized agency, three verticals." },
-  { when: "2026 →", what: "<strong>Maker Margin.</strong> A suite of tools for creative entrepreneurs." },
-  { when: "2025 →", what: "<strong>ScamCapital.</strong> Independent brand. Authority and gravity, not warmth." },
-  { when: "2021 – 2024", what: "<strong>Syllble Publishing House</strong>, co-founder. Over 115 novels featuring authors around the world." },
-  { when: "2016 – 2020", what: "<strong>Moolaguides</strong>, founder. Built it, sold it. <a href='https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/'>Covered in College Magazine</a>." },
-  { when: "2015 →", what: "<strong>Marketing operator.</strong> Paid, content, brand, productized. Most channels, most stages, 10+ years deep." },
+  { when: "2026", what: "<strong>Let's Chat.</strong> Productized agency work for service businesses and AI-enabled front desks." },
+  { when: "2026", what: "<strong>Maker Margin.</strong> Etsy fee math, seller tools, and the first no-fluff launch system." },
+  { when: "2025", what: "<strong>ScamCapital.</strong> A sharper public-education project about scams and pattern recognition." },
+  { when: "2021-2024", what: "<strong>Syllble Publishing House.</strong> Co-founder. More than 115 novels with authors around the world." },
+  { when: "2016-2020", what: "<strong>Moolaguides.</strong> Built it, sold it, got covered, learned the unglamorous parts." },
+  { when: "2015-now", what: "<strong>Marketing operator.</strong> Paid, content, brand, productized offers, and the messy middle." },
 ];
 ---
 
-<section class="entry">
-  <h2>The short version of what I&rsquo;ve been doing.</h2>
+<section class="entry background-strip" id="background" aria-labelledby="background-title">
+  <div class="section-kicker">Background</div>
+  <h2 id="background-title">The useful version of the resume.</h2>
   <ul class="timeline">
     {items.map((i) => (
       <li>
@@ -19,7 +20,7 @@ const items = [
       </li>
     ))}
   </ul>
-  <p style="margin-top:24px; font-size:15px; color:var(--ink-faint); font-style:italic;">
-    Longer version on <a href="https://www.linkedin.com/in/heydavidr/" style="border-bottom:1px solid var(--rule-strong);">LinkedIn</a>. Tools, books, and people I recommend are on the <a href="/recommended/" style="border-bottom:1px solid var(--rule-strong);">recommended page</a>.
+  <p class="small-note">
+    Longer version on <a href="https://www.linkedin.com/in/heydavidr/">LinkedIn</a>. Tools, books, and people I recommend are on the <a href="/recommended/">recommended page</a>.
   </p>
 </section>
