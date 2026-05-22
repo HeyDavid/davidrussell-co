@@ -82,14 +82,17 @@ const lanes = [
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       };
 
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const strokeRgb = isDark ? "237, 237, 240" : "20, 20, 22";
+
       const draw = () => {
         frame += prefersReduced ? 0 : 0.009;
         ctx.clearRect(0, 0, width, height);
 
         const gradient = ctx.createLinearGradient(0, 0, width, height);
-        gradient.addColorStop(0, "rgba(184, 66, 26, 0.16)");
-        gradient.addColorStop(0.48, "rgba(41, 82, 89, 0.12)");
-        gradient.addColorStop(1, "rgba(21, 21, 21, 0.08)");
+        gradient.addColorStop(0, "rgba(29, 60, 255, 0.14)");
+        gradient.addColorStop(0.55, "rgba(29, 60, 255, 0.04)");
+        gradient.addColorStop(1, "rgba(10, 10, 10, 0.04)");
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, width, height);
 
@@ -109,10 +112,10 @@ const lanes = [
               Math.cos(y * 0.01 - frame * 1.4) +
               Math.atan2(dy, dx) * pull;
             const length = spacing * (0.38 + Math.min(0.55, 80 / distance));
-            const alpha = 0.12 + Math.min(0.34, 70 / distance);
+            const alpha = 0.1 + Math.min(0.32, 70 / distance);
 
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(28, 22, 17, ${alpha})`;
+            ctx.strokeStyle = `rgba(${strokeRgb}, ${alpha})`;
             ctx.moveTo(x, y);
             ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
             ctx.stroke();

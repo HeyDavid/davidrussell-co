@@ -1,26 +1,76 @@
 ---
-const items = [
-  { when: "2026", what: "<strong>Let's Chat.</strong> Productized agency work for service businesses and AI-enabled front desks." },
-  { when: "2026", what: "<strong>Maker Margin.</strong> Etsy fee math, seller tools, and the first no-fluff launch system." },
-  { when: "2025", what: "<strong>ScamCapital.</strong> A sharper public-education project about scams and pattern recognition." },
-  { when: "2021-2024", what: "<strong>Syllble Publishing House.</strong> Co-founder. More than 115 novels with authors around the world." },
-  { when: "2016-2020", what: "<strong>Moolaguides.</strong> Built it, sold it, got covered, learned the unglamorous parts." },
-  { when: "2015-now", what: "<strong>Marketing operator.</strong> Paid, content, brand, productized offers, and the messy middle." },
+const proof = [
+  {
+    figure: "$400K+",
+    detail: "Annual sales after growing what started as a Wix site into a full marketplace.",
+  },
+  {
+    figure: "10 years",
+    detail: "Marketing operator — paid, content, brand, productized offers, and the messy middle.",
+  },
+  {
+    figure: "Dozens",
+    detail: "Industries consulted across, plus a handful of my own startups built and shipped.",
+  },
 ];
 ---
 
 <section class="entry background-strip" id="background" aria-labelledby="background-title">
   <div class="section-kicker">Background</div>
-  <h2 id="background-title">The useful version of the resume.</h2>
-  <ul class="timeline">
-    {items.map((i) => (
-      <li>
-        <div class="timeline-when font-mono">{i.when}</div>
-        <div class="timeline-what" set:html={i.what} />
+  <h2 id="background-title">The short version.</h2>
+  <p>
+    I grew what started as a Wix site into a marketplace doing over $400,000 a year in sales. A decade of marketing experience behind it &mdash; building my own startups and consulting across dozens of industries. Now I'm building best-in-class websites and marketing funnels for operators who want the same.
+  </p>
+
+  <ul class="proof-grid" role="list">
+    {proof.map((item) => (
+      <li class="proof-card">
+        <div class="proof-figure">{item.figure}</div>
+        <p class="proof-detail">{item.detail}</p>
       </li>
     ))}
   </ul>
+
   <p class="small-note">
-    Longer version on <a href="https://www.linkedin.com/in/heydavidr/">LinkedIn</a>. Tools, books, and people I recommend are on the <a href="/recommended/">recommended page</a>.
+    Longer version on <a href="https://www.linkedin.com/in/heydavidr/">LinkedIn</a>. Tools, books, and people I recommend live on the <a href="/recommended/">recommended page</a>.
   </p>
 </section>
+
+<style>
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 34px 0 10px;
+    list-style: none;
+    padding: 0;
+  }
+  .proof-card {
+    padding: 26px 24px 28px;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    display: grid;
+    gap: 14px;
+    align-content: start;
+  }
+  .proof-figure {
+    font-family: var(--sans);
+    font-size: clamp(40px, 5vw, 56px);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .proof-card:first-child .proof-figure {
+    color: var(--accent);
+  }
+  .proof-detail {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 30ch;
+  }
+  @media (max-width: 720px) {
+    .proof-grid { grid-template-columns: 1fr; }
+  }
+</style>
