@@ -4,6 +4,7 @@ type Work = {
   url: string;
   href: string;
   note: string;
+  role: string;
 };
 
 const work: Work[] = [
@@ -11,81 +12,123 @@ const work: Work[] = [
     name: "Let's Chat",
     url: "letschatmarketing.com",
     href: "https://letschatmarketing.com",
-    note: "Productized marketing for service businesses.",
+    note: "Productized marketing for service businesses. Modern websites, AI receptionists, and the cold-outreach engine behind them.",
+    role: "Agency",
   },
   {
     name: "Maker Margin",
     url: "makermargin.co",
     href: "https://makermargin.co",
-    note: "Tools for Etsy sellers and creative operators.",
+    note: "Tools, math, and listings for Etsy sellers who would rather understand their margins than guess.",
+    role: "Tools",
   },
   {
     name: "Thomas Steed",
     url: "thomassteed.com",
     href: "https://thomassteed.com",
-    note: "A personal site with a clean editorial spine.",
+    note: "Personal site with a clean editorial spine. Light touch, lots of voice. Built fast.",
+    role: "Client site",
   },
 ];
 ---
 
 <section class="entry featured-work" id="featured-work" aria-labelledby="featured-title">
-  <div class="section-kicker">Featured work</div>
-  <h2 id="featured-title">Live things, not screenshots.</h2>
+  <div class="section-kicker">Currently building</div>
+  <h2 id="featured-title">A few live things.</h2>
   <p>
-    A short selection of current builds and client-style experiments. Each preview is the live site scaled down so the work has to stand on its own.
+    Selected current builds and client work. Each one links to the live site —
+    the work has to stand on its own, no decorative screenshots.
   </p>
 
-  <div class="preview-grid">
+  <div class="work-grid">
     {work.map((item) => (
-      <article class="preview-card">
-        <a class="preview-frame" href={item.href} target="_blank" rel="noopener" aria-label={`View ${item.name} live`}>
-          <iframe
-            data-src={item.href}
-            title={`${item.name} live preview`}
-            loading="lazy"
-            referrerpolicy="no-referrer"
-            tabindex="-1"
-          ></iframe>
-          <span class="preview-overlay">View live</span>
-        </a>
-        <div class="preview-copy">
-          <h3>{item.name}</h3>
-          <span>{item.url}</span>
-          <p>{item.note}</p>
-        </div>
-      </article>
+      <a class="work-card" href={item.href} target="_blank" rel="noopener" aria-label={`View ${item.name} live`}>
+        <div class="work-card-role">{item.role}</div>
+        <h3 class="work-card-name">{item.name}</h3>
+        <div class="work-card-url">{item.url}</div>
+        <p class="work-card-note">{item.note}</p>
+        <span class="work-card-cta">View live →</span>
+      </a>
     ))}
   </div>
 </section>
 
-<script>
-  (() => {
-    const frames = Array.from(document.querySelectorAll<HTMLIFrameElement>(".preview-frame iframe[data-src]"));
-    if (frames.length === 0) return;
+<style>
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 38px;
+  }
+  .work-card {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    padding: 26px 24px 28px;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(13, 36, 56, 0.55), rgba(15, 26, 46, 0.45));
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px rgba(0, 0, 0, 0.4);
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: transform 320ms var(--ease-out), border-color 240ms ease, box-shadow 320ms ease;
+  }
+  .work-card::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 0%, rgba(91, 141, 239, 0.16), transparent 70%);
+    opacity: 0;
+    transition: opacity 320ms ease;
+    pointer-events: none;
+  }
+  .work-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(91, 141, 239, 0.4);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 60px rgba(91, 141, 239, 0.12);
+  }
+  .work-card:hover::after { opacity: 1; }
+  .work-card-role {
+    color: var(--signal);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .work-card-name {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--star);
+  }
+  .work-card-url {
+    color: var(--mist);
+    font-family: var(--sans);
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .work-card-note {
+    color: var(--mist);
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 16px;
+  }
+  .work-card-cta {
+    color: var(--signal);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 200ms var(--ease-out);
+  }
+  .work-card:hover .work-card-cta {
+    transform: translateX(4px);
+  }
 
-    const loadFrame = (frame: HTMLIFrameElement) => {
-      const src = frame.dataset.src;
-      if (!src || frame.src) return;
-      frame.src = src;
-    };
-
-    if (!("IntersectionObserver" in window)) {
-      globalThis.setTimeout(() => frames.forEach(loadFrame), 1800);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const frame = entry.target as HTMLIFrameElement;
-          loadFrame(frame);
-          observer.unobserve(frame);
-        }
-      },
-      { rootMargin: "280px 0px" }
-    );
-
-    frames.forEach((frame) => observer.observe(frame));
-  })();
-</script>
+  @media (max-width: 920px) {
+    .work-grid { grid-template-columns: 1fr; }
+  }
+</style>

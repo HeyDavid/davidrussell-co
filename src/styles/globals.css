@@ -38,39 +38,17 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Custom cursor — small four-point star, on-theme.
-   Coarse-pointer (touch) devices fall back to default automatically because
-   the OS ignores cursor on touch. */
-html, body {
-  cursor: url("/assets/cursor-star.svg") 12 12, auto;
+html {
+  scroll-behavior: smooth;
+  background: var(--void);
 }
-a, button, [role="button"], label, input[type="submit"], summary {
-  cursor: url("/assets/cursor-star-pointer.svg") 14 14, pointer;
-}
-input[type="email"], input[type="text"], textarea {
-  cursor: text;
-}
-
-html { scroll-behavior: smooth; background: var(--paper); }
-/* Outer space (top) → deep ocean (bottom). Fixed attachment so the
-   gradient stays anchored to the viewport as you scroll, but we add
-   subtle scroll-tied tinting via a body::before layer that crossfades. */
+/* Body is intentionally transparent — the cosmic scene (gradient + stars +
+   ocean particles) lives in the fixed-position <Starfield> + <DeepOcean>
+   components behind the content. The html root holds the void fallback. */
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  background:
-    radial-gradient(ellipse at 82% -10%, rgba(91, 141, 239, 0.14), transparent 50%),
-    linear-gradient(
-      180deg,
-      #0a0e1a 0%,         /* void / outer space */
-      #0a1322 22%,
-      #0a1828 45%,        /* mesopelagic — twilight zone */
-      #071a28 70%,
-      #051620 88%,
-      #031218 100%        /* abyssal */
-    );
-  background-attachment: fixed;
-  background-size: 100% 100%;
+  background: transparent;
   color: var(--ink);
   font-family: var(--sans);
   font-size: 17px;
@@ -80,6 +58,27 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   position: relative;
+}
+
+/* "3D box" framing — subtle vignette + inner edges suggest the cosmic
+   scene is viewed through a contained viewport. Pure CSS, no overhead. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(180deg, rgba(91, 141, 239, 0.04) 0%, transparent 8%, transparent 92%, rgba(0, 0, 0, 0.5) 100%);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.45),
+              inset 0 0 1px rgba(91, 141, 239, 0.12);
+}
+
+/* All page content sits above the cosmic layers and below the vignette */
+.page, .masthead, main, footer {
+  position: relative;
+  z-index: 2;
 }
 
 /* Headlines: balanced wrap (Baseline 2024). */
@@ -128,15 +127,15 @@ button, input { font: inherit; }
   position: sticky;
   top: 0;
   z-index: 10;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 24px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--rule);
-  background: color-mix(in srgb, var(--void) 78%, transparent);
-  backdrop-filter: blur(24px) saturate(140%);
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(91, 141, 239, 0.12);
+  background: color-mix(in srgb, var(--void) 70%, transparent);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
 }
 .masthead-name,
 .footer-logo {
@@ -149,20 +148,19 @@ button, input { font: inherit; }
 }
 .masthead nav {
   display: flex;
-  justify-content: center;
-  gap: 34px;
+  gap: 28px;
   flex-wrap: wrap;
 }
 .masthead nav a {
   border: 0;
   color: var(--star);
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 13.5px;
   font-weight: 500;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.01em;
   text-transform: none;
   position: relative;
-  text-shadow: 0 0 14px rgba(245, 241, 232, 0.12);
+  text-shadow: 0 0 12px rgba(245, 241, 232, 0.12);
   transition: color 200ms ease, text-shadow 240ms ease;
 }
 .masthead nav a::after {
@@ -181,23 +179,13 @@ button, input { font: inherit; }
   text-shadow: 0 0 18px rgba(91, 141, 239, 0.6), 0 0 4px rgba(91, 141, 239, 0.4);
 }
 .masthead nav a:hover::after { right: 0; }
-.masthead-meta {
-  border: 0;
-  color: var(--mist);
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: -0.005em;
-  text-transform: none;
-  text-align: right;
-}
 
 .hero {
   position: relative;
-  min-height: calc(100vh - 76px);
+  min-height: auto;
   display: grid;
-  align-items: center;
-  padding: clamp(56px, 8vw, 92px) 0 clamp(76px, 9vw, 108px);
+  align-items: start;
+  padding: clamp(36px, 5vw, 60px) 0 clamp(48px, 6vw, 72px);
   isolation: isolate;
 }
 .deep-field {
@@ -211,13 +199,13 @@ button, input { font: inherit; }
 }
 .hero-content {
   width: min(880px, 100%);
-  padding: clamp(20px, 3vw, 36px) 0;
+  padding: 0;
 }
 .hero-byline {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 .hero-portrait {
   width: 68px;
@@ -263,10 +251,10 @@ button, input { font: inherit; }
   font-family: var(--serif);
   font-weight: 400;
   letter-spacing: -0.015em;
-  line-height: 1.02;
-  max-width: 18ch;
-  margin-bottom: 24px;
-  font-size: clamp(44px, 7vw, 88px);
+  line-height: 1.05;
+  max-width: 22ch;
+  margin-bottom: 20px;
+  font-size: clamp(38px, 5.8vw, 68px);
   color: var(--star);
 }
 .hero h1 em {
@@ -470,13 +458,15 @@ section.entry h2,
 section.entry,
 .essay {
   position: relative;
-  padding: clamp(54px, 8vw, 94px) 0;
-  border-top: 1px solid var(--rule);
+  padding: clamp(48px, 7vw, 80px) 0;
+  border-top: 1px solid rgba(91, 141, 239, 0.1);
 }
 section.entry h2 {
-  max-width: 18ch;
-  margin: 8px 0 22px;
-  font-size: clamp(36px, 4.6vw, 60px);
+  max-width: 20ch;
+  margin: 6px 0 26px;
+  font-size: clamp(40px, 5.2vw, 64px);
+  letter-spacing: -0.028em;
+  line-height: 1.05;
 }
 section.entry > p,
 .small-note,
