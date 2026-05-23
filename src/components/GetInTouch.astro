@@ -1,18 +1,17 @@
 ---
 ---
 
-<section class="entry contact-invite" id="subscribe" aria-labelledby="contact-title">
-  <div>
+<section class="entry subscribe-section" id="subscribe" aria-labelledby="contact-title">
+  <div class="subscribe-head">
     <div class="section-kicker">One more chance</div>
-    <h2 id="contact-title">Subscribe, or just say hello.</h2>
-    <p>
-      Same list as up top. The optional message box is the fastest way to start
-      a conversation if you are building something and want a thinking partner
-      who has shipped a few things.
+    <h2 id="contact-title">Subscribe, or just say&nbsp;hello.</h2>
+    <p class="subscribe-intro">
+      Same list as up top. The optional message box is the fastest way to start a
+      conversation if you are building something and want a thinking partner.
     </p>
   </div>
 
-  <form class="contact-form" id="contact-form">
+  <form class="contact-form contact-form-centered" id="contact-form">
     <label>
       <span>Email</span>
       <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
@@ -25,6 +24,41 @@
     <p class="subscribe-status" id="contact-status" role="status" aria-live="polite" hidden></p>
   </form>
 </section>
+
+<style>
+  /* Subscribe — centered focused CTA. No split layout. */
+  .subscribe-section {
+    text-align: center;
+  }
+  .subscribe-head {
+    max-width: 580px;
+    margin: 0 auto 36px;
+  }
+  .subscribe-head .section-kicker { text-align: center; }
+  .subscribe-head h2 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(40px, 5.2vw, 64px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 auto 18px;
+    color: var(--star);
+    max-width: 16ch;
+  }
+  .subscribe-intro {
+    color: var(--mist);
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0 auto;
+    max-width: 52ch;
+  }
+  .contact-form-centered {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: left;
+  }
+</style>
 
 <script>
   (() => {
