@@ -2,8 +2,6 @@
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <canvas class="deep-field" id="deep-field" aria-hidden="true"></canvas>
-
   <div class="hero-content">
     <div class="hero-byline">
       <div class="hero-portrait">
@@ -50,145 +48,11 @@
 </section>
 
 <script>
+  /* Scroll cue fades on first scroll */
   (() => {
-    type Particle = {
-      x: number;
-      y: number;
-      r: number;
-      base: number;
-      phase: number;
-      depth: number;
-      drift: number; // upward drift speed for ocean motes
-      sway: number;  // lateral sway frequency for ocean motes
-    };
-
-    const boot = () => {
-      const canvas = document.getElementById("deep-field") as HTMLCanvasElement | null;
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d", { alpha: true });
-      if (!ctx) return;
-
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const pointer = { x: 0.5, y: 0.5 };
-      const target = { x: 0.5, y: 0.5 };
-      let width = 0;
-      let height = 0;
-      let dpr = 1;
-      let frame = 0;
-      let raf = 0;
-      let particles: Particle[] = [];
-
-      const seed = () => {
-        const area = width * height;
-        // Fewer + smaller than v1 — the user called them "cheap" when overdone
-        const count = Math.min(220, Math.max(70, Math.floor(area / 6000)));
-        particles = new Array(count).fill(0).map(() => {
-          const depth = Math.random();
-          // Most stars are tiny dim distant ones; only ~10% are noticeable
-          const r = depth > 0.92 ? 1.1 + Math.random() * 0.6 : 0.35 + Math.random() * 0.65;
-          return {
-            x: Math.random(),
-            y: Math.random(),
-            r,
-            base: 0.18 + Math.random() * 0.45 * depth,
-            phase: Math.random() * Math.PI * 2,
-            depth,
-            drift: 0.00012 + Math.random() * 0.0002,
-            sway: 0.4 + Math.random() * 0.9,
-          };
-        });
-      };
-
-      const resize = () => {
-        const rect = canvas.getBoundingClientRect();
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        width = Math.max(1, Math.floor(rect.width));
-        height = Math.max(1, Math.floor(rect.height));
-        canvas.width = Math.floor(width * dpr);
-        canvas.height = Math.floor(height * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        seed();
-      };
-
-      const draw = () => {
-        frame += prefersReduced ? 0 : 0.006;
-
-        // Easing pointer for smooth parallax
-        pointer.x += (target.x - pointer.x) * 0.05;
-        pointer.y += (target.y - pointer.y) * 0.05;
-
-        ctx.clearRect(0, 0, width, height);
-
-        // Very soft top-right nebula glow
-        const glow = ctx.createRadialGradient(
-          width * 0.78, height * 0.18, 0,
-          width * 0.78, height * 0.18, Math.max(width, height) * 0.7
-        );
-        glow.addColorStop(0, "rgba(91, 141, 239, 0.10)");
-        glow.addColorStop(0.65, "rgba(91, 141, 239, 0.015)");
-        glow.addColorStop(1, "rgba(10, 14, 26, 0)");
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, width, height);
-
-        const parallaxX = (pointer.x - 0.5) * 18;
-        const parallaxY = (pointer.y - 0.5) * 14;
-
-        for (const p of particles) {
-          const px = p.x * width + parallaxX * p.depth;
-          const py = p.y * height + parallaxY * p.depth;
-          // Gentle twinkle, smaller amplitude than v1
-          const twinkle = prefersReduced ? 0 : Math.sin(frame * 1.4 + p.phase) * 0.10;
-          const alpha = Math.max(0.04, Math.min(0.85, p.base + twinkle));
-
-          // Only the brightest stars get a faint halo
-          if (p.r > 1.0) {
-            const halo = ctx.createRadialGradient(px, py, 0, px, py, p.r * 5);
-            halo.addColorStop(0, `rgba(245, 241, 232, ${alpha * 0.22})`);
-            halo.addColorStop(1, "rgba(245, 241, 232, 0)");
-            ctx.fillStyle = halo;
-            ctx.beginPath();
-            ctx.arc(px, py, p.r * 5, 0, Math.PI * 2);
-            ctx.fill();
-          }
-
-          ctx.fillStyle = `rgba(245, 241, 232, ${alpha})`;
-          ctx.beginPath();
-          ctx.arc(px, py, p.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        if (!prefersReduced) raf = window.requestAnimationFrame(draw);
-      };
-
-      const move = (event: PointerEvent) => {
-        const rect = canvas.getBoundingClientRect();
-        target.x = (event.clientX - rect.left) / rect.width;
-        target.y = (event.clientY - rect.top) / rect.height;
-      };
-
-      resize();
-      draw();
-      window.addEventListener("resize", resize, { passive: true });
-      canvas.addEventListener("pointermove", move, { passive: true });
-      canvas.addEventListener("pointerleave", () => {
-        target.x = 0.5;
-        target.y = 0.5;
-      });
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) window.cancelAnimationFrame(raf);
-        else if (!prefersReduced) draw();
-      });
-    };
-
     const scrollCue = document.getElementById("scroll-cue");
     const fadeCue = () => scrollCue?.classList.add("is-hidden");
     window.addEventListener("scroll", fadeCue, { once: true, passive: true });
-
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(boot, { timeout: 900 });
-    } else {
-      globalThis.setTimeout(boot, 120);
-    }
   })();
 
   /* Hero subscribe form — same Beehiiv endpoint as the bottom form */

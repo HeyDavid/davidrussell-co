@@ -37,6 +37,20 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Custom cursor — small four-point star, on-theme.
+   Coarse-pointer (touch) devices fall back to default automatically because
+   the OS ignores cursor on touch. */
+html, body {
+  cursor: url("/assets/cursor-star.svg") 12 12, auto;
+}
+a, button, [role="button"], label, input[type="submit"], summary {
+  cursor: url("/assets/cursor-star-pointer.svg") 14 14, pointer;
+}
+input[type="email"], input[type="text"], textarea {
+  cursor: text;
+}
+
 html { scroll-behavior: smooth; background: var(--paper); }
 /* Outer space (top) → deep ocean (bottom). Fixed attachment so the
    gradient stays anchored to the viewport as you scroll, but we add
@@ -136,30 +150,36 @@ button, input { font: inherit; }
 .masthead nav {
   display: flex;
   justify-content: center;
-  gap: 28px;
+  gap: 34px;
   flex-wrap: wrap;
 }
 .masthead nav a {
   border: 0;
-  color: var(--mist);
+  color: var(--star);
   font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: -0.005em;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.012em;
   text-transform: none;
   position: relative;
+  text-shadow: 0 0 14px rgba(245, 241, 232, 0.12);
+  transition: color 200ms ease, text-shadow 240ms ease;
 }
 .masthead nav a::after {
   content: "";
   position: absolute;
   left: 0;
   right: 100%;
-  bottom: -4px;
+  bottom: -5px;
   height: 1px;
   background: var(--signal);
-  transition: right 280ms var(--ease-out);
+  box-shadow: 0 0 8px rgba(91, 141, 239, 0.7);
+  transition: right 320ms var(--ease-out);
 }
-.masthead nav a:hover { color: var(--star); }
+.masthead nav a:hover {
+  color: var(--star);
+  text-shadow: 0 0 18px rgba(91, 141, 239, 0.6), 0 0 4px rgba(91, 141, 239, 0.4);
+}
 .masthead nav a:hover::after { right: 0; }
 .masthead-meta {
   border: 0;
@@ -229,24 +249,15 @@ button, input { font: inherit; }
 }
 .section-kicker {
   color: var(--signal);
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  line-height: 1.4;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
   text-transform: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: block;
   margin-bottom: 14px;
-}
-.section-kicker::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--signal);
-  box-shadow: 0 0 8px rgba(91, 141, 239, 0.6);
 }
 .hero h1 {
   font-family: var(--serif);
@@ -566,16 +577,27 @@ section.entry > p,
 .timeline,
 .writing-list {
   list-style: none;
-  margin-top: 26px;
+  margin-top: 42px;
 }
-.timeline li,
-.writing-list li {
+.timeline li {
   display: grid;
   grid-template-columns: 132px 1fr;
   gap: 24px;
   padding: 20px 0;
   border-top: 1px dotted var(--rule);
 }
+.writing-list li {
+  padding: 28px 0;
+  border-top: 1px solid var(--rule);
+}
+.writing-list li:first-child { border-top: 0; padding-top: 14px; }
+.writing-list a {
+  display: grid;
+  gap: 12px;
+  border: 0;
+  align-items: start;
+}
+.writing-list a:hover .post-title { color: var(--signal); }
 .timeline-when,
 .post-meta {
   color: var(--mist);
@@ -600,13 +622,27 @@ section.entry > p,
 }
 .post-title {
   font-family: var(--sans);
-  font-size: clamp(24px, 2.6vw, 34px);
+  font-size: clamp(22px, 2.4vw, 32px);
   font-weight: 500;
   letter-spacing: -0.025em;
-  line-height: 1.15;
+  line-height: 1.2;
+  color: var(--star);
+  transition: color 200ms ease;
 }
-.post-meta { text-align: right; }
-.post-dek { grid-column: 1 / -1; max-width: 56rem; }
+.post-meta {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: left;
+  margin-bottom: 2px;
+}
+.post-dek {
+  max-width: 56rem;
+  color: var(--mist);
+  font-size: 16px;
+  line-height: 1.55;
+}
 
 /* Format tags — inline colored marker, no pill chrome */
 .format-tag {

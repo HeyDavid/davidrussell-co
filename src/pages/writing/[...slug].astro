@@ -16,11 +16,11 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }).toUpperCase();
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
 const metaLine =
   post.data.status === "coming-soon"
-    ? "DRAFT - COMING SOON"
+    ? "Draft — coming soon"
     : formatDate(post.data.publishDate);
 ---
 
@@ -33,9 +33,9 @@ const metaLine =
     <article class="essay">
       <a href="/writing/" class="back">Back to all writing</a>
       <h1>{post.data.title}</h1>
-      <p class="post-meta-line font-mono">
+      <p class="post-meta-line">
         <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
-        <span class="meta-line">{metaLine}{post.data.readTime ? ` / ${post.data.readTime}` : ""}</span>
+        <span class="meta-line">{metaLine.toLowerCase()}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</span>
       </p>
       <div class="post-body">
         <Content />

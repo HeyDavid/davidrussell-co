@@ -8,8 +8,8 @@ const latest = allPosts
 
 const formatMeta = (post: (typeof latest)[number]) =>
   post.data.status === "coming-soon"
-    ? "COMING SOON"
-    : post.data.publishDate.toLocaleDateString("en-US", { year: "numeric", month: "short" }).toUpperCase();
+    ? "coming soon"
+    : post.data.publishDate.toLocaleDateString("en-US", { year: "numeric", month: "short" });
 ---
 
 <section class="entry" id="writing" aria-labelledby="writing-title">
@@ -20,11 +20,11 @@ const formatMeta = (post: (typeof latest)[number]) =>
     {latest.map((post) => (
       <li>
         <a href={`/writing/${post.id}/`}>
-          <div class="post-title">{post.data.title}</div>
           <div class="post-meta">
             <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
-            <span class="post-date">{formatMeta(post)}{post.data.readTime ? ` / ${post.data.readTime}` : ""}</span>
+            <span class="post-date">{formatMeta(post)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</span>
           </div>
+          <div class="post-title">{post.data.title}</div>
           {post.data.description && <div class="post-dek">{post.data.description}</div>}
         </a>
       </li>
@@ -41,10 +41,11 @@ const formatMeta = (post: (typeof latest)[number]) =>
     justify-content: flex-end;
   }
   .post-date {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--mist);
   }
 </style>

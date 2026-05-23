@@ -1,0 +1,210 @@
+---
+/*
+  Starfield — fixed full-viewport SVG starfield.
+
+  Replaces the canvas starfield from v1 (which looked "cheap" — alpha-blended
+  half-pixel dots get fuzzy on retina). SVG renders at pixel precision, and
+  most of the motion lives in tiny CSS animations applied to a handful of
+  elements rather than a 60fps RAF loop.
+
+  Density gradient: stars are denser at the top, sparser toward middle. Above
+  scroll-progress ~0.45 the whole layer fades out (the DeepOcean layer fades
+  IN over the same range, so the transition reads as a descent).
+
+  2–3 shooting stars are CSS-animated divs that streak across with long delays
+  so they feel like a rare event, not a loop.
+*/
+
+const random = (seed: number) => {
+  // Deterministic PRNG so the same starfield renders every build —
+  // gives David's site a recognizable sky rather than a random one
+  let x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+};
+
+const STAR_COUNT = 130;
+const BRIGHT_COUNT = 9;
+
+type Star = { x: number; y: number; r: number; o: number; twinkle: boolean };
+const stars: Star[] = [];
+for (let i = 0; i < STAR_COUNT; i++) {
+  const rx = random(i * 12.97);
+  const ry = random(i * 7.31 + 3);
+  // Bias toward the top half of the viewport — denser sky overhead
+  const y = ry * ry * 100;
+  const r = 0.4 + random(i * 4.13) * 0.7;
+  const o = 0.35 + random(i * 9.71) * 0.5;
+  const twinkle = random(i * 2.17) > 0.85;
+  stars.push({ x: rx * 100, y, r, o, twinkle });
+}
+
+type Bright = { x: number; y: number; size: number; twinkle: boolean };
+const bright: Bright[] = [];
+for (let i = 0; i < BRIGHT_COUNT; i++) {
+  const seed = (i + 1) * 17.3;
+  const x = random(seed) * 100;
+  const y = random(seed + 5) * random(seed + 5) * 70;
+  const size = 5 + random(seed + 11) * 4;
+  const twinkle = i < 4; // only some brights twinkle
+  bright.push({ x, y, size, twinkle });
+}
+---
+
+<div class="starfield" aria-hidden="true">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="starfield-svg">
+    {/* Dim distant stars */}
+    {stars.map((s, i) => (
+      <circle
+        cx={s.x}
+        cy={s.y}
+        r={s.r * 0.12}
+        fill="#f5f1e8"
+        opacity={s.o}
+        class={s.twinkle ? "twinkle" : ""}
+        style={`animation-delay: ${(i * 173) % 4000}ms`}
+      />
+    ))}
+
+    {/* Bright anchor stars — 4-point cross shape */}
+    {bright.map((b, i) => (
+      <g
+        transform={`translate(${b.x} ${b.y})`}
+        class={b.twinkle ? "twinkle-bright" : ""}
+        style={`animation-delay: ${(i * 821) % 5000}ms`}
+      >
+        <circle r={b.size * 0.07} fill="#f5f1e8" opacity="0.32" />
+        <path
+          d={`M0 ${-b.size * 0.13} L${b.size * 0.013} ${-b.size * 0.013} L${b.size * 0.13} 0 L${b.size * 0.013} ${b.size * 0.013} L0 ${b.size * 0.13} L${-b.size * 0.013} ${b.size * 0.013} L${-b.size * 0.13} 0 L${-b.size * 0.013} ${-b.size * 0.013} Z`}
+          fill="#f5f1e8"
+        />
+      </g>
+    ))}
+  </svg>
+
+  {/* Shooting stars — CSS animated, fire occasionally */}
+  <div class="shooting-star shooting-star-a"></div>
+  <div class="shooting-star shooting-star-b"></div>
+</div>
+
+<style>
+  .starfield {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    /* Fade out as user scrolls into the deep — driven via scroll progress
+       set by an inline script below; defaults to fully visible at top. */
+    opacity: var(--starfield-opacity, 1);
+    transition: opacity 600ms ease;
+    /* Mask: denser at top of viewport, fading toward bottom — creates the
+       "looking up" feel and meshes with the DeepOcean layer below. */
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 95%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 95%);
+  }
+  .starfield-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Twinkle — only a small subset of stars twinkle, otherwise the sky feels
+     stagey. Pure CSS, no JS, runs on compositor. */
+  @keyframes star-twinkle {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 0.25; }
+  }
+  @keyframes star-twinkle-bright {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.85); }
+  }
+  .twinkle {
+    animation: star-twinkle 4.5s ease-in-out infinite;
+  }
+  .twinkle-bright {
+    animation: star-twinkle-bright 5.5s ease-in-out infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  /* Shooting stars — two trails, very long delays so they feel rare */
+  .shooting-star {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 90px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 241, 232, 0.9), transparent);
+    border-radius: 1px;
+    opacity: 0;
+    transform-origin: left center;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+  .shooting-star::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -1px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #f5f1e8;
+    box-shadow: 0 0 8px rgba(245, 241, 232, 0.8);
+  }
+  @keyframes shoot {
+    0% {
+      transform: translate(-10vw, -2vh) rotate(18deg) scaleX(0.6);
+      opacity: 0;
+    }
+    5% { opacity: 0; }
+    10% { opacity: 1; transform: translate(0vw, 2vh) rotate(18deg) scaleX(1); }
+    35% { opacity: 1; }
+    50% {
+      opacity: 0;
+      transform: translate(60vw, 22vh) rotate(18deg) scaleX(1);
+    }
+    100% { opacity: 0; transform: translate(60vw, 22vh) rotate(18deg); }
+  }
+  .shooting-star-a {
+    top: 12%;
+    left: -10vw;
+    animation: shoot 12s ease-in 4s infinite;
+  }
+  .shooting-star-b {
+    top: 22%;
+    left: -10vw;
+    width: 70px;
+    animation: shoot 16s ease-in 9s infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .twinkle, .twinkle-bright,
+    .shooting-star-a, .shooting-star-b {
+      animation: none;
+    }
+    .shooting-star { display: none; }
+  }
+</style>
+
+<script>
+  /* Tie the starfield opacity to scroll progress so the layer fades out as
+     the user descends past the hero. The DeepOcean canvas fades IN over the
+     same range, creating a crossfade through the middle of the document. */
+  (() => {
+    const update = () => {
+      const doc = document.documentElement;
+      const scrolled = window.scrollY;
+      const total = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const p = Math.max(0, Math.min(1, scrolled / total));
+      // Full strength until 0.30, fading to 0 by 0.55
+      const opacity = p < 0.30 ? 1 : Math.max(0, 1 - (p - 0.30) / 0.25);
+      document.documentElement.style.setProperty("--starfield-opacity", opacity.toFixed(3));
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  })();
+</script>
