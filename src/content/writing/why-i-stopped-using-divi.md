@@ -4,7 +4,7 @@ description: "A practical note on moving from page-builder comfort to faster, cl
 publishDate: 2026-06-01
 readTime: "Draft"
 status: "coming-soon"
-draft: false
+draft: true
 ---
 
 Draft - coming soon.

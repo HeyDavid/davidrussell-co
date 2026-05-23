@@ -34,7 +34,8 @@ const metaLine =
       <a href="/writing/" class="back">Back to all writing</a>
       <h1>{post.data.title}</h1>
       <p class="post-meta-line font-mono">
-        {metaLine}{post.data.readTime ? ` / ${post.data.readTime}` : ""}
+        <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
+        <span class="meta-line">{metaLine}{post.data.readTime ? ` / ${post.data.readTime}` : ""}</span>
       </p>
       <div class="post-body">
         <Content />
@@ -43,3 +44,17 @@ const metaLine =
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  .post-meta-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .post-meta-line .meta-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+</style>

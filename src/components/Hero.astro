@@ -22,7 +22,7 @@ const lanes = [
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <canvas class="flow-field" id="flow-field" aria-hidden="true"></canvas>
+  <canvas class="deep-field" id="deep-field" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="hero-byline">
       <div class="hero-portrait">
@@ -58,19 +58,48 @@ const lanes = [
 
 <script>
   (() => {
+    type Star = {
+      x: number;
+      y: number;
+      r: number;
+      base: number;      // base alpha
+      twinkle: number;   // twinkle phase offset
+      depth: number;     // 0 (far) – 1 (near), drives parallax magnitude
+    };
+
     const boot = () => {
-      const canvas = document.getElementById("flow-field") as HTMLCanvasElement | null;
+      const canvas = document.getElementById("deep-field") as HTMLCanvasElement | null;
       if (!canvas) return;
       const ctx = canvas.getContext("2d", { alpha: true });
       if (!ctx) return;
 
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const pointer = { x: 0.62, y: 0.38, active: false };
+      const pointer = { x: 0.5, y: 0.5, active: false };
+      const target = { x: 0.5, y: 0.5 };
       let width = 0;
       let height = 0;
       let dpr = 1;
       let frame = 0;
       let raf = 0;
+      let stars: Star[] = [];
+
+      const seedStars = () => {
+        const area = width * height;
+        // Density tuned for ~340 stars on a 1280x800 hero
+        const count = Math.min(520, Math.max(140, Math.floor(area / 2900)));
+        stars = new Array(count).fill(0).map(() => {
+          const depth = Math.random();
+          const r = depth > 0.85 ? 1.6 + Math.random() * 0.8 : 0.4 + Math.random() * 1.0;
+          return {
+            x: Math.random(),
+            y: Math.random(),
+            r,
+            base: 0.25 + Math.random() * 0.55 * depth,
+            twinkle: Math.random() * Math.PI * 2,
+            depth,
+          };
+        });
+      };
 
       const resize = () => {
         const rect = canvas.getBoundingClientRect();
@@ -80,46 +109,54 @@ const lanes = [
         canvas.width = Math.floor(width * dpr);
         canvas.height = Math.floor(height * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seedStars();
       };
 
-      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const strokeRgb = isDark ? "237, 237, 240" : "20, 20, 22";
-
       const draw = () => {
-        frame += prefersReduced ? 0 : 0.009;
+        frame += prefersReduced ? 0 : 0.008;
+
+        // Easing pointer toward target gives smooth parallax instead of jitter
+        pointer.x += (target.x - pointer.x) * 0.06;
+        pointer.y += (target.y - pointer.y) * 0.06;
+
         ctx.clearRect(0, 0, width, height);
 
-        const gradient = ctx.createLinearGradient(0, 0, width, height);
-        gradient.addColorStop(0, "rgba(29, 60, 255, 0.14)");
-        gradient.addColorStop(0.55, "rgba(29, 60, 255, 0.04)");
-        gradient.addColorStop(1, "rgba(10, 10, 10, 0.04)");
-        ctx.fillStyle = gradient;
+        // Faint nebula glow under stars
+        const glow = ctx.createRadialGradient(
+          width * 0.75, height * 0.15, 0,
+          width * 0.75, height * 0.15, Math.max(width, height) * 0.65
+        );
+        glow.addColorStop(0, "rgba(91, 141, 239, 0.16)");
+        glow.addColorStop(0.6, "rgba(91, 141, 239, 0.02)");
+        glow.addColorStop(1, "rgba(10, 14, 26, 0)");
+        ctx.fillStyle = glow;
         ctx.fillRect(0, 0, width, height);
 
-        const spacing = width < 680 ? 24 : 30;
-        const mouseX = pointer.x * width;
-        const mouseY = pointer.y * height;
+        // Stars
+        const parallaxX = (pointer.x - 0.5) * 28;
+        const parallaxY = (pointer.y - 0.5) * 22;
 
-        ctx.lineWidth = 1;
-        for (let y = -spacing; y < height + spacing; y += spacing) {
-          for (let x = -spacing; x < width + spacing; x += spacing) {
-            const dx = x - mouseX;
-            const dy = y - mouseY;
-            const distance = Math.max(1, Math.sqrt(dx * dx + dy * dy));
-            const pull = pointer.active ? Math.min(1.8, 160 / distance) : 0.35;
-            const angle =
-              Math.sin(x * 0.008 + frame) +
-              Math.cos(y * 0.01 - frame * 1.4) +
-              Math.atan2(dy, dx) * pull;
-            const length = spacing * (0.38 + Math.min(0.55, 80 / distance));
-            const alpha = 0.1 + Math.min(0.32, 70 / distance);
+        for (const s of stars) {
+          const px = s.x * width + parallaxX * s.depth;
+          const py = s.y * height + parallaxY * s.depth;
+          const twinkle = prefersReduced ? 0 : Math.sin(frame * 2 + s.twinkle) * 0.18;
+          const alpha = Math.max(0.05, Math.min(1, s.base + twinkle));
 
+          // Large stars get a subtle halo
+          if (s.r > 1.4) {
+            const halo = ctx.createRadialGradient(px, py, 0, px, py, s.r * 4.5);
+            halo.addColorStop(0, `rgba(245, 241, 232, ${alpha * 0.35})`);
+            halo.addColorStop(1, "rgba(245, 241, 232, 0)");
+            ctx.fillStyle = halo;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(${strokeRgb}, ${alpha})`;
-            ctx.moveTo(x, y);
-            ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
-            ctx.stroke();
+            ctx.arc(px, py, s.r * 4.5, 0, Math.PI * 2);
+            ctx.fill();
           }
+
+          ctx.fillStyle = `rgba(245, 241, 232, ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(px, py, s.r, 0, Math.PI * 2);
+          ctx.fill();
         }
 
         if (!prefersReduced) raf = window.requestAnimationFrame(draw);
@@ -127,8 +164,8 @@ const lanes = [
 
       const move = (event: PointerEvent) => {
         const rect = canvas.getBoundingClientRect();
-        pointer.x = (event.clientX - rect.left) / rect.width;
-        pointer.y = (event.clientY - rect.top) / rect.height;
+        target.x = (event.clientX - rect.left) / rect.width;
+        target.y = (event.clientY - rect.top) / rect.height;
         pointer.active = true;
       };
 
@@ -137,6 +174,8 @@ const lanes = [
       window.addEventListener("resize", resize, { passive: true });
       canvas.addEventListener("pointermove", move, { passive: true });
       canvas.addEventListener("pointerleave", () => {
+        target.x = 0.5;
+        target.y = 0.5;
         pointer.active = false;
       });
       document.addEventListener("visibilitychange", () => {

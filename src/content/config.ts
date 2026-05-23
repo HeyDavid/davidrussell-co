@@ -11,6 +11,7 @@ const writing = defineCollection({
     tags: z.array(z.string()).optional(),
     status: z.enum(["published", "coming-soon"]).default("published"),
     draft: z.boolean().default(false),
+    format: z.enum(["essay", "debate", "note", "log", "scrap"]).default("essay"),
   }),
 });
 

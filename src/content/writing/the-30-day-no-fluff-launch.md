@@ -4,7 +4,7 @@ description: "A tiny launch plan for people who need signal, not ceremony."
 publishDate: 2026-06-04
 readTime: "Draft"
 status: "coming-soon"
-draft: false
+draft: true
 ---
 
 Draft - coming soon.

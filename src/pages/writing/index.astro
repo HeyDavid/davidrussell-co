@@ -43,7 +43,10 @@ const hasPosts = posts.length > 0;
             <li>
               <a href={`/writing/${post.id}/`}>
                 <div class="post-title">{post.data.title}</div>
-                <div class="post-meta">{formatMeta(post)}</div>
+                <div class="post-meta">
+                  <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
+                  <span class="post-date">{formatMeta(post)}</span>
+                </div>
                 {post.data.description && <div class="post-dek">{post.data.description}</div>}
               </a>
             </li>
@@ -64,5 +67,18 @@ const hasPosts = posts.length > 0;
   }
   .empty-note a {
     border-bottom: 1px solid var(--rule-strong);
+  }
+  .post-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .post-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
   }
 </style>
