@@ -1,27 +1,51 @@
 ---
 /*
-  DeepOcean — second canvas layer that fades in as the user scrolls past the
-  hero. Renders slow upward-drifting sea particles (think suspended plankton
-  in a midnight-zone dive). Tinted blue-green to differentiate from the
-  warm-white stars in the hero. Fixed positioning so it stays anchored to the
-  viewport, opacity tied to scroll progress so the transition from "outer
-  space" to "deep ocean" reads as one continuous descent.
+  DeepOcean v2 — proper deep-water scene with caustic light shafts, size-
+  varied particulate suspension, and rare bioluminescent sparks.
+
+  v1 used flat teal motes with low alpha. This rebuild adds:
+    - Caustic light shafts (god rays) descending from above, fading with
+      depth. Real "looking up from underwater" feel.
+    - Particle size + color variation. Most are tiny pale dust, a few are
+      larger and warmer.
+    - Bioluminescent flicker: 1–2 particles "spark" briefly every few
+      seconds, like deep-sea life.
+    - Subtle current motion via dual-axis perlin-style sway.
+
+  Fades in past scroll-progress 0.30; starfield fades out over the same
+  range so the descent reads as a single continuous transition.
 */
 ---
 
 <canvas class="deep-ocean" id="deep-ocean" aria-hidden="true"></canvas>
 
+<style>
+  .deep-ocean {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 800ms ease;
+  }
+</style>
+
 <script>
   (() => {
     type Mote = {
-      x: number;          // 0–1
-      y: number;          // 0–1, wraps
+      x: number;
+      y: number;
       r: number;
-      base: number;       // base alpha
-      drift: number;      // upward speed
-      sway: number;       // lateral sway frequency
+      base: number;
+      drift: number;
+      sway: number;
       swayPhase: number;
+      hue: [number, number, number];
       depth: number;
+      sparkNext: number;
+      sparkUntil: number;
     };
 
     const boot = () => {
@@ -33,22 +57,35 @@
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let width = 0, height = 0, dpr = 1, frame = 0, raf = 0;
       let motes: Mote[] = [];
-      let scrollProgress = 0; // 0 (at hero) → 1 (at footer)
+      let scrollProgress = 0;
+
+      const HUES: [number, number, number][] = [
+        [150, 220, 220], // pale teal (most common)
+        [180, 230, 200], // pale green
+        [120, 200, 240], // pale blue
+        [220, 200, 180], // warm dust (rare)
+      ];
 
       const seed = () => {
         const area = width * height;
-        const count = Math.min(160, Math.max(48, Math.floor(area / 9000)));
+        const count = Math.min(220, Math.max(70, Math.floor(area / 7000)));
         motes = new Array(count).fill(0).map(() => {
           const depth = Math.random();
+          // Power-law size — most tiny dust, occasional larger particle
+          const r = 0.3 + Math.pow(Math.random(), 3.5) * 1.6;
+          const hueIdx = Math.random() < 0.08 ? 3 : Math.floor(Math.random() * 3);
           return {
             x: Math.random(),
             y: Math.random(),
-            r: 0.3 + Math.random() * 0.9,
-            base: 0.12 + Math.random() * 0.32 * depth,
-            drift: 0.00006 + Math.random() * 0.00018,
-            sway: 0.3 + Math.random() * 0.8,
+            r,
+            base: 0.08 + Math.random() * 0.32 * (0.4 + depth * 0.6),
+            drift: 0.00004 + Math.random() * 0.00018,
+            sway: 0.3 + Math.random() * 0.7,
             swayPhase: Math.random() * Math.PI * 2,
+            hue: HUES[hueIdx],
             depth,
+            sparkNext: 8000 + Math.random() * 25000,
+            sparkUntil: 0,
           };
         });
       };
@@ -66,65 +103,102 @@
 
       const computeScroll = () => {
         const doc = document.documentElement;
-        const scrolled = window.scrollY;
         const total = Math.max(1, doc.scrollHeight - window.innerHeight);
-        scrollProgress = Math.max(0, Math.min(1, scrolled / total));
+        scrollProgress = Math.max(0, Math.min(1, window.scrollY / total));
+      };
+
+      const drawCaustics = (strength: number) => {
+        // God rays: vertical light shafts descending from the top, fading
+        // with depth. Each shaft is a tall narrow trapezoid with a gradient.
+        const shaftCount = 5;
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        for (let i = 0; i < shaftCount; i++) {
+          const cx = ((i + 0.3) / shaftCount) * width
+                   + Math.sin(frame * 0.0012 + i * 1.7) * (width * 0.04);
+          const topWidth = width * (0.04 + (i % 2) * 0.02);
+          const bottomWidth = topWidth * 2.2;
+          const grad = ctx.createLinearGradient(cx, 0, cx, height);
+          grad.addColorStop(0, `rgba(180, 220, 220, ${0.08 * strength})`);
+          grad.addColorStop(0.55, `rgba(120, 180, 200, ${0.025 * strength})`);
+          grad.addColorStop(1, `rgba(20, 40, 60, 0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.moveTo(cx - topWidth / 2, 0);
+          ctx.lineTo(cx + topWidth / 2, 0);
+          ctx.lineTo(cx + bottomWidth / 2, height);
+          ctx.lineTo(cx - bottomWidth / 2, height);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
       };
 
       const draw = () => {
         frame += prefersReduced ? 0 : 1;
 
-        // Fade in past hero (~vh 0.6), full strength by 0.4 scroll
-        const heroOut = Math.min(1, Math.max(0, (scrollProgress - 0.06) / 0.34));
-        canvas.style.opacity = heroOut.toFixed(3);
+        // Fade in past hero (~scroll 0.30) → full by 0.55
+        const oceanIn = Math.min(1, Math.max(0, (scrollProgress - 0.30) / 0.28));
+        canvas.style.opacity = oceanIn.toFixed(3);
 
         ctx.clearRect(0, 0, width, height);
 
-        if (heroOut <= 0.01) {
+        if (oceanIn <= 0.01) {
           if (!prefersReduced) raf = window.requestAnimationFrame(draw);
           return;
         }
 
-        // Subtle teal-blue caustic glow at the bottom (deeper light scatter)
-        const causticGradient = ctx.createRadialGradient(
-          width * 0.5, height * 1.05, 0,
-          width * 0.5, height * 1.05, Math.max(width, height) * 0.85
-        );
-        causticGradient.addColorStop(0, "rgba(64, 138, 168, 0.10)");
-        causticGradient.addColorStop(0.5, "rgba(46, 110, 138, 0.04)");
-        causticGradient.addColorStop(1, "rgba(3, 18, 24, 0)");
-        ctx.fillStyle = causticGradient;
+        // Deep-water gradient overlay — slightly darken + tint deeper as
+        // we go down (this stacks on top of the starfield gradient)
+        const oceanGrad = ctx.createLinearGradient(0, 0, 0, height);
+        oceanGrad.addColorStop(0, `rgba(5, 20, 35, ${0.20 * oceanIn})`);
+        oceanGrad.addColorStop(0.5, `rgba(3, 22, 36, ${0.35 * oceanIn})`);
+        oceanGrad.addColorStop(1, `rgba(2, 14, 24, ${0.55 * oceanIn})`);
+        ctx.fillStyle = oceanGrad;
         ctx.fillRect(0, 0, width, height);
 
+        // Caustic light shafts from above
+        drawCaustics(oceanIn);
+
+        // Particles — drift up with sway
         for (const m of motes) {
-          // Drift upward (slow ascent)
           m.y -= m.drift * (prefersReduced ? 0 : 1);
           if (m.y < -0.02) { m.y = 1.02; m.x = Math.random(); }
 
-          // Lateral sway like organic suspension
           const sway = prefersReduced ? 0 : Math.sin(frame * 0.004 * m.sway + m.swayPhase) * 6;
-
           const px = m.x * width + sway * m.depth;
           const py = m.y * height;
 
-          const alpha = m.base * (0.55 + heroOut * 0.45);
+          // Bioluminescent spark — rare flash
+          const now = frame;
+          if (now > m.sparkNext) {
+            m.sparkUntil = now + 60; // ~1s at 60fps
+            m.sparkNext = now + 8000 + Math.random() * 25000;
+          }
+          const sparking = now < m.sparkUntil;
+          const sparkBoost = sparking
+            ? Math.sin(((now - (m.sparkUntil - 60)) / 60) * Math.PI) * 3
+            : 0;
 
-          // Mote color: pale teal-green, like distant phosphorescence
-          ctx.fillStyle = `rgba(150, 220, 220, ${alpha})`;
+          const baseAlpha = m.base * oceanIn * (1 + sparkBoost);
+          const [r, g, b] = m.hue;
+
+          // Halo for larger / sparking particles
+          if (m.r > 0.9 || sparking) {
+            const haloR = m.r * (sparking ? 6 : 4);
+            const halo = ctx.createRadialGradient(px, py, 0, px, py, haloR);
+            halo.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${baseAlpha * 0.4})`);
+            halo.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+            ctx.fillStyle = halo;
+            ctx.beginPath();
+            ctx.arc(px, py, haloR, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${Math.min(1, baseAlpha)})`;
           ctx.beginPath();
           ctx.arc(px, py, m.r, 0, Math.PI * 2);
           ctx.fill();
-
-          // Brightest motes get a small glow
-          if (m.r > 0.85) {
-            const halo = ctx.createRadialGradient(px, py, 0, px, py, m.r * 4);
-            halo.addColorStop(0, `rgba(150, 220, 220, ${alpha * 0.35})`);
-            halo.addColorStop(1, "rgba(150, 220, 220, 0)");
-            ctx.fillStyle = halo;
-            ctx.beginPath();
-            ctx.arc(px, py, m.r * 4, 0, Math.PI * 2);
-            ctx.fill();
-          }
         }
 
         if (!prefersReduced) raf = window.requestAnimationFrame(draw);
@@ -148,17 +222,3 @@
     }
   })();
 </script>
-
-<style>
-  .deep-ocean {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 800ms ease;
-    mix-blend-mode: screen;
-  }
-</style>
