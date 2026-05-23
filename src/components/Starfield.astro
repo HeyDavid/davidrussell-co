@@ -1,22 +1,12 @@
 ---
 /*
-  Starfield v3 — proper canvas-rendered cosmic scene.
+  Starfield v4 — restrained cosmic scene with ambient craft.
 
-  v2 used CSS box-shadow stars (all identical, screams "template starfield").
-  v3 uses canvas so every star has real variation:
+  Fewer stars (~180), more variation, plus 2 small ambient ships that
+  drift very slowly across the void with blinking lights. Reads as
+  "inhabited deep space" instead of "empty backdrop."
 
-    - Color temperature: blue-white / white / yellow-white / orange-red
-      with a realistic distribution (70% white, 15% blue, 10% yellow, 5% red).
-    - Size: power-law distribution. Most are sub-pixel, a few are big.
-    - Halos on stars > 1px (soft Gaussian-style glow drawn as radial gradient).
-    - Diffraction spikes (the iconic "+" cross of a real camera or telescope)
-      on the brightest stars only — gives the image its real signature.
-    - Nebula clouds as soft layered radial blobs at low alpha — atmospheric
-      depth, not flat gradient.
-    - Three parallax depth tiers tied to scroll and mouse.
-
-  Designed to crossfade with the DeepOcean canvas, which fades in as the
-  user scrolls past the hero.
+  Crossfades with DeepOcean canvas as the user scrolls past 30%.
 */
 ---
 
@@ -38,30 +28,25 @@
 <script>
   (() => {
     type Star = {
-      x: number;        // 0–1
-      y: number;        // 0–1
-      r: number;        // px radius
-      color: [number, number, number]; // RGB
-      base: number;     // base alpha
-      twinkle: number;  // phase
-      spikes: boolean;  // diffraction spikes
-      depth: number;    // parallax tier
-    };
-    type Cloud = {
-      x: number;
-      y: number;
-      rx: number;
-      ry: number;
+      x: number; y: number; r: number;
       color: [number, number, number];
-      alpha: number;
+      base: number; twinkle: number;
+      spikes: boolean; depth: number;
+    };
+    type Ship = {
+      x: number; y: number;
+      vx: number; vy: number;
+      blink: number; phase: number;
+      lightColor: [number, number, number];
+      kind: "satellite" | "capsule";
     };
 
     const COLORS: { rgb: [number, number, number]; weight: number }[] = [
-      { rgb: [184, 200, 255], weight: 15 }, // blue-white (hot stars)
-      { rgb: [245, 241, 232], weight: 60 }, // white (sun-like, dominant)
-      { rgb: [255, 245, 220], weight: 15 }, // yellow-white
-      { rgb: [255, 207, 166], weight:  7 }, // orange (cooler stars)
-      { rgb: [255, 175, 140], weight:  3 }, // red-orange (rare)
+      { rgb: [184, 200, 255], weight: 15 },
+      { rgb: [245, 241, 232], weight: 60 },
+      { rgb: [255, 245, 220], weight: 15 },
+      { rgb: [255, 207, 166], weight:  7 },
+      { rgb: [255, 175, 140], weight:  3 },
     ];
     const WEIGHT_TOTAL = COLORS.reduce((a, c) => a + c.weight, 0);
 
@@ -74,8 +59,6 @@
       return COLORS[1].rgb;
     };
 
-    // Seeded RNG so the same starfield renders every load — gives the
-    // site a recognizable sky rather than a random one each visit
     const mulberry32 = (a: number) => () => {
       a |= 0; a = (a + 0x6D2B79F5) | 0;
       let t = Math.imul(a ^ (a >>> 15), 1 | a);
@@ -94,40 +77,45 @@
       const target = { x: 0.5, y: 0.5 };
       let width = 0, height = 0, dpr = 1, frame = 0, raf = 0;
       let stars: Star[] = [];
-      let clouds: Cloud[] = [];
+      let ships: Ship[] = [];
 
       const seed = () => {
         const rng = mulberry32(20260523);
 
-        // Stars: power-law size distribution. Most tiny, few big.
-        const count = 340;
+        const count = 180;
         stars = new Array(count).fill(0).map(() => {
-          const u = rng();
-          // Power-law size: most stars sub-pixel, rare ones bright
-          const r = 0.3 + Math.pow(rng(), 4.5) * 3.2;
+          const r = 0.3 + Math.pow(rng(), 5) * 2.8;
           const depth = rng();
-          // Bias y toward upper half — denser sky overhead
           const yRand = rng();
-          const y = yRand * yRand * 0.9 + rng() * 0.1;
+          const y = yRand * yRand * 0.85 + rng() * 0.1;
           return {
             x: rng(),
             y,
             r,
             color: pickColor(rng),
-            base: 0.3 + rng() * 0.7,
+            base: 0.25 + rng() * 0.55,
             twinkle: rng() * Math.PI * 2,
-            spikes: r > 1.8 && rng() > 0.4,
+            spikes: r > 1.6 && rng() > 0.5,
             depth,
           };
         });
 
-        // Nebula clouds — soft atmospheric blobs in cosmic colors
-        clouds = [
-          { x: 0.78, y: 0.10, rx: 0.55, ry: 0.42, color: [91, 141, 239], alpha: 0.10 }, // blue main
-          { x: 0.22, y: 0.18, rx: 0.40, ry: 0.30, color: [120, 90, 200], alpha: 0.05 }, // soft purple
-          { x: 0.55, y: 0.32, rx: 0.45, ry: 0.28, color: [50, 120, 180], alpha: 0.04 }, // mid teal
-          { x: 0.05, y: 0.55, rx: 0.50, ry: 0.30, color: [30, 80, 130], alpha: 0.06 }, // deeper blue
-          { x: 0.90, y: 0.62, rx: 0.45, ry: 0.30, color: [70, 150, 170], alpha: 0.04 }, // teal-cyan
+        // Two ambient craft drifting through the void
+        ships = [
+          {
+            x: 0.85, y: 0.18,
+            vx: -0.00006, vy: 0.00002,
+            blink: 0, phase: 0,
+            lightColor: [251, 191, 36], // warm spark yellow — the "invitation" note
+            kind: "satellite",
+          },
+          {
+            x: 0.12, y: 0.32,
+            vx: 0.00005, vy: -0.00001,
+            blink: 0, phase: Math.PI,
+            lightColor: [91, 141, 239], // signal blue
+            kind: "capsule",
+          },
         ];
       };
 
@@ -141,27 +129,59 @@
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       };
 
-      const drawNebula = () => {
-        // Layered nebula clouds — soft, low-alpha radial gradients give
-        // the sky atmospheric depth instead of being a flat gradient
-        for (const c of clouds) {
-          const cx = c.x * width;
-          const cy = c.y * height;
-          const rmax = Math.max(c.rx * width, c.ry * height);
-          const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, rmax);
-          const [r, g, b] = c.color;
-          grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${c.alpha})`);
-          grad.addColorStop(0.55, `rgba(${r}, ${g}, ${b}, ${c.alpha * 0.35})`);
-          grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-          ctx.fillStyle = grad;
-          ctx.save();
-          ctx.translate(cx, cy);
-          ctx.scale(c.rx * width / rmax, c.ry * height / rmax);
+      const drawShip = (s: Ship, parallaxX: number, parallaxY: number) => {
+        const px = s.x * width + parallaxX * 0.3;
+        const py = s.y * height + parallaxY * 0.3;
+
+        ctx.save();
+        ctx.translate(px, py);
+
+        if (s.kind === "satellite") {
+          // Small satellite: central body + two solar-panel wings
+          ctx.fillStyle = "rgba(180, 190, 210, 0.55)";
+          ctx.fillRect(-2.5, -1.5, 5, 3); // body
+          ctx.fillStyle = "rgba(120, 140, 175, 0.4)";
+          ctx.fillRect(-8, -1, 4, 2);     // left panel
+          ctx.fillRect(4, -1, 4, 2);      // right panel
+          // Antenna mast
+          ctx.strokeStyle = "rgba(180, 190, 210, 0.35)";
+          ctx.lineWidth = 0.6;
           ctx.beginPath();
-          ctx.arc(0, 0, rmax, 0, Math.PI * 2);
+          ctx.moveTo(0, -1.5);
+          ctx.lineTo(0, -4);
+          ctx.stroke();
+        } else {
+          // Capsule: rounded oblong
+          ctx.fillStyle = "rgba(180, 190, 210, 0.55)";
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 4, 1.6, 0, 0, Math.PI * 2);
           ctx.fill();
-          ctx.restore();
+          // Window
+          ctx.fillStyle = "rgba(91, 141, 239, 0.45)";
+          ctx.beginPath();
+          ctx.arc(-1.5, 0, 0.7, 0, Math.PI * 2);
+          ctx.fill();
         }
+
+        // Blinking light — soft pulse with halo
+        const pulse = 0.55 + 0.45 * Math.sin(frame * 0.06 + s.phase);
+        const [r, g, b] = s.lightColor;
+        const lightOffset = s.kind === "satellite" ? 2.5 : 3.5;
+
+        const halo = ctx.createRadialGradient(lightOffset, 0, 0, lightOffset, 0, 8);
+        halo.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${pulse * 0.8})`);
+        halo.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(lightOffset, 0, 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.7 + pulse * 0.3})`;
+        ctx.beginPath();
+        ctx.arc(lightOffset, 0, 1, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
       };
 
       const drawStar = (s: Star, alpha: number, parallaxX: number, parallaxY: number) => {
@@ -169,12 +189,11 @@
         const py = s.y * height + parallaxY * s.depth;
         const [r, g, b] = s.color;
 
-        // Halo for any star above sub-pixel size
         if (s.r > 0.9) {
-          const haloR = s.r * (s.spikes ? 8 : 5);
+          const haloR = s.r * (s.spikes ? 7 : 4.5);
           const halo = ctx.createRadialGradient(px, py, 0, px, py, haloR);
-          halo.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha * 0.4})`);
-          halo.addColorStop(0.35, `rgba(${r}, ${g}, ${b}, ${alpha * 0.12})`);
+          halo.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha * 0.35})`);
+          halo.addColorStop(0.35, `rgba(${r}, ${g}, ${b}, ${alpha * 0.10})`);
           halo.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
           ctx.fillStyle = halo;
           ctx.beginPath();
@@ -182,21 +201,17 @@
           ctx.fill();
         }
 
-        // Diffraction spikes on the brightest stars — the iconic "+"
-        // cross-shape real cameras and telescopes produce
         if (s.spikes) {
-          const spikeLen = s.r * 8;
+          const spikeLen = s.r * 7;
           ctx.save();
-          ctx.globalAlpha = alpha * 0.65;
+          ctx.globalAlpha = alpha * 0.6;
           ctx.translate(px, py);
-          // horizontal spike
           let g1 = ctx.createLinearGradient(-spikeLen, 0, spikeLen, 0);
           g1.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`);
           g1.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, 1)`);
           g1.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
           ctx.fillStyle = g1;
           ctx.fillRect(-spikeLen, -0.5, spikeLen * 2, 1);
-          // vertical spike
           let g2 = ctx.createLinearGradient(0, -spikeLen, 0, spikeLen);
           g2.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`);
           g2.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, 1)`);
@@ -206,7 +221,6 @@
           ctx.restore();
         }
 
-        // Star core — crisp filled circle
         ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         ctx.beginPath();
         ctx.arc(px, py, s.r, 0, Math.PI * 2);
@@ -221,29 +235,29 @@
 
         ctx.clearRect(0, 0, width, height);
 
-        // Cosmic background gradient — space top → twilight → abyssal
-        const bg = ctx.createLinearGradient(0, 0, 0, height);
-        bg.addColorStop(0,    "#04060d");
-        bg.addColorStop(0.18, "#06101c");
-        bg.addColorStop(0.45, "#091a2a");
-        bg.addColorStop(0.70, "#081626");
-        bg.addColorStop(0.90, "#06121e");
-        bg.addColorStop(1,    "#030c16");
-        ctx.fillStyle = bg;
-        ctx.fillRect(0, 0, width, height);
+        const parallaxX = (pointer.x - 0.5) * 18;
+        const parallaxY = (pointer.y - 0.5) * 12;
 
-        // Nebula atmosphere layer
-        drawNebula();
-
-        const parallaxX = (pointer.x - 0.5) * 20;
-        const parallaxY = (pointer.y - 0.5) * 14;
-
-        // Stars — front-to-back so spikes overlap correctly
+        // Stars
         for (const s of stars) {
-          // Each star has its own twinkle phase + amplitude varies by depth
-          const tw = prefersReduced ? 0 : Math.sin(frame * (1 + s.depth * 0.6) + s.twinkle) * 0.12;
+          const tw = prefersReduced ? 0 : Math.sin(frame * (1 + s.depth * 0.6) + s.twinkle) * 0.10;
           const alpha = Math.max(0.06, Math.min(1, s.base + tw));
           drawStar(s, alpha, parallaxX, parallaxY);
+        }
+
+        // Ambient craft — slow drift across the void
+        if (!prefersReduced) {
+          for (const s of ships) {
+            s.x += s.vx;
+            s.y += s.vy;
+            if (s.x > 1.1) s.x = -0.1;
+            if (s.x < -0.1) s.x = 1.1;
+            if (s.y > 1.1) s.y = -0.1;
+            if (s.y < -0.1) s.y = 1.1;
+          }
+        }
+        for (const s of ships) {
+          drawShip(s, parallaxX, parallaxY);
         }
 
         if (!prefersReduced) raf = window.requestAnimationFrame(draw);
@@ -265,7 +279,6 @@
         else if (!prefersReduced) draw();
       });
 
-      // Scroll-driven opacity — fade out as user descends past 30%
       const onScroll = () => {
         const doc = document.documentElement;
         const total = Math.max(1, doc.scrollHeight - window.innerHeight);

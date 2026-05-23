@@ -108,26 +108,35 @@
       };
 
       const drawCaustics = (strength: number) => {
-        // God rays: vertical light shafts descending from the top, fading
-        // with depth. Each shaft is a tall narrow trapezoid with a gradient.
-        const shaftCount = 5;
+        // God rays: angled light shafts descending from above-and-slightly-left.
+        // Translucent, lower alpha, soft. Reads as deep light scattered through
+        // water rather than hard spotlight beams.
+        const shaftCount = 4;
+        const angleRad = (18 * Math.PI) / 180; // 18° slant
         ctx.save();
         ctx.globalCompositeOperation = "screen";
         for (let i = 0; i < shaftCount; i++) {
-          const cx = ((i + 0.3) / shaftCount) * width
-                   + Math.sin(frame * 0.0012 + i * 1.7) * (width * 0.04);
-          const topWidth = width * (0.04 + (i % 2) * 0.02);
-          const bottomWidth = topWidth * 2.2;
-          const grad = ctx.createLinearGradient(cx, 0, cx, height);
-          grad.addColorStop(0, `rgba(180, 220, 220, ${0.08 * strength})`);
-          grad.addColorStop(0.55, `rgba(120, 180, 200, ${0.025 * strength})`);
+          // Start position drifts slowly so rays feel like moving water
+          const drift = Math.sin(frame * 0.0008 + i * 2.1) * (width * 0.03);
+          const cxTop = ((i + 0.4) / shaftCount) * width + drift;
+          const topWidth = width * (0.05 + (i % 2) * 0.02);
+          // Compute angled bottom positions
+          const slideX = Math.tan(angleRad) * height;
+          const cxBottom = cxTop + slideX;
+          const bottomWidth = topWidth * 2.8;
+
+          const grad = ctx.createLinearGradient(cxTop, 0, cxBottom, height);
+          // Much more translucent than v1 — soft and atmospheric
+          grad.addColorStop(0, `rgba(180, 220, 220, ${0.035 * strength})`);
+          grad.addColorStop(0.45, `rgba(120, 180, 200, ${0.018 * strength})`);
           grad.addColorStop(1, `rgba(20, 40, 60, 0)`);
           ctx.fillStyle = grad;
+
           ctx.beginPath();
-          ctx.moveTo(cx - topWidth / 2, 0);
-          ctx.lineTo(cx + topWidth / 2, 0);
-          ctx.lineTo(cx + bottomWidth / 2, height);
-          ctx.lineTo(cx - bottomWidth / 2, height);
+          ctx.moveTo(cxTop - topWidth / 2, 0);
+          ctx.lineTo(cxTop + topWidth / 2, 0);
+          ctx.lineTo(cxBottom + bottomWidth / 2, height);
+          ctx.lineTo(cxBottom - bottomWidth / 2, height);
           ctx.closePath();
           ctx.fill();
         }

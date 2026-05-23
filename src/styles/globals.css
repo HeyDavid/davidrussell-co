@@ -42,9 +42,8 @@ html {
   scroll-behavior: smooth;
   background: var(--void);
 }
-/* Background: one impeccable vertical gradient. Surface light → twilight
-   zone → abyssal. No radial gradients, no particles, no canvases. The
-   color progression IS the descent. Restraint over decoration. */
+/* Body: deep vertical gradient as the back layer. The Starfield + DeepOcean
+   canvases sit above it (z:0). The scene-frame and content layers sit higher. */
 body {
   min-height: 100vh;
   overflow-x: hidden;
@@ -69,6 +68,47 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   position: relative;
+}
+
+/* Soft 3D box frame — subtle inset border + vignette so the viewer reads
+   the scene as "inside a contained space" rather than infinite void. */
+.scene-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(91, 141, 239, 0.05),
+    inset 0 0 140px rgba(0, 0, 0, 0.4),
+    inset 0 0 8px rgba(91, 141, 239, 0.05);
+}
+
+/* All page content sits above the scene */
+.page, .masthead, main, footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Holding panels — every section.entry gets a subtle translucent backdrop
+   so content feels held and "safe" inside the cosmic scene, not floating
+   in the void. Cosmos shows through but content has a visible home. */
+section.entry {
+  background: rgba(13, 28, 48, 0.22);
+  border: 1px solid rgba(91, 141, 239, 0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(6px) saturate(110%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+  padding: clamp(40px, 5.5vw, 64px) clamp(28px, 4vw, 52px);
+  margin: clamp(20px, 3vw, 32px) 0;
+  border-top: 1px solid rgba(91, 141, 239, 0.06);
+}
+.hero {
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
 }
 
 /* Headlines: balanced wrap (Baseline 2024). */
