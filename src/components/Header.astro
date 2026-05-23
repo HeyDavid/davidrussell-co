@@ -1,13 +1,29 @@
 ---
 ---
 
-<header class="masthead">
-  <a href="/" class="masthead-name">David Russell</a>
-  <nav aria-label="Primary">
-    <a href="/writing/">Writing</a>
-    <a href="/lets-chat/">Building</a>
-    <a href="/background/">Background</a>
-    <a href="/performing/">Performing</a>
-    <a href="/#subscribe">Subscribe</a>
-  </nav>
+<header class="masthead" id="masthead">
+  <div class="masthead-inner">
+    <a href="/" class="masthead-name">David Russell</a>
+    <nav aria-label="Primary">
+      <a href="/writing/">Writing</a>
+      <a href="/lets-chat/">Building</a>
+      <a href="/background/">Background</a>
+      <a href="/performing/">Performing</a>
+      <a href="/#subscribe">Subscribe</a>
+    </nav>
+  </div>
 </header>
+
+<script>
+  /* Solid background only after scrolling — transparent over the hero. */
+  (() => {
+    const m = document.getElementById("masthead");
+    if (!m) return;
+    const onScroll = () => {
+      if (window.scrollY > 8) m.classList.add("is-scrolled");
+      else m.classList.remove("is-scrolled");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
+</script>

@@ -12,25 +12,32 @@ const formatMeta = (post: (typeof latest)[number]) =>
     : post.data.publishDate.toLocaleDateString("en-US", { year: "numeric", month: "short" });
 ---
 
-<section class="entry" id="writing" aria-labelledby="writing-title">
-  <div class="section-kicker">Recent writing</div>
-  <h2 id="writing-title">Notes, essays, and the occasional debate.</h2>
+<section class="entry entry-split" id="writing" aria-labelledby="writing-title">
+  <div class="entry-head">
+    <div class="section-kicker">Recent writing</div>
+    <h2 id="writing-title">Notes, essays, and the&nbsp;occasional debate.</h2>
+    <p class="entry-head-note">
+      Anything from a one-line scrap to a long essay. No schedule.
+    </p>
+    <p class="all-writing"><a href="/writing/">All writing →</a></p>
+  </div>
 
-  <ul class="writing-list">
-    {latest.map((post) => (
-      <li>
-        <a href={`/writing/${post.id}/`}>
-          <div class="post-meta">
-            <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
-            <span class="post-date">{formatMeta(post)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</span>
-          </div>
-          <div class="post-title">{post.data.title}</div>
-          {post.data.description && <div class="post-dek">{post.data.description}</div>}
-        </a>
-      </li>
-    ))}
-  </ul>
-  <p class="all-writing"><a href="/writing/">All writing</a></p>
+  <div class="entry-body">
+    <ul class="writing-list">
+      {latest.map((post) => (
+        <li>
+          <a href={`/writing/${post.id}/`}>
+            <div class="post-meta">
+              <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
+              <span class="post-date">{formatMeta(post)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</span>
+            </div>
+            <div class="post-title">{post.data.title}</div>
+            {post.data.description && <div class="post-dek">{post.data.description}</div>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </section>
 
 <style>
@@ -38,7 +45,8 @@ const formatMeta = (post: (typeof latest)[number]) =>
     display: flex;
     gap: 12px;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    margin-bottom: 4px;
   }
   .post-date {
     font-family: var(--sans);
@@ -47,5 +55,12 @@ const formatMeta = (post: (typeof latest)[number]) =>
     letter-spacing: -0.005em;
     text-transform: none;
     color: var(--mist);
+  }
+  .entry-head-note {
+    color: var(--mist);
+    font-size: 15px;
+    line-height: 1.5;
+    margin-top: 4px;
+    max-width: 24rem;
   }
 </style>
