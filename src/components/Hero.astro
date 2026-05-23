@@ -2,50 +2,179 @@
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero-content">
-    <div class="hero-byline">
-      <div class="hero-portrait">
-        <img src="/assets/headshot.jpg" alt="David Russell" width="96" height="96" fetchpriority="high" />
+  <div class="hero-grid">
+    <div class="hero-main">
+      <div class="hero-byline">
+        <div class="hero-portrait">
+          <img src="/assets/headshot.jpg" alt="David Russell" width="96" height="96" fetchpriority="high" />
+        </div>
+        <div class="hero-byline-text">
+          <strong>David Russell</strong><br />
+          South Florida
+        </div>
       </div>
-      <div class="hero-byline-text">
-        <strong>David Russell</strong><br />
-        South Florida
-      </div>
+
+      <h1 id="hero-title">
+        Best-in-class websites and marketing funnels, built by an operator.
+      </h1>
+
+      <p class="identity-line">
+        I grew a Wix site into a marketplace doing over $400,000 a year. A decade
+        of marketing, my own startups, and dozens of industries before that. Now
+        I write about it — and build for a few operators a year.
+      </p>
+
+      <form class="hero-subscribe" id="hero-subscribe-form" aria-labelledby="subscribe-title">
+        <label for="hero-email" class="hero-subscribe-label">
+          <span id="subscribe-title">Get essays, debates, and flow logs. No schedule, no spam.</span>
+        </label>
+        <div class="hero-subscribe-row">
+          <input
+            id="hero-email"
+            type="email"
+            name="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          />
+          <button type="submit" data-event="newsletter-signup">Subscribe</button>
+        </div>
+        <p class="hero-subscribe-status" id="hero-subscribe-status" role="status" aria-live="polite" hidden></p>
+      </form>
     </div>
 
-    <h1 id="hero-title">
-      Best-in-class websites and marketing funnels, built by an operator.
-    </h1>
-
-    <p class="identity-line">
-      I grew a Wix site into a marketplace doing over $400,000 a year. A decade
-      of marketing, my own startups, and dozens of industries before that. Now
-      I write about it — and build for a few operators a year.
-    </p>
-
-    <form class="hero-subscribe" id="hero-subscribe-form" aria-labelledby="subscribe-title">
-      <label for="hero-email" class="hero-subscribe-label">
-        <span id="subscribe-title">Get essays, debates, and flow logs. No schedule, no spam.</span>
-      </label>
-      <div class="hero-subscribe-row">
-        <input
-          id="hero-email"
-          type="email"
-          name="email"
-          autocomplete="email"
-          placeholder="you@example.com"
-          required
-        />
-        <button type="submit" data-event="newsletter-signup">Subscribe</button>
+    <aside class="hero-side">
+      <div class="currently-card">
+        <div class="currently-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Currently</span>
+        </div>
+        <ul class="currently-list">
+          <li>
+            <a href="https://letschatmarketing.com" target="_blank" rel="noopener">
+              <span class="currently-name">Let's Chat</span>
+              <span class="currently-role">Agency</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://makermargin.co" target="_blank" rel="noopener">
+              <span class="currently-name">Maker Margin</span>
+              <span class="currently-role">Tools</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://thomassteed.com" target="_blank" rel="noopener">
+              <span class="currently-name">Thomas Steed</span>
+              <span class="currently-role">Client</span>
+            </a>
+          </li>
+        </ul>
+        <a class="currently-cta" href="/writing/">
+          <span>Read essays</span>
+          <span class="arrow">→</span>
+        </a>
       </div>
-      <p class="hero-subscribe-status" id="hero-subscribe-status" role="status" aria-live="polite" hidden></p>
-    </form>
+    </aside>
   </div>
 
-  <a class="scroll-cue" href="#featured-work" id="scroll-cue" aria-label="Scroll to keep reading">
+  <a class="scroll-cue" href="#writing" id="scroll-cue" aria-label="Scroll to keep reading">
     <span>Keep reading</span>
   </a>
 </section>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+  .hero-main { min-width: 0; }
+  .hero-side { min-width: 0; }
+
+  .currently-card {
+    background: rgba(22, 23, 26, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 22px 22px 18px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+                0 20px 50px rgba(0, 0, 0, 0.3);
+  }
+  .currently-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--mist);
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2ee37a;
+    box-shadow: 0 0 8px rgba(46, 227, 122, 0.55);
+    animation: status-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+  .currently-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    display: grid;
+    gap: 2px;
+  }
+  .currently-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: var(--star);
+    transition: padding 220ms var(--ease-out), color 200ms ease;
+  }
+  .currently-list li:last-child a { border-bottom: 0; }
+  .currently-list a:hover {
+    padding-left: 6px;
+    color: var(--signal);
+  }
+  .currently-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .currently-role {
+    font-size: 12px;
+    color: var(--mist);
+  }
+  .currently-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 4px;
+    border: 0;
+    color: var(--signal);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .currently-cta .arrow {
+    transition: transform 220ms var(--ease-out);
+  }
+  .currently-cta:hover .arrow {
+    transform: translateX(4px);
+  }
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero-side { display: block; }
+  }
+</style>
 
 <script>
   /* Scroll cue fades on first scroll */

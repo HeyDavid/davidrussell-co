@@ -42,22 +42,15 @@ html {
   scroll-behavior: smooth;
   background: var(--void);
 }
-/* Body: deep vertical gradient as the back layer. The Starfield + DeepOcean
-   canvases sit above it (z:0). The scene-frame and content layers sit higher. */
+/* Digital-contemporary background: warm dark gray with a subtle dot grid.
+   No more deep navy abyss. Reads like Linear / Vercel — modern, structured,
+   not bleak. */
 body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    linear-gradient(
-      180deg,
-      #03060f  0%,
-      #060d1c 18%,
-      #08132a 38%,
-      #091830 52%,
-      #081728 70%,
-      #061522 85%,
-      #020912 100%
-    );
+    radial-gradient(ellipse 90% 55% at 50% -20%, rgba(91, 141, 239, 0.06), transparent 60%),
+    linear-gradient(180deg, #0c0d10 0%, #0a0a0c 100%);
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--sans);
@@ -70,45 +63,41 @@ body {
   position: relative;
 }
 
-/* Soft 3D box frame — subtle inset border + vignette so the viewer reads
-   the scene as "inside a contained space" rather than infinite void. */
-.scene-frame {
+/* Subtle dot grid — the "digital surface" cue, very faint. */
+body::before {
+  content: "";
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
-  box-shadow:
-    inset 0 0 0 1px rgba(91, 141, 239, 0.05),
-    inset 0 0 140px rgba(0, 0, 0, 0.4),
-    inset 0 0 8px rgba(91, 141, 239, 0.05);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1.4px);
+  background-size: 42px 42px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at center, black 35%, transparent 95%);
+          mask-image: radial-gradient(ellipse 75% 70% at center, black 35%, transparent 95%);
 }
 
-/* All page content sits above the scene */
 .page, .masthead, main, footer {
   position: relative;
   z-index: 2;
 }
 
-/* Holding panels — every section.entry gets a subtle translucent backdrop
-   so content feels held and "safe" inside the cosmic scene, not floating
-   in the void. Cosmos shows through but content has a visible home. */
+/* Section base — no panel chrome by default. Sections differentiate
+   themselves through their CONTENT layouts, not by being wrapped in
+   identical cards. */
 section.entry {
-  background: rgba(13, 28, 48, 0.22);
-  border: 1px solid rgba(91, 141, 239, 0.06);
-  border-radius: 20px;
-  backdrop-filter: blur(6px) saturate(110%);
-  -webkit-backdrop-filter: blur(6px) saturate(110%);
-  padding: clamp(40px, 5.5vw, 64px) clamp(28px, 4vw, 52px);
-  margin: clamp(20px, 3vw, 32px) 0;
-  border-top: 1px solid rgba(91, 141, 239, 0.06);
-}
-.hero {
   background: transparent;
   border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0;
   backdrop-filter: none;
-  padding-left: 0;
-  padding-right: 0;
+  -webkit-backdrop-filter: none;
+  padding: clamp(64px, 8vw, 100px) 0;
   margin: 0;
+}
+.hero {
+  border: 0;
+  padding-top: clamp(64px, 9vw, 120px);
+  padding-bottom: clamp(72px, 9vw, 120px);
 }
 
 /* Headlines: balanced wrap (Baseline 2024). */
