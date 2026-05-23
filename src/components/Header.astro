@@ -1,15 +1,15 @@
 ---
-const today = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }).toUpperCase();
+const today = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" });
 ---
 
 <header class="masthead">
-  <a href="/" class="masthead-name">David Russell.</a>
+  <a href="/" class="masthead-name">David Russell</a>
   <nav aria-label="Primary">
-    <a href="/lets-chat/">founder</a>
-    <a href="/performing/">creator</a>
-    <a href="/background/">background</a>
-    <a href="/writing/">writing</a>
-    <a href="/#contact">contact</a>
+    <a href="/writing/">Writing</a>
+    <a href="/lets-chat/">Building</a>
+    <a href="/background/">Background</a>
+    <a href="/performing/">Performing</a>
+    <a href="/#subscribe">Subscribe</a>
   </nav>
-  <div class="masthead-meta">South Florida / Issue {today}</div>
+  <div class="masthead-meta">South Florida · {today}</div>
 </header>

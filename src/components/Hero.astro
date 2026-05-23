@@ -1,70 +1,65 @@
 ---
-const lanes = [
-  {
-    label: "Founder",
-    href: "/lets-chat/",
-    title: "Let's Chat",
-    detail: "Productized marketing systems for service businesses.",
-  },
-  {
-    label: "Creator",
-    href: "/performing/",
-    title: "Performing",
-    detail: "Video, voice, and live work with a little bite.",
-  },
-  {
-    label: "Background",
-    href: "/background/",
-    title: "Operator notes",
-    detail: "Ten years in marketing, publishing, tools, and small bets.",
-  },
-];
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   <canvas class="deep-field" id="deep-field" aria-hidden="true"></canvas>
+
   <div class="hero-content">
     <div class="hero-byline">
       <div class="hero-portrait">
         <img src="/assets/headshot.jpg" alt="David Russell" width="96" height="96" fetchpriority="high" />
       </div>
       <div class="hero-byline-text">
-        David Russell<br />
+        <strong>David Russell</strong><br />
         South Florida
       </div>
     </div>
 
-    <h1 id="hero-title">I build useful things, then write down what survived contact with reality.</h1>
+    <h1 id="hero-title">
+      Best-in-class websites and marketing funnels, built by an operator.
+    </h1>
 
     <p class="identity-line">
-      CEO of Let's Chat, content creator, indie operator. South Florida.
+      I grew a Wix site into a marketplace doing over $400,000 a year. A decade
+      of marketing, my own startups, and dozens of industries before that. Now
+      I write about it — and build for a few operators a year.
     </p>
 
-    <div class="lane-grid" aria-label="Ways into the site">
-      {lanes.map((lane) => (
-        <a class="lane-card" href={lane.href}>
-          <span>{lane.label}</span>
-          <strong>{lane.title}</strong>
-          <small>{lane.detail}</small>
-        </a>
-      ))}
-    </div>
+    <form class="hero-subscribe" id="hero-subscribe-form" aria-labelledby="subscribe-title">
+      <label for="hero-email" class="hero-subscribe-label">
+        <span id="subscribe-title">Get essays, debates, and flow logs. No schedule, no spam.</span>
+      </label>
+      <div class="hero-subscribe-row">
+        <input
+          id="hero-email"
+          type="email"
+          name="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+        />
+        <button type="submit" data-event="newsletter-signup">Subscribe</button>
+      </div>
+      <p class="hero-subscribe-status" id="hero-subscribe-status" role="status" aria-live="polite" hidden></p>
+    </form>
   </div>
 
   <a class="scroll-cue" href="#featured-work" id="scroll-cue" aria-label="Scroll to keep reading">
-    <span>Scroll to keep reading</span>
+    <span>Keep reading</span>
   </a>
 </section>
 
 <script>
   (() => {
-    type Star = {
+    type Particle = {
       x: number;
       y: number;
       r: number;
-      base: number;      // base alpha
-      twinkle: number;   // twinkle phase offset
-      depth: number;     // 0 (far) – 1 (near), drives parallax magnitude
+      base: number;
+      phase: number;
+      depth: number;
+      drift: number; // upward drift speed for ocean motes
+      sway: number;  // lateral sway frequency for ocean motes
     };
 
     const boot = () => {
@@ -74,29 +69,32 @@ const lanes = [
       if (!ctx) return;
 
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const pointer = { x: 0.5, y: 0.5, active: false };
+      const pointer = { x: 0.5, y: 0.5 };
       const target = { x: 0.5, y: 0.5 };
       let width = 0;
       let height = 0;
       let dpr = 1;
       let frame = 0;
       let raf = 0;
-      let stars: Star[] = [];
+      let particles: Particle[] = [];
 
-      const seedStars = () => {
+      const seed = () => {
         const area = width * height;
-        // Density tuned for ~340 stars on a 1280x800 hero
-        const count = Math.min(520, Math.max(140, Math.floor(area / 2900)));
-        stars = new Array(count).fill(0).map(() => {
+        // Fewer + smaller than v1 — the user called them "cheap" when overdone
+        const count = Math.min(220, Math.max(70, Math.floor(area / 6000)));
+        particles = new Array(count).fill(0).map(() => {
           const depth = Math.random();
-          const r = depth > 0.85 ? 1.6 + Math.random() * 0.8 : 0.4 + Math.random() * 1.0;
+          // Most stars are tiny dim distant ones; only ~10% are noticeable
+          const r = depth > 0.92 ? 1.1 + Math.random() * 0.6 : 0.35 + Math.random() * 0.65;
           return {
             x: Math.random(),
             y: Math.random(),
             r,
-            base: 0.25 + Math.random() * 0.55 * depth,
-            twinkle: Math.random() * Math.PI * 2,
+            base: 0.18 + Math.random() * 0.45 * depth,
+            phase: Math.random() * Math.PI * 2,
             depth,
+            drift: 0.00012 + Math.random() * 0.0002,
+            sway: 0.4 + Math.random() * 0.9,
           };
         });
       };
@@ -109,53 +107,53 @@ const lanes = [
         canvas.width = Math.floor(width * dpr);
         canvas.height = Math.floor(height * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        seedStars();
+        seed();
       };
 
       const draw = () => {
-        frame += prefersReduced ? 0 : 0.008;
+        frame += prefersReduced ? 0 : 0.006;
 
-        // Easing pointer toward target gives smooth parallax instead of jitter
-        pointer.x += (target.x - pointer.x) * 0.06;
-        pointer.y += (target.y - pointer.y) * 0.06;
+        // Easing pointer for smooth parallax
+        pointer.x += (target.x - pointer.x) * 0.05;
+        pointer.y += (target.y - pointer.y) * 0.05;
 
         ctx.clearRect(0, 0, width, height);
 
-        // Faint nebula glow under stars
+        // Very soft top-right nebula glow
         const glow = ctx.createRadialGradient(
-          width * 0.75, height * 0.15, 0,
-          width * 0.75, height * 0.15, Math.max(width, height) * 0.65
+          width * 0.78, height * 0.18, 0,
+          width * 0.78, height * 0.18, Math.max(width, height) * 0.7
         );
-        glow.addColorStop(0, "rgba(91, 141, 239, 0.16)");
-        glow.addColorStop(0.6, "rgba(91, 141, 239, 0.02)");
+        glow.addColorStop(0, "rgba(91, 141, 239, 0.10)");
+        glow.addColorStop(0.65, "rgba(91, 141, 239, 0.015)");
         glow.addColorStop(1, "rgba(10, 14, 26, 0)");
         ctx.fillStyle = glow;
         ctx.fillRect(0, 0, width, height);
 
-        // Stars
-        const parallaxX = (pointer.x - 0.5) * 28;
-        const parallaxY = (pointer.y - 0.5) * 22;
+        const parallaxX = (pointer.x - 0.5) * 18;
+        const parallaxY = (pointer.y - 0.5) * 14;
 
-        for (const s of stars) {
-          const px = s.x * width + parallaxX * s.depth;
-          const py = s.y * height + parallaxY * s.depth;
-          const twinkle = prefersReduced ? 0 : Math.sin(frame * 2 + s.twinkle) * 0.18;
-          const alpha = Math.max(0.05, Math.min(1, s.base + twinkle));
+        for (const p of particles) {
+          const px = p.x * width + parallaxX * p.depth;
+          const py = p.y * height + parallaxY * p.depth;
+          // Gentle twinkle, smaller amplitude than v1
+          const twinkle = prefersReduced ? 0 : Math.sin(frame * 1.4 + p.phase) * 0.10;
+          const alpha = Math.max(0.04, Math.min(0.85, p.base + twinkle));
 
-          // Large stars get a subtle halo
-          if (s.r > 1.4) {
-            const halo = ctx.createRadialGradient(px, py, 0, px, py, s.r * 4.5);
-            halo.addColorStop(0, `rgba(245, 241, 232, ${alpha * 0.35})`);
+          // Only the brightest stars get a faint halo
+          if (p.r > 1.0) {
+            const halo = ctx.createRadialGradient(px, py, 0, px, py, p.r * 5);
+            halo.addColorStop(0, `rgba(245, 241, 232, ${alpha * 0.22})`);
             halo.addColorStop(1, "rgba(245, 241, 232, 0)");
             ctx.fillStyle = halo;
             ctx.beginPath();
-            ctx.arc(px, py, s.r * 4.5, 0, Math.PI * 2);
+            ctx.arc(px, py, p.r * 5, 0, Math.PI * 2);
             ctx.fill();
           }
 
           ctx.fillStyle = `rgba(245, 241, 232, ${alpha})`;
           ctx.beginPath();
-          ctx.arc(px, py, s.r, 0, Math.PI * 2);
+          ctx.arc(px, py, p.r, 0, Math.PI * 2);
           ctx.fill();
         }
 
@@ -166,7 +164,6 @@ const lanes = [
         const rect = canvas.getBoundingClientRect();
         target.x = (event.clientX - rect.left) / rect.width;
         target.y = (event.clientY - rect.top) / rect.height;
-        pointer.active = true;
       };
 
       resize();
@@ -176,7 +173,6 @@ const lanes = [
       canvas.addEventListener("pointerleave", () => {
         target.x = 0.5;
         target.y = 0.5;
-        pointer.active = false;
       });
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) window.cancelAnimationFrame(raf);
@@ -193,5 +189,46 @@ const lanes = [
     } else {
       globalThis.setTimeout(boot, 120);
     }
+  })();
+
+  /* Hero subscribe form — same Beehiiv endpoint as the bottom form */
+  (() => {
+    const form = document.getElementById("hero-subscribe-form") as HTMLFormElement | null;
+    const status = document.getElementById("hero-subscribe-status") as HTMLElement | null;
+    if (!form || !status) return;
+    const BEEHIIV_PUB = "pub_ed495df0-b44a-47ba-939c-eeb46089e27b";
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const email = String(data.get("email") ?? "").trim();
+      if (!email) return;
+
+      const button = form.querySelector("button");
+      if (button) {
+        button.disabled = true;
+        button.textContent = "Sending";
+      }
+
+      data.set("email", email);
+      data.set("utm_source", "davidrussell.co");
+      data.set("utm_medium", "hero-subscribe");
+      data.set("tags", "dr-subscriber");
+      data.set("referring_site", "davidrussell.co/hero");
+
+      fetch(`https://embeds.beehiiv.com/${BEEHIIV_PUB}`, {
+        method: "POST",
+        mode: "no-cors",
+        body: data,
+      }).finally(() => {
+        form.reset();
+        status.hidden = false;
+        status.textContent = "Got it. Check your inbox to confirm.";
+        if (button) {
+          button.disabled = false;
+          button.textContent = "Subscribe";
+        }
+      });
+    });
   })();
 </script>
