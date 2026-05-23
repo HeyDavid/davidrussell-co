@@ -1,97 +1,98 @@
 ---
 const proof = [
-  {
-    figure: "$400K+",
-    detail: "Annual sales after growing what started as a Wix site into a full marketplace.",
-  },
-  {
-    figure: "10 years",
-    detail: "Marketing operator — paid, content, brand, productized offers, and the messy middle.",
-  },
-  {
-    figure: "Dozens",
-    detail: "Industries consulted across, plus a handful of my own startups built and shipped.",
-  },
+  { figure: "$400K+",  detail: "Annual sales after growing what started as a Wix site into a full marketplace." },
+  { figure: "10 yrs",  detail: "Marketing operator — paid, content, brand, productized." },
+  { figure: "Dozens",  detail: "Industries consulted across, plus a handful of my own startups." },
 ];
 ---
 
-<section class="entry background-strip" id="background" aria-labelledby="background-title">
-  <div class="section-kicker">A little about me</div>
-  <h2 id="background-title">The short version.</h2>
-  <p>
-    I grew what started as a Wix site into a marketplace doing over $400,000 a year in sales. A decade of marketing experience behind it &mdash; building my own startups and consulting across dozens of industries. Now I'm building best-in-class websites and marketing funnels for operators who want the same.
-  </p>
+<section class="entry entry-split background-strip" id="background" aria-labelledby="background-title">
+  <div class="entry-head">
+    <div class="section-kicker">A little about me</div>
+    <h2 id="background-title">The short version.</h2>
+    <p class="entry-head-note">Longer version lives on <a href="https://www.linkedin.com/in/heydavidr/">LinkedIn</a>.</p>
+  </div>
 
-  <ul class="proof-grid" role="list">
-    {proof.map((item) => (
-      <li class="proof-card">
-        <div class="proof-figure">{item.figure}</div>
-        <p class="proof-detail">{item.detail}</p>
-      </li>
-    ))}
-  </ul>
+  <div class="entry-body">
+    <p class="background-lede">
+      I grew what started as a Wix site into a marketplace doing over <strong>$400,000 a year</strong> in sales. A decade of marketing experience behind it &mdash; building my own startups and consulting across dozens of industries. Now I'm building best-in-class websites and marketing funnels for operators who want the same.
+    </p>
 
-  <p class="small-note">
-    Longer version on <a href="https://www.linkedin.com/in/heydavidr/">LinkedIn</a>. Tools, books, and people I recommend live on the <a href="/recommended/">recommended page</a>.
-  </p>
+    <dl class="proof-strip">
+      {proof.map((item, i) => (
+        <div class="proof-row">
+          <dt class={`proof-figure ${i === 0 ? "proof-figure-hero" : ""}`}>{item.figure}</dt>
+          <dd class="proof-detail">{item.detail}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <p class="small-note">
+      Tools, books, and people I recommend live on the <a href="/recommended/">recommended page</a>.
+    </p>
+  </div>
 </section>
 
 <style>
-  .proof-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    margin: 34px 0 10px;
+  .background-lede {
+    font-size: clamp(18px, 1.7vw, 21px);
+    line-height: 1.55;
+    color: var(--star);
+    margin-bottom: 36px;
+    max-width: 56ch;
+  }
+  .background-lede strong {
+    color: var(--signal);
+    font-weight: 500;
+  }
+  /* Horizontal strip layout — totally different shape from Featured Work
+     card grid. Numbers anchor the left edge, prose flows right. */
+  .proof-strip {
     list-style: none;
+    margin: 0 0 30px;
     padding: 0;
-  }
-  .proof-card {
-    padding: 26px 24px 28px;
-    border: 1px solid var(--rule);
-    border-radius: 14px;
-    background: linear-gradient(180deg, rgba(13, 36, 56, 0.65), rgba(15, 26, 46, 0.55));
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px rgba(0, 0, 0, 0.45);
     display: grid;
-    gap: 14px;
-    align-content: start;
-    position: relative;
-    overflow: hidden;
-    transition: transform 320ms var(--ease-out), border-color 240ms ease, box-shadow 320ms ease;
+    gap: 0;
   }
-  .proof-card::after {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: radial-gradient(circle at 50% 0%, rgba(91, 141, 239, 0.14), transparent 70%);
-    opacity: 0;
-    transition: opacity 320ms ease;
-    pointer-events: none;
+  .proof-row {
+    display: grid;
+    grid-template-columns: minmax(140px, 200px) 1fr;
+    gap: clamp(20px, 3vw, 36px);
+    align-items: baseline;
+    padding: 22px 0;
+    border-top: 1px solid rgba(91, 141, 239, 0.08);
   }
-  .proof-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(91, 141, 239, 0.4);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 60px rgba(91, 141, 239, 0.12);
-  }
-  .proof-card:hover::after { opacity: 1; }
+  .proof-row:first-child { border-top: 0; padding-top: 8px; }
+  .proof-row:last-child { padding-bottom: 8px; }
   .proof-figure {
     font-family: var(--sans);
-    font-size: clamp(40px, 5vw, 56px);
+    font-size: clamp(34px, 4vw, 48px);
     font-weight: 500;
     letter-spacing: -0.035em;
     line-height: 1;
-    color: var(--ink);
+    color: var(--star);
+    margin: 0;
   }
-  .proof-card:first-child .proof-figure {
-    color: var(--accent);
+  .proof-figure-hero {
+    color: var(--signal);
   }
   .proof-detail {
-    color: var(--ink-soft);
-    font-size: 15px;
+    color: var(--mist);
+    font-size: 16px;
     line-height: 1.5;
-    max-width: 30ch;
+    margin: 0;
+    max-width: 38ch;
   }
-  @media (max-width: 720px) {
-    .proof-grid { grid-template-columns: 1fr; }
+  .small-note {
+    color: var(--mist);
+    font-size: 14px;
+    font-style: italic;
+  }
+  @media (max-width: 760px) {
+    .proof-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 16px 0;
+    }
   }
 </style>
