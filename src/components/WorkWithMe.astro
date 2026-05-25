@@ -1,0 +1,156 @@
+---
+type Lane = {
+  label: string;
+  title: string;
+  pitch: string;
+  href: string;
+  cta: string;
+};
+
+const lanes: Lane[] = [
+  {
+    label: "Hire me",
+    title: "for marketing",
+    pitch:
+      "Best-in-class websites and marketing funnels for service businesses and operators who want the math to work.",
+    href: "/work-with-me/marketing/",
+    cta: "See the offer",
+  },
+  {
+    label: "Work with me",
+    title: "on something new",
+    pitch:
+      "Open to a few collaborations and full-time roles where I can make a real difference. Marketing-led operator roles especially.",
+    href: "/work-with-me/recruiting/",
+    cta: "What I'm looking for",
+  },
+  {
+    label: "Build with me",
+    title: "as an investor",
+    pitch:
+      "If you're an operator-founder who needs a thinking partner and a small early check, this is the door for that.",
+    href: "/work-with-me/investing/",
+    cta: "How this works",
+  },
+];
+---
+
+<section class="entry work-with-me" id="work-with-me" aria-labelledby="wwm-title">
+  <div class="wwm-head">
+    <div class="section-kicker">Work with me</div>
+    <h2 id="wwm-title">Three doors.</h2>
+    <p class="wwm-intro">
+      Pick the one that fits what you need. Most people come through the
+      first.
+    </p>
+  </div>
+
+  <div class="wwm-grid">
+    {lanes.map((lane) => (
+      <a class="wwm-card" href={lane.href}>
+        <div class="wwm-card-head">
+          <span class="wwm-label">{lane.label}</span>
+          <span class="wwm-title">{lane.title}</span>
+        </div>
+        <p class="wwm-pitch">{lane.pitch}</p>
+        <span class="wwm-cta">
+          <span>{lane.cta}</span>
+          <span class="arrow">→</span>
+        </span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .wwm-head {
+    max-width: 640px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+  .wwm-head h2 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(40px, 5.2vw, 64px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--star);
+    margin: 0 auto 12px;
+  }
+  .wwm-intro {
+    color: var(--mist);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 44ch;
+  }
+  .wwm-head .section-kicker { display: inline-block; }
+
+  .wwm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .wwm-card {
+    display: grid;
+    gap: 14px;
+    padding: 28px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    background: rgba(20, 21, 24, 0.5);
+    color: inherit;
+    align-content: start;
+    transition: border-color 240ms ease, background 240ms ease;
+  }
+  .wwm-card:hover {
+    border-color: rgba(91, 141, 239, 0.3);
+    background: rgba(20, 21, 24, 0.7);
+  }
+  .wwm-card-head {
+    display: grid;
+    gap: 2px;
+  }
+  .wwm-label {
+    color: var(--signal);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  .wwm-title {
+    font-family: var(--sans);
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--star);
+  }
+  .wwm-pitch {
+    color: var(--mist);
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+    min-height: 5.5em;
+  }
+  .wwm-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--signal);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .wwm-cta .arrow {
+    transition: transform 200ms var(--ease-out);
+  }
+  .wwm-card:hover .wwm-cta .arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 880px) {
+    .wwm-grid { grid-template-columns: 1fr; }
+    .wwm-pitch { min-height: 0; }
+  }
+</style>
