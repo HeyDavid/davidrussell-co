@@ -63,17 +63,63 @@ body {
   position: relative;
 }
 
-/* Subtle dot grid — the "digital surface" cue, very faint. */
+/* Background texture: a sparse static starfield. CSS box-shadow technique
+   with ~40 hand-picked star coordinates. Pure CSS, no canvas, no motion —
+   reads as texture not theme. Mask-faded so they're strongest at the top
+   of the viewport and gone by 70% down. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1.4px);
-  background-size: 42px 42px;
-  -webkit-mask-image: radial-gradient(ellipse 75% 70% at center, black 35%, transparent 95%);
-          mask-image: radial-gradient(ellipse 75% 70% at center, black 35%, transparent 95%);
+  width: 1px;
+  height: 1px;
+  background: rgba(245, 241, 232, 0.7);
+  border-radius: 50%;
+  box-shadow:
+    8vw 11vh 0 0 rgba(245,241,232,0.55),
+    17vw 6vh 0 0 rgba(245,241,232,0.4),
+    26vw 14vh 0 0 rgba(245,241,232,0.7),
+    34vw 4vh 0 0 rgba(245,241,232,0.35),
+    42vw 19vh 0 0 rgba(245,241,232,0.5),
+    51vw 8vh 0 0 rgba(245,241,232,0.65),
+    58vw 22vh 0 0 rgba(245,241,232,0.35),
+    63vw 12vh 0 0 rgba(245,241,232,0.6),
+    71vw 5vh 0 0 rgba(245,241,232,0.7),
+    77vw 18vh 0 0 rgba(245,241,232,0.4),
+    84vw 9vh 0 0 rgba(245,241,232,0.55),
+    91vw 16vh 0 0 rgba(245,241,232,0.45),
+    95vw 24vh 0 0 rgba(245,241,232,0.3),
+    4vw 26vh 0 0 rgba(245,241,232,0.5),
+    12vw 32vh 0 0 rgba(245,241,232,0.4),
+    21vw 28vh 0 0 rgba(245,241,232,0.6),
+    29vw 36vh 0 0 rgba(245,241,232,0.3),
+    38vw 30vh 0 0 rgba(245,241,232,0.55),
+    47vw 38vh 0 0 rgba(245,241,232,0.4),
+    55vw 28vh 0 0 rgba(245,241,232,0.5),
+    66vw 34vh 0 0 rgba(245,241,232,0.35),
+    74vw 41vh 0 0 rgba(245,241,232,0.45),
+    82vw 32vh 0 0 rgba(245,241,232,0.55),
+    89vw 39vh 0 0 rgba(245,241,232,0.3),
+    2vw 44vh 0 0 rgba(245,241,232,0.4),
+    15vw 50vh 0 0 rgba(245,241,232,0.45),
+    24vw 46vh 0 0 rgba(245,241,232,0.3),
+    33vw 54vh 0 0 rgba(245,241,232,0.35),
+    44vw 48vh 0 0 rgba(245,241,232,0.4),
+    52vw 56vh 0 0 rgba(245,241,232,0.3),
+    61vw 50vh 0 0 rgba(245,241,232,0.4),
+    69vw 58vh 0 0 rgba(245,241,232,0.3),
+    79vw 52vh 0 0 rgba(245,241,232,0.35),
+    87vw 47vh 0 0 rgba(245,241,232,0.4),
+    6vw 60vh 0 0 rgba(245,241,232,0.3),
+    19vw 64vh 0 0 rgba(245,241,232,0.25),
+    36vw 62vh 0 0 rgba(245,241,232,0.3),
+    49vw 68vh 0 0 rgba(245,241,232,0.25),
+    72vw 66vh 0 0 rgba(245,241,232,0.25),
+    93vw 62vh 0 0 rgba(245,241,232,0.3);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 85%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 85%);
 }
 
 .page, .masthead, main, footer {
@@ -387,31 +433,16 @@ section.entry h2,
   min-height: 188px;
   align-content: space-between;
   padding: 24px;
-  border: 1px solid var(--rule);
-  background: linear-gradient(180deg, rgba(13, 36, 56, 0.65), rgba(15, 26, 46, 0.55));
-  border-radius: 14px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px rgba(0, 0, 0, 0.45);
-  transition: transform 320ms var(--ease-out), border-color 240ms ease, box-shadow 320ms ease;
-  position: relative;
-  overflow: hidden;
-}
-.lane-card::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 50% 0%, rgba(91, 141, 239, 0.16), transparent 70%);
-  opacity: 0;
-  transition: opacity 320ms ease;
-  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(20, 21, 24, 0.5);
+  border-radius: 12px;
+  transition: border-color 240ms ease, background 240ms ease;
 }
 .lane-card:hover {
   color: var(--ink);
-  border-color: rgba(91, 141, 239, 0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 60px rgba(91, 141, 239, 0.12);
+  border-color: rgba(91, 141, 239, 0.3);
+  background: rgba(20, 21, 24, 0.7);
 }
-.lane-card:hover::after { opacity: 1; }
 .lane-card span {
   color: var(--signal);
   font-family: var(--sans);
@@ -556,16 +587,14 @@ section.entry > p,
 }
 .preview-card {
   overflow: hidden;
-  border: 1px solid var(--rule);
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(13, 36, 56, 0.65), rgba(15, 26, 46, 0.55));
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px rgba(0, 0, 0, 0.45);
-  transition: transform 320ms var(--ease-out), border-color 240ms ease, box-shadow 320ms ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(20, 21, 24, 0.5);
+  transition: border-color 240ms ease, background 240ms ease;
 }
 .preview-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(91, 141, 239, 0.4);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 60px rgba(91, 141, 239, 0.12);
+  border-color: rgba(91, 141, 239, 0.3);
+  background: rgba(20, 21, 24, 0.7);
 }
 .preview-frame {
   position: relative;
@@ -715,7 +744,6 @@ section.entry > p,
   height: 6px;
   border-radius: 50%;
   background: currentColor;
-  box-shadow: 0 0 6px currentColor;
 }
 .format-tag[data-format="essay"] { color: #c4d3ff; }
 .format-tag[data-format="debate"] { color: var(--spark); }

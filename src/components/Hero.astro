@@ -66,11 +66,13 @@
 </section>
 
 <style>
-  /* Hero — brutalist typographic layout. No split, no card on the right.
-     The h1 IS the hero. Everything else supports it. */
+  /* Hero — centered narrow column. Content stays left-aligned inside the
+     column so reading feels natural, but the column is centered on the
+     page so there's no "abandoned right side" empty space. */
   .hero {
     text-align: left;
-    max-width: 920px;
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   .hero-meta {
@@ -128,12 +130,7 @@
     height: 7px;
     border-radius: 50%;
     background: #2ee37a;
-    box-shadow: 0 0 8px rgba(46, 227, 122, 0.7);
-    animation: hero-status-pulse 2.4s ease-in-out infinite;
-  }
-  @keyframes hero-status-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.55; }
+    box-shadow: 0 0 6px rgba(46, 227, 122, 0.45);
   }
 
   /* The display title — the lateral move. Two words, declarative, huge.
