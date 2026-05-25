@@ -16,6 +16,20 @@
       year.
     </p>
 
+    <figure class="bg-photo">
+      <img
+        src="/assets/david-fsu-donation.jpg"
+        alt="A young David Russell, second from left, presenting a donation check to the FSU College of Business, standing with two friends and the dean."
+        loading="lazy"
+        width="600"
+        height="400"
+      />
+      <figcaption>
+        Donating to the FSU College of Business as a student — ten years before
+        any of this. <span class="bg-photo-meta">Second from left.</span>
+      </figcaption>
+    </figure>
+
     <p class="bg-prose">
       The work has always been the same shape: figure out what is actually
       useful, ship it cleanly, then keep tightening the loop between offer,
@@ -82,5 +96,35 @@
   .bg-prose a:hover {
     color: var(--signal);
     border-bottom-color: var(--signal);
+  }
+
+  /* Editorial photo with caption — Substack/Medium-style, full column width */
+  .bg-photo {
+    margin: 36px 0 32px;
+  }
+  .bg-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+                0 18px 50px rgba(0, 0, 0, 0.45);
+  }
+  .bg-photo figcaption {
+    margin-top: 14px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--mist);
+    line-height: 1.45;
+    text-align: left;
+  }
+  .bg-photo-meta {
+    margin-left: 10px;
+    color: var(--smoke);
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 13px;
   }
 </style>
