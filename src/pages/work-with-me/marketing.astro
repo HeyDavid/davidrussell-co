@@ -1,0 +1,279 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+const deliverables = [
+  {
+    name: "A site that earns the click",
+    detail: "Strategy + copy + design + build. Geist-class typography, real motion, performance budget under 1s LCP.",
+  },
+  {
+    name: "Funnels with the math in plain sight",
+    detail: "From landing page through email + retargeting to conversion. Every step measured. No vanity metrics.",
+  },
+  {
+    name: "Brand language you can actually use",
+    detail: "Voice, positioning, key messages. Documented so your team writes consistently without me in the room.",
+  },
+  {
+    name: "An operating partner during launch",
+    detail: "I stay close while it goes live. Daily check-ins. Fast iteration on real data, not opinions.",
+  },
+];
+
+const faq = [
+  {
+    q: "What does an engagement actually cost?",
+    a: "Most projects sit in the $8K–25K range depending on scope. Retainers from $3K/mo. I'll quote a fixed price once we've talked. No surprises after.",
+  },
+  {
+    q: "How long do you take?",
+    a: "A site rebuild typically lands in 3–5 weeks. A funnel build inside 2–3. I move faster than that when the brief is clean.",
+  },
+  {
+    q: "Do you work with agencies or only directly with founders?",
+    a: "Both. Most often I'm the marketing brain for a small operating team — founder, ops, and me — but agency-side white-label is fine if the brief is right.",
+  },
+  {
+    q: "What's the right kind of business for this?",
+    a: "Service businesses, B2B SaaS, productized agencies, and creator-led companies in the $250K–5M ARR range. If you're earlier than that, the newsletter is probably the better entry point.",
+  },
+];
+---
+
+<BaseLayout
+  title="Hire me for marketing — David Russell"
+  description="Best-in-class websites and marketing funnels for service businesses, B2B SaaS, and operator-led companies. By David Russell, South Florida."
+>
+  <Header />
+  <main>
+    <article class="wwm-page">
+      <a href="/" class="wwm-back">← Home</a>
+
+      <header class="wwm-hero">
+        <div class="section-kicker">Hire me</div>
+        <h1>Better websites. Better funnels. <em>Built by an operator.</em></h1>
+        <p class="wwm-lede">
+          Most marketing sites are decoration. The work I do is structural —
+          the page, the copy, the funnel underneath, and the math that proves
+          it's earning. For service businesses and operator-led companies who
+          want the math to actually work.
+        </p>
+        <a class="wwm-cta-primary" href="/#subscribe">
+          <span>Tell me about your project</span>
+          <span class="arrow">→</span>
+        </a>
+      </header>
+
+      <section class="wwm-block">
+        <h2>What you're getting.</h2>
+        <ul class="wwm-deliverables">
+          {deliverables.map((d) => (
+            <li>
+              <h3>{d.name}</h3>
+              <p>{d.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="wwm-block wwm-block-proof">
+        <h2>Why me.</h2>
+        <p class="wwm-prose">
+          I grew what started as a Wix site into a marketplace doing over
+          <strong>$400,000 a year</strong>. A decade of marketing behind that
+          — building my own startups, consulting across dozens of industries,
+          and shipping for operators who needed the marketing brain AND the
+          person who could also build the site, write the copy, and run the
+          funnel.
+        </p>
+        <p class="wwm-prose">
+          I'm not the right fit if you want a deck-heavy strategy consultant
+          who hands off to a separate build team. I'm one person, end-to-end,
+          who's done this enough times to be fast and opinionated about it.
+        </p>
+      </section>
+
+      <section class="wwm-block">
+        <h2>Common questions.</h2>
+        <dl class="wwm-faq">
+          {faq.map((item) => (
+            <div class="wwm-faq-row">
+              <dt>{item.q}</dt>
+              <dd>{item.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section class="wwm-cta-block">
+        <h2>Ready?</h2>
+        <p>
+          The fastest way in is the message form on the home page. One
+          paragraph about what you're trying to do is enough. I read every
+          one and reply manually.
+        </p>
+        <a class="wwm-cta-primary" href="/#subscribe">
+          <span>Start a conversation</span>
+          <span class="arrow">→</span>
+        </a>
+      </section>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .wwm-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(48px, 8vw, 96px) clamp(20px, 4vw, 28px) clamp(80px, 12vw, 140px);
+  }
+  .wwm-back {
+    display: inline-block;
+    margin-bottom: 48px;
+    color: var(--mist);
+    font-size: 14px;
+    border: 0;
+  }
+  .wwm-back:hover { color: var(--signal); }
+  .wwm-hero { margin-bottom: clamp(56px, 8vw, 88px); }
+  .wwm-hero h1 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 64px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--star);
+    margin: 8px 0 22px;
+    max-width: 22ch;
+  }
+  .wwm-hero h1 em {
+    font-style: italic;
+    color: var(--signal);
+  }
+  .wwm-lede {
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.55;
+    color: var(--mist);
+    margin-bottom: 32px;
+    max-width: 56ch;
+  }
+  .wwm-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(91, 141, 239, 0.4);
+    background: rgba(91, 141, 239, 0.10);
+    color: var(--star);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 220ms ease, border-color 220ms ease;
+  }
+  .wwm-cta-primary:hover {
+    background: rgba(91, 141, 239, 0.20);
+    border-color: rgba(91, 141, 239, 0.6);
+  }
+  .wwm-cta-primary .arrow { transition: transform 200ms var(--ease-out); }
+  .wwm-cta-primary:hover .arrow { transform: translateX(3px); }
+
+  .wwm-block { margin-bottom: clamp(48px, 7vw, 80px); }
+  .wwm-block h2 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 40px);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--star);
+    margin-bottom: 24px;
+  }
+  .wwm-prose {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--mist);
+    margin-bottom: 18px;
+    max-width: 56ch;
+  }
+  .wwm-prose strong {
+    color: var(--signal);
+    font-weight: 500;
+  }
+
+  .wwm-deliverables {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+  .wwm-deliverables li {
+    padding: 22px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .wwm-deliverables li:first-child { border-top: 0; padding-top: 8px; }
+  .wwm-deliverables h3 {
+    font-family: var(--sans);
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--star);
+    margin-bottom: 6px;
+  }
+  .wwm-deliverables p {
+    color: var(--mist);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 54ch;
+  }
+
+  .wwm-faq { display: grid; gap: 0; }
+  .wwm-faq-row {
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .wwm-faq-row:first-child { border-top: 0; padding-top: 8px; }
+  .wwm-faq dt {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--star);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .wwm-faq dd {
+    color: var(--mist);
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  .wwm-cta-block {
+    padding: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 44px);
+    border: 1px solid rgba(91, 141, 239, 0.15);
+    border-radius: 16px;
+    background: rgba(91, 141, 239, 0.04);
+  }
+  .wwm-cta-block h2 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 40px);
+    letter-spacing: -0.02em;
+    color: var(--star);
+    margin-bottom: 14px;
+  }
+  .wwm-cta-block p {
+    color: var(--mist);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+    max-width: 52ch;
+  }
+</style>

@@ -1,0 +1,187 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+---
+
+<BaseLayout
+  title="Community — David Russell"
+  description="A community for operators, marketers, and curious builders. Coming soon — join the waitlist."
+>
+  <Header />
+  <main>
+    <article class="community-page">
+      <a href="/" class="community-back">← Home</a>
+
+      <div class="community-shell">
+        <div class="section-kicker">Community</div>
+        <h1>Something is coming.</h1>
+        <p class="community-lede">
+          A community for operators, marketers, and curious builders. Small,
+          quiet, focused. Not another Slack you'll feel guilty about ignoring.
+        </p>
+        <p class="community-detail">
+          The shape is still forming — closer to a private salon than a public
+          forum. If that sounds like the kind of room you'd be in, put your
+          email below. I'll write when there's something real to invite you to.
+        </p>
+
+        <form class="community-form" id="community-form">
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+          </label>
+          <button type="submit" data-event="community-waitlist">Join the waitlist</button>
+          <p class="community-status" id="community-status" role="status" aria-live="polite" hidden></p>
+        </form>
+
+        <p class="community-aside">
+          <span class="community-status-dot" aria-hidden="true"></span>
+          Status — early. No date set. No urgency.
+        </p>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  (() => {
+    const form = document.getElementById("community-form") as HTMLFormElement | null;
+    const status = document.getElementById("community-status") as HTMLElement | null;
+    if (!form || !status) return;
+    const BEEHIIV_PUB = "pub_ed495df0-b44a-47ba-939c-eeb46089e27b";
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const email = String(data.get("email") ?? "").trim();
+      if (!email) return;
+
+      const button = form.querySelector("button");
+      if (button) { button.disabled = true; button.textContent = "Sending"; }
+
+      data.set("email", email);
+      data.set("utm_source", "davidrussell.co");
+      data.set("utm_medium", "community-waitlist");
+      data.set("tags", "dr-community-waitlist");
+      data.set("referring_site", "davidrussell.co/community");
+
+      fetch(`https://embeds.beehiiv.com/${BEEHIIV_PUB}`, {
+        method: "POST", mode: "no-cors", body: data,
+      }).finally(() => {
+        form.reset();
+        status.hidden = false;
+        status.textContent = "You're on the list. I'll write when it's ready.";
+        if (button) { button.disabled = false; button.textContent = "Join the waitlist"; }
+      });
+    });
+  })();
+</script>
+
+<style>
+  .community-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: clamp(64px, 10vw, 120px) clamp(20px, 4vw, 28px) clamp(120px, 16vw, 200px);
+  }
+  .community-back {
+    display: inline-block;
+    margin-bottom: 60px;
+    color: var(--mist);
+    font-size: 14px;
+    border: 0;
+  }
+  .community-back:hover { color: var(--signal); }
+  .community-shell h1 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 80px);
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    color: var(--star);
+    margin: 12px 0 28px;
+  }
+  .community-lede {
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.55;
+    color: var(--star);
+    margin-bottom: 18px;
+    max-width: 44ch;
+  }
+  .community-detail {
+    color: var(--mist);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 36px;
+    max-width: 56ch;
+  }
+  .community-form {
+    display: grid;
+    gap: 14px;
+    padding: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: rgba(20, 21, 24, 0.5);
+    margin-bottom: 28px;
+  }
+  .community-form label { display: grid; gap: 6px; }
+  .community-form span {
+    color: var(--mist);
+    font-family: var(--sans);
+    font-size: 13px;
+  }
+  .community-form input {
+    min-height: 50px;
+    padding: 0 14px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 10px;
+    background: rgba(10, 14, 26, 0.5);
+    color: var(--star);
+    outline: none;
+    font-size: 15px;
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+  .community-form input::placeholder { color: var(--smoke); }
+  .community-form input:focus {
+    border-color: var(--signal);
+    background: rgba(91, 141, 239, 0.06);
+  }
+  .community-form button {
+    min-height: 50px;
+    margin-top: 8px;
+    border: 1px solid var(--signal);
+    background: var(--signal);
+    color: var(--void);
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 200ms var(--ease-out);
+  }
+  .community-form button:hover {
+    background: color-mix(in srgb, var(--signal) 88%, white);
+  }
+  .community-status {
+    color: var(--signal);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+  }
+  .community-aside {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--mist);
+    font-size: 13px;
+  }
+  .community-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffb649;
+    box-shadow: 0 0 6px rgba(255, 182, 73, 0.5);
+  }
+</style>
