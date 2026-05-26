@@ -26,3 +26,9 @@ pnpm-debug.log*
 .vscode/
 .idea/
 .vercel
+
+# Preview screenshots (local-only)
+v2-preview*.png
+
+# Claude Code worktree
+.claude/
