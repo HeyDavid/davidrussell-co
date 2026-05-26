@@ -63,12 +63,14 @@ body {
   position: relative;
 }
 
-/* Background texture: a sparse static starfield. CSS box-shadow technique
-   with ~40 hand-picked star coordinates. Pure CSS, no canvas, no motion —
-   reads as texture not theme. Mask-faded so they're strongest at the top
-   of the viewport and gone by 70% down. */
+/* Stars removed — were rendering inconsistently. The /deep page keeps
+   the cosmic experiments. Empty pseudo-element kept as a placeholder
+   so future global decoration can hook in without restructuring. */
 body::before {
-  content: "";
+  content: none;
+  display: none;
+  /* Original box-shadow stars below are now unreachable but kept for
+     reference / quick revert if we want them back: */
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -137,13 +139,13 @@ section.entry {
   border-radius: 0;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  padding: clamp(64px, 8vw, 100px) 0;
+  padding: clamp(88px, 11vw, 140px) 0;
   margin: 0;
 }
 .hero {
   border: 0;
-  padding-top: clamp(64px, 9vw, 120px);
-  padding-bottom: clamp(72px, 9vw, 120px);
+  padding-top: clamp(80px, 11vw, 144px);
+  padding-bottom: clamp(96px, 12vw, 160px);
 }
 
 /* Headlines: balanced wrap (Baseline 2024). */
@@ -319,14 +321,14 @@ button, input { font: inherit; }
 .section-kicker {
   color: var(--signal);
   font-family: var(--serif);
-  font-size: clamp(22px, 2.4vw, 28px);
+  font-size: clamp(28px, 3.2vw, 38px);
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
+  letter-spacing: 0;
+  line-height: 1.2;
   text-transform: none;
   display: block;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 .hero h1 {
   font-family: var(--serif);
