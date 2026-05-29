@@ -32,3 +32,8 @@ v2-preview*.png
 
 # Claude Code worktree
 .claude/
+
+# Local agent files (not for the repo)
+AGENTS.md
+fix-crlf-once.bat
+reset-and-trim.bat
