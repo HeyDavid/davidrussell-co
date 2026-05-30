@@ -1,119 +1,68 @@
 ---
-type Work = {
+type Venture = {
+  tag: string;
   name: string;
-  url: string;
+  desc: string;
   href: string;
-  note: string;
-  role: string;
+  live: boolean;
 };
 
-const work: Work[] = [
+const ventures: Venture[] = [
   {
+    tag: "Agency",
     name: "Let's Chat",
-    url: "letschatmarketing.com",
+    desc: "Productized marketing for service businesses. Modern websites, AI receptionists, and the outreach engine behind them.",
     href: "https://letschatmarketing.com",
-    note: "Productized marketing for service businesses. Modern websites, AI receptionists, and the cold-outreach engine behind them.",
-    role: "Agency",
+    live: true,
   },
   {
+    tag: "Tool",
     name: "Maker Margin",
-    url: "makermargin.co",
+    desc: "A free Etsy fee calculator. Saves sellers a lot of confusion — and a few thousand dollars.",
     href: "https://makermargin.co",
-    note: "Tools, math, and listings for Etsy sellers who would rather understand their margins than guess.",
-    role: "Tools",
+    live: true,
   },
   {
-    name: "Thomas Steed",
-    url: "thomassteed.com",
-    href: "https://thomassteed.com",
-    note: "Personal site with a clean editorial spine. Light touch, lots of voice. Built fast.",
-    role: "Client site",
+    tag: "Resource",
+    name: "ScamCapital",
+    desc: "A scam-education hub. Playbooks on common scams plus an interactive quiz that's designed to fool you.",
+    href: "https://scamcapital.com",
+    live: true,
+  },
+  {
+    tag: "Something new",
+    name: "In the workshop",
+    desc: "The next small thing. Subscribe up top and you'll see it before anyone else.",
+    href: "#",
+    live: false,
   },
 ];
 ---
 
-<section class="entry featured-work" id="featured-work" aria-labelledby="featured-title">
-  <div class="section-kicker">Currently building</div>
-  <h2 id="featured-title">A few live things.</h2>
-  <p>
-    Selected current builds and client work. Each one links to the live site —
-    the work has to stand on its own, no decorative screenshots.
-  </p>
+<section class="card reveal reveal-delay-1" id="building" aria-labelledby="building-title">
+  <div class="section-head">
+    <span class="section-num" aria-hidden="true">2.</span>
+    <span class="section-label">Building</span>
+  </div>
+  <h2 id="building-title">What I'm working on, in plain sight.</h2>
 
-  <div class="work-grid">
-    {work.map((item) => (
-      <a class="work-card" href={item.href} target="_blank" rel="noopener" aria-label={`View ${item.name} live`}>
-        <div class="work-card-role">{item.role}</div>
-        <h3 class="work-card-name">{item.name}</h3>
-        <div class="work-card-url">{item.url}</div>
-        <p class="work-card-note">{item.note}</p>
-        <span class="work-card-cta">View live →</span>
+  <div class="card-grid">
+    {ventures.map((v) => (
+      <a
+        href={v.href}
+        class={`venture-card${!v.live ? " venture-card--dim" : ""}`}
+        target={v.live ? "_blank" : undefined}
+        rel={v.live ? "noopener" : undefined}
+        aria-label={`${v.name} — ${v.desc}`}
+      >
+        <div class="venture-tag">{v.tag}</div>
+        <div class="venture-name">{v.name}</div>
+        <div class="venture-desc">{v.desc}</div>
       </a>
     ))}
   </div>
 </section>
 
 <style>
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 38px;
-  }
-  .work-card {
-    display: grid;
-    align-content: start;
-    gap: 6px;
-    padding: 26px 24px 28px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    background: rgba(20, 21, 24, 0.5);
-    color: inherit;
-    transition: border-color 240ms ease, background 240ms ease;
-  }
-  .work-card:hover {
-    border-color: rgba(91, 141, 239, 0.3);
-    background: rgba(20, 21, 24, 0.7);
-  }
-  .work-card-role {
-    color: var(--signal);
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 15px;
-    margin-bottom: 6px;
-  }
-  .work-card-name {
-    font-family: var(--sans);
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: -0.025em;
-    line-height: 1.15;
-    color: var(--star);
-  }
-  .work-card-url {
-    color: var(--mist);
-    font-family: var(--sans);
-    font-size: 13px;
-    margin-bottom: 8px;
-  }
-  .work-card-note {
-    color: var(--mist);
-    font-size: 15px;
-    line-height: 1.5;
-    margin: 0 0 16px;
-  }
-  .work-card-cta {
-    color: var(--signal);
-    font-family: var(--sans);
-    font-size: 14px;
-    font-weight: 500;
-    transition: transform 200ms var(--ease-out);
-  }
-  .work-card:hover .work-card-cta {
-    transform: translateX(4px);
-  }
-
-  @media (max-width: 920px) {
-    .work-grid { grid-template-columns: 1fr; }
-  }
+  .venture-card--dim { opacity: 0.55; pointer-events: none; }
 </style>

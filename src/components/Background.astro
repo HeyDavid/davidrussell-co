@@ -1,128 +1,92 @@
 ---
 ---
 
-<section class="entry background-section" id="background" aria-labelledby="background-title">
-  <div class="bg-head">
-    <div class="section-kicker">A little about me</div>
-    <h2 id="background-title">The longer story.</h2>
+<section class="card reveal" id="background" aria-labelledby="background-title">
+  <div class="section-head">
+    <span class="section-num" aria-hidden="true">4.</span>
+    <span class="section-label">Background</span>
+  </div>
+  <h2 id="background-title">
+    A decade of marketing, two ventures with my name on the door, and
+    a lot of late nights shipping.
+  </h2>
+
+  <div class="bg-finds">
+    <div class="bg-find">
+      <div class="find-name">Marketing operator · 10+ years</div>
+      <div class="find-why">Paid, content, brand, productized — most channels, most stages.</div>
+    </div>
+    <div class="bg-find">
+      <div class="find-name">Moolaguides · founder &amp; exit</div>
+      <div class="find-why">Built it, grew it to $400K+, sold it. <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" target="_blank" rel="noopener">Covered in College Magazine</a>.</div>
+    </div>
+    <div class="bg-find">
+      <div class="find-name">Syllble · co-founder</div>
+      <div class="find-why">Collaborative fiction publishing. 105+ novels and counting.</div>
+    </div>
+    <div class="bg-find">
+      <div class="find-name">Let's Chat · current</div>
+      <div class="find-why">Productized agency for service businesses. Websites, AI, the parts in between.</div>
+    </div>
+    <div class="bg-find">
+      <div class="find-name">Maker Margin · current</div>
+      <div class="find-why">Free fee calculator for Etsy sellers. Quietly compounding.</div>
+    </div>
+    <div class="bg-find">
+      <div class="find-name">Magic · 20+ years</div>
+      <div class="find-why">Card and coin work since I was a kid. Still the best icebreaker I've got.</div>
+    </div>
   </div>
 
-  <div class="bg-body">
-    <p class="bg-lede">
-      I grew what started as a Wix site into a marketplace doing over
-      <strong>$400,000 a year</strong> in sales. A decade of marketing
-      behind that — building my own startups and consulting across dozens
-      of industries. Now I write about it, and build for a few operators a
-      year.
-    </p>
-
-    <figure class="bg-photo">
-      <img
-        src="/assets/david-fsu-donation.jpg"
-        alt="A young David Russell, second from left, presenting a donation check to the FSU College of Business, standing with two friends and the dean."
-        loading="lazy"
-        width="600"
-        height="400"
-      />
-      <figcaption>
-        Donating to the FSU College of Business as a student — ten years before
-        any of this. <span class="bg-photo-meta">Second from left.</span>
-      </figcaption>
-    </figure>
-
-    <p class="bg-prose">
-      The work has always been the same shape: figure out what is actually
-      useful, ship it cleanly, then keep tightening the loop between offer,
-      audience, and the thing they buy. Some of it was mine end-to-end. A
-      lot of it was alongside operators who needed a marketing brain that
-      could also build the site, write the copy, and run the funnel.
-    </p>
-
-    <p class="bg-prose">
-      Longer version lives on <a href="https://www.linkedin.com/in/heydavidr/">LinkedIn</a>.
-      Tools, books, and people I recommend are on the <a href="/recommended/">recommended page</a>.
-    </p>
-  </div>
+  <p class="bg-footer-note">
+    More detail on <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener">LinkedIn</a>.
+    Tools and books I actually use are on the
+    <a href="/recommended/">recommended</a> page.
+  </p>
 </section>
 
 <style>
-  /* Background section — narrow editorial column, centered. No split,
-     no stats cards. The stats already appear in the hero so we don't
-     repeat them here — different content, different shape. */
-  .background-section {
-    text-align: left;
+  .bg-finds {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
   }
-  .bg-head {
-    max-width: 760px;
-    margin: 0 auto 32px;
+  .bg-find {
+    padding: 14px 0;
+    border-bottom: 1px dotted var(--border);
   }
-  .bg-head h2 {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(40px, 5.2vw, 64px);
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    color: var(--star);
-    max-width: 16ch;
-  }
-  .bg-body {
-    max-width: 640px;
-    margin: 0 auto;
-  }
-  .bg-lede {
-    font-family: var(--sans);
-    font-size: clamp(20px, 2vw, 24px);
-    line-height: 1.5;
-    color: var(--star);
-    margin-bottom: 28px;
-    letter-spacing: -0.012em;
-  }
-  .bg-lede strong {
+  .bg-find:last-child,
+  .bg-find:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+  .find-name {
+    font-size: 16px;
     font-weight: 500;
-    color: var(--signal);
+    color: var(--ink);
+    margin-bottom: 3px;
   }
-  .bg-prose {
-    font-size: 17px;
-    line-height: 1.65;
-    color: var(--mist);
-    margin-bottom: 20px;
-    max-width: 56ch;
+  .find-why {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.50;
   }
-  .bg-prose a {
-    color: var(--star);
-    border-bottom: 1px solid rgba(91, 141, 239, 0.35);
+  .find-why a {
+    color: var(--ink-soft);
+    border-bottom: 1px solid rgba(199, 93, 60, 0.25);
   }
-  .bg-prose a:hover {
-    color: var(--signal);
-    border-bottom-color: var(--signal);
+  .find-why a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .bg-footer-note {
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--ink-soft);
   }
+  .bg-footer-note a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+  }
+  .bg-footer-note a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-  /* Editorial photo with caption — Substack/Medium-style, full column width */
-  .bg-photo {
-    margin: 36px 0 32px;
-  }
-  .bg-photo img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .bg-photo figcaption {
-    margin-top: 14px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--mist);
-    line-height: 1.45;
-    text-align: left;
-  }
-  .bg-photo-meta {
-    margin-left: 10px;
-    color: var(--smoke);
-    font-family: var(--sans);
-    font-style: normal;
-    font-size: 13px;
+  @media (max-width: 640px) {
+    .bg-finds { grid-template-columns: 1fr; }
+    .bg-find:last-child { border-bottom: none; }
+    .bg-find:nth-last-child(2):nth-child(odd) { border-bottom: 1px dotted var(--border); }
   }
 </style>

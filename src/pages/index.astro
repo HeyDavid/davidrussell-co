@@ -2,26 +2,30 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Hero from "@/components/Hero.astro";
-import WorkWithMe from "@/components/WorkWithMe.astro";
-import Building from "@/components/Building.astro";
-import Background from "@/components/Background.astro";
 import WritingTeaser from "@/components/WritingTeaser.astro";
+import Building from "@/components/Building.astro";
+import WorkWithMe from "@/components/WorkWithMe.astro";
+import Background from "@/components/Background.astro";
 import GetInTouch from "@/components/GetInTouch.astro";
 import Footer from "@/components/Footer.astro";
 ---
 
 <BaseLayout
-  title="David Russell — Best-in-class websites and marketing funnels"
-  description="Operator notes, debates, and flow logs from David Russell. Grew a Wix site into a $400K marketplace, decade of marketing across dozens of industries. South Florida."
+  title="David Russell — Operator, builder, writer"
+  description="Solo founder in South Florida. Marketer for a decade. Grew a Wix site into a $400K+ marketplace. Building Let's Chat and a few smaller ventures."
 >
   <Header />
   <main>
     <Hero />
-    <WorkWithMe />
-    <WritingTeaser />
-    <Building />
-    <Background />
-    <GetInTouch />
+    <div class="wrap sections-wrap">
+      <WritingTeaser />
+      <Building />
+      <WorkWithMe />
+      <Background />
+      <GetInTouch />
+    </div>
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
