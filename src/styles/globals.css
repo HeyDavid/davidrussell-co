@@ -170,8 +170,18 @@ button, input, textarea { font: inherit; }
 }
 .masthead nav {
   display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
+  gap: 16px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .masthead nav {
+    gap: 12px;
+  }
+  .masthead nav a:nth-child(n+4) {
+    display: none;
+  }
 }
 .masthead nav a {
   border: 0;
@@ -413,6 +423,7 @@ a.venture-card { border-bottom: none; }
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
+  flex-shrink: 0;
   transition: background var(--dur-base) ease;
 }
 .capture button:hover { background: var(--accent); }
@@ -641,7 +652,6 @@ a.venture-card { border-bottom: none; }
 
 @media (max-width: 640px) {
   body { font-size: 16px; }
-  .masthead.is-scrolled { position: relative; }
   section.card { border-radius: 20px; }
   .capture { flex-direction: column; border-radius: 16px; padding: 12px; }
   .capture button { border-radius: 10px; }
