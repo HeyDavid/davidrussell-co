@@ -20,6 +20,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Guard: this repo lives on a workspace mount that has, on occasion,
+      # silently NUL-padded or truncated files during bulk edits. A NUL byte
+      # in source means a corrupted write. Fail fast + loud rather than ship
+      # broken HTML or surface a cryptic Astro/PostCSS parse error.
+      - name: Guard against corrupted source (NUL bytes)
+        run: |
+          if LC_ALL=C grep -rlP '\x00' src/ ; then
+            echo "::error::NUL byte(s) found in the source file(s) listed above — corrupted write. Aborting deploy."
+            exit 1
+          fi
+          echo "Source clean — no NUL bytes in src/."
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
