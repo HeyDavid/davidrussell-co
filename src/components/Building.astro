@@ -1,68 +1,67 @@
 ---
-type Venture = {
-  tag: string;
-  name: string;
-  desc: string;
-  href: string;
-  live: boolean;
-};
+type Venture = { name: string; meta: string; live: boolean; desc: string; href: string };
 
 const ventures: Venture[] = [
   {
-    tag: "Agency",
     name: "Let's Chat",
+    meta: "agency",
+    live: true,
     desc: "Productized marketing for service businesses. Modern websites, AI receptionists, and the outreach engine behind them.",
     href: "https://letschatmarketing.com",
-    live: true,
   },
   {
-    tag: "Tool",
     name: "Maker Margin",
+    meta: "tool",
+    live: true,
     desc: "A free Etsy fee calculator. Saves sellers a lot of confusion — and a few thousand dollars.",
     href: "https://makermargin.co",
-    live: true,
   },
   {
-    tag: "Resource",
     name: "ScamCapital",
-    desc: "A scam-education hub. Playbooks on common scams plus an interactive quiz that's designed to fool you.",
-    href: "https://scamcapital.com",
+    meta: "resource",
     live: true,
+    desc: "A scam-education hub. Playbooks on common scams, plus an interactive quiz designed to fool you.",
+    href: "https://scamcapital.com",
   },
   {
-    tag: "Something new",
     name: "In the workshop",
+    meta: "next",
+    live: false,
     desc: "The next small thing. Subscribe up top and you'll see it before anyone else.",
     href: "#",
-    live: false,
   },
 ];
 ---
 
-<section class="card reveal reveal-delay-1" id="building" aria-labelledby="building-title">
-  <div class="section-head">
-    <span class="section-num" aria-hidden="true">2.</span>
-    <span class="section-label">Building</span>
-  </div>
-  <h2 id="building-title">What I'm working on, in plain sight.</h2>
-
-  <div class="card-grid">
-    {ventures.map((v) => (
-      <a
-        href={v.href}
-        class={`venture-card${!v.live ? " venture-card--dim" : ""}`}
-        target={v.live ? "_blank" : undefined}
-        rel={v.live ? "noopener" : undefined}
-        aria-label={`${v.name} — ${v.desc}`}
-      >
-        <div class="venture-tag">{v.tag}</div>
-        <div class="venture-name">{v.name}</div>
-        <div class="venture-desc">{v.desc}</div>
-      </a>
-    ))}
+<section class="movement reveal" id="building" aria-labelledby="building-title">
+  <div class="movement-grid">
+    <div class="movement-head">
+      <span class="numeral" aria-hidden="true">II</span>
+      <span class="kicker">building</span>
+      <p class="margin-note">Small, focused ventures. <b>Run in public</b>, not pitched in private.</p>
+    </div>
+    <div class="movement-body">
+      <h2 class="movement-title" id="building-title">What I&rsquo;m working on, in plain sight.</h2>
+      <ul class="catalog">
+        {ventures.map((v) => (
+          <li class={`catalog-row${v.live ? "" : " is-dim"}`}>
+            {v.live ? (
+              <a class="catalog-line" href={v.href} target="_blank" rel="noopener">
+                <span class="catalog-name">{v.name}</span>
+                <span class="catalog-leader" aria-hidden="true"></span>
+                <span class="catalog-meta">{v.meta} · <span class="live">live</span></span>
+              </a>
+            ) : (
+              <div class="catalog-line">
+                <span class="catalog-name">{v.name}</span>
+                <span class="catalog-leader" aria-hidden="true"></span>
+                <span class="catalog-meta">{v.meta} · soon</span>
+              </div>
+            )}
+            <p class="catalog-desc">{v.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
-
-<style>
-  .venture-card--dim { opacity: 0.55; pointer-events: none; }
-</style>

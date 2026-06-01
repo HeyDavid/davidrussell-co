@@ -1,26 +1,21 @@
 ---
-type Lane = {
-  tag: string;
-  name: string;
-  desc: string;
-  href: string;
-};
+type Door = { label: string; name: string; desc: string; href: string };
 
-const lanes: Lane[] = [
+const doors: Door[] = [
   {
-    tag: "Marketing",
+    label: "marketing",
     name: "Hire me",
     desc: "Best-in-class websites and funnels for service businesses. I do the math, own the build, and stay accountable to the outcome.",
     href: "/work-with-me/marketing/",
   },
   {
-    tag: "Full-time / contract",
+    label: "full-time / contract",
     name: "Recruiting",
     desc: "Open to a few operator-level roles where I can make a real difference. Marketing-led, owner-accountable.",
     href: "/work-with-me/recruiting/",
   },
   {
-    tag: "Early-stage",
+    label: "early-stage",
     name: "Investing",
     desc: "If you're an operator-founder who needs a thinking partner and a small early check, this is the door for that.",
     href: "/work-with-me/investing/",
@@ -28,41 +23,27 @@ const lanes: Lane[] = [
 ];
 ---
 
-<section class="card reveal reveal-delay-2" id="work-with-me" aria-labelledby="wwm-title">
-  <div class="section-head">
-    <span class="section-num" aria-hidden="true">3.</span>
-    <span class="section-label">Work with me</span>
-  </div>
-  <h2 id="wwm-title">
-    Three doors.
-    <em>Pick the one that fits.</em>
-  </h2>
-
-  <div class="card-grid wwm-grid">
-    {lanes.map((lane) => (
-      <a href={lane.href} class="venture-card" aria-label={`${lane.name}: ${lane.desc}`}>
-        <div class="venture-tag">{lane.tag}</div>
-        <div class="venture-name">{lane.name}</div>
-        <div class="venture-desc">{lane.desc}</div>
-        <span class="wwm-cta">See the details →</span>
-      </a>
-    ))}
+<section class="movement reveal" id="doors" aria-labelledby="doors-title">
+  <div class="movement-grid">
+    <div class="movement-head">
+      <span class="numeral" aria-hidden="true">III</span>
+      <span class="kicker">the doors</span>
+      <p class="margin-note">Three ways in. <b>Pick one</b> — they don&rsquo;t overlap.</p>
+    </div>
+    <div class="movement-body">
+      <h2 class="movement-title" id="doors-title">Three doors. <em>Pick the one that fits.</em></h2>
+      <div class="doors">
+        {doors.map((d) => (
+          <a class="door" href={d.href}>
+            <div class="door-head">
+              <span class="door-label">{d.label}</span>
+              <span class="door-name">{d.name}</span>
+            </div>
+            <p class="door-desc">{d.desc}</p>
+            <span class="door-cta">Read the terms →</span>
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
-
-<style>
-  .wwm-cta {
-    display: inline-block;
-    margin-top: 12px;
-    font-size: 14px;
-    color: var(--accent);
-    font-weight: 500;
-  }
-  /* Three lanes on desktop — one column on mobile (handled by card-grid override) */
-  .wwm-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 920px) {
-    .wwm-grid { grid-template-columns: 1fr; }
-  }
-</style>

@@ -12,11 +12,9 @@ const posts = allPosts.sort(
 const formatDate = (d: Date) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 
-const formatMeta = (post: (typeof posts)[number]) =>
+const dateOf = (post: (typeof posts)[number]) =>
   post.data.status === "coming-soon" ? "coming soon" : formatDate(post.data.publishDate);
 
-// Build a list of formats actually in use, for the filter chips
-const formats = Array.from(new Set(posts.map((p) => p.data.format)));
 const hasPosts = posts.length > 0;
 ---
 
@@ -26,224 +24,94 @@ const hasPosts = posts.length > 0;
 >
   <Header />
   <main>
-    <article class="writing-index">
-      <a href="/" class="back">← Home</a>
+    <article class="reading">
+      <a href="/" class="back">← The almanac</a>
 
-      <header class="writing-head">
-        <h1>Writing.</h1>
-        <p class="writing-lede">
+      <header class="reading-head">
+        <div class="dateline">The Field Almanac &nbsp;/&nbsp; No.&nbsp;01 &nbsp;/&nbsp; Writing</div>
+        <h1>Writing<span class="period">.</span></h1>
+        <p class="reading-lede">
           Operator notes, essays, debates, and flow logs. Anything from a
-          one-line scrap to a 3,000-word essay. Filter by format below.
+          one-line scrap to a 3,000-word essay. Newest first.
         </p>
       </header>
 
-      {hasPosts && (
-        <div class="filter-chips" role="tablist" aria-label="Filter by format">
-          <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
-          {formats.map((f) => (
-            <button class="chip" data-filter={f} role="tab" aria-selected="false">
-              <span class="chip-dot" data-format={f}></span>
-              <span>{f}</span>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {!hasPosts && (
-        <p class="empty-note">
-          First essay shipping soon. <a href="/#subscribe">Subscribe on the home page</a> and you'll be first to read it.
-        </p>
-      )}
-
-      {hasPosts && (
-        <ul class="writing-feed">
+      {hasPosts ? (
+        <ul class="entries index-entries">
           {posts.map((post) => (
-            <li class="feed-item" data-format={post.data.format}>
+            <li class="entry">
               <a href={`/writing/${post.id}/`}>
-                <div class="feed-meta">
-                  <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
-                  <span class="feed-date">{formatMeta(post)}</span>
-                  {post.data.readTime && <span class="feed-read">{post.data.readTime}</span>}
+                <div class="entry-dateline">
+                  <span class="entry-format">{post.data.format}</span>
+                  <span class="sep">·</span>
+                  <span>{dateOf(post)}</span>
+                  {post.data.readTime && <><span class="sep">·</span><span>{post.data.readTime}</span></>}
                 </div>
-                <h2 class="feed-title">{post.data.title}</h2>
-                {post.data.description && <p class="feed-dek">{post.data.description}</p>}
+                <div class="entry-title">{post.data.title}</div>
+                {post.data.description && <div class="entry-dek">{post.data.description}</div>}
               </a>
             </li>
           ))}
         </ul>
+      ) : (
+        <p class="empty-note">
+          First essay shipping soon. <a href="/#find-me">Subscribe on the home page</a> and you&rsquo;ll be first to read it.
+        </p>
       )}
     </article>
   </main>
   <Footer />
 </BaseLayout>
 
-<script>
-  /* Format filter chips — toggle visibility of feed items. */
-  (() => {
-    const chips = document.querySelectorAll<HTMLButtonElement>(".chip");
-    const items = document.querySelectorAll<HTMLElement>(".feed-item");
-    if (!chips.length) return;
-
-    chips.forEach((chip) => {
-      chip.addEventListener("click", () => {
-        const filter = chip.dataset.filter;
-        chips.forEach((c) => {
-          c.classList.toggle("is-active", c === chip);
-          c.setAttribute("aria-selected", c === chip ? "true" : "false");
-        });
-        items.forEach((item) => {
-          const show = filter === "all" || item.dataset.format === filter;
-          item.style.display = show ? "" : "none";
-        });
-      });
-    });
-  })();
-</script>
-
 <style>
-  .writing-index {
-    max-width: 720px;
+  .reading {
+    max-width: 760px;
     margin: 0 auto;
-    padding: clamp(48px, 8vw, 88px) clamp(20px, 4vw, 28px) clamp(80px, 12vw, 140px);
+    padding: clamp(36px, 6vw, 72px) var(--pad) clamp(72px, 10vw, 120px);
   }
-  .writing-index .back {
+  .reading .back {
     display: inline-block;
-    margin-bottom: 48px;
-    color: var(--mist);
-    font-size: 14px;
+    margin-bottom: clamp(28px, 5vw, 48px);
     border: 0;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-faint);
   }
-  .writing-index .back:hover { color: var(--signal); }
+  .reading .back:hover { color: var(--oxblood); }
 
-  .writing-head { margin-bottom: 36px; }
-  .writing-head h1 {
+  .reading-head { margin-bottom: clamp(28px, 4vw, 44px); }
+  .reading-head .dateline { padding-bottom: 16px; }
+  .reading-head h1 {
     font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(48px, 7vw, 80px);
-    letter-spacing: -0.02em;
-    line-height: 1.02;
-    color: var(--star);
-    margin-bottom: 18px;
+    font-weight: 500;
+    font-size: clamp(52px, 10vw, 104px);
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule-ink);
+    padding-bottom: 18px;
   }
-  .writing-lede {
-    font-size: clamp(17px, 1.8vw, 20px);
-    line-height: 1.55;
-    color: var(--mist);
+  .reading-head h1 .period { color: var(--oxblood); }
+  .reading-lede {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.1vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-soft);
     max-width: 52ch;
+    margin-top: 20px;
   }
 
-  /* Filter chips — Godin-quiet, not loud */
-  .filter-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 40px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: transparent;
-    color: var(--mist);
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 400;
-    cursor: pointer;
-    transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
-  }
-  .chip:hover {
-    border-color: rgba(91, 141, 239, 0.3);
-    color: var(--star);
-  }
-  .chip.is-active {
-    background: rgba(91, 141, 239, 0.1);
-    border-color: rgba(91, 141, 239, 0.4);
-    color: var(--star);
-  }
-  .chip-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-  }
-  .chip-dot[data-format="essay"] { background: #c4d3ff; }
-  .chip-dot[data-format="debate"] { background: var(--spark); }
-  .chip-dot[data-format="note"] { background: #9ec5e8; }
-  .chip-dot[data-format="log"] { background: #8ee0c2; }
-  .chip-dot[data-format="scrap"] { background: #d8b4ff; }
-
-  /* Feed — clean reverse-chrono. No sidebar, no clutter. */
-  .writing-feed {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .feed-item {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  .feed-item:first-child {
-    border-top: 0;
-  }
-  .feed-item a {
-    display: grid;
-    gap: 8px;
-    padding: 28px 0;
-    border: 0;
-    transition: padding 220ms var(--ease-out);
-  }
-  .feed-item a:hover {
-    padding-left: 6px;
-  }
-  .feed-meta {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 4px;
-  }
-  .feed-date, .feed-read {
-    font-family: var(--sans);
-    font-size: 13px;
-    color: var(--mist);
-  }
-  .feed-read::before {
-    content: "·";
-    margin-right: 14px;
-    color: var(--smoke);
-  }
-  .feed-title {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(24px, 3vw, 34px);
-    letter-spacing: -0.015em;
-    line-height: 1.15;
-    color: var(--star);
-    transition: color 200ms ease;
-  }
-  .feed-item a:hover .feed-title {
-    color: var(--signal);
-  }
-  .feed-dek {
-    color: var(--mist);
-    font-size: 16px;
-    line-height: 1.55;
-    max-width: 60ch;
-  }
+  /* index entries — a touch larger than the homepage teaser */
+  .index-entries .entry > a { padding: 26px 0; }
+  .index-entries .entry-title { font-size: clamp(23px, 3vw, 31px); }
+  .index-entries .entry-dek { font-size: 16.5px; max-width: 60ch; }
 
   .empty-note {
-    font-size: 17px;
-    color: var(--mist);
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--ink-soft);
     padding: 24px 0;
     border-top: 1px solid var(--rule);
   }
-  .empty-note a {
-    border-bottom: 1px solid var(--rule-strong);
-    color: var(--star);
-  }
+  .empty-note a { color: var(--oxblood); border-bottom: 1px solid var(--oxblood-soft); }
 </style>

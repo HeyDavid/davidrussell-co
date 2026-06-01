@@ -14,7 +14,6 @@ export async function getStaticPaths() {
     params: { slug: post.id },
     props: {
       post,
-      // Reverse-chrono: next = newer (smaller index), prev = older (larger index)
       newer: i > 0 ? sorted[i - 1] : null,
       older: i < sorted.length - 1 ? sorted[i + 1] : null,
       related: sorted
@@ -36,26 +35,28 @@ const { Content } = await render(post);
 const formatDate = (d: Date) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
-const metaLine =
+const metaDate =
   post.data.status === "coming-soon"
-    ? "Draft — coming soon"
+    ? "draft — coming soon"
     : formatDate(post.data.publishDate);
 ---
 
 <BaseLayout
-  title={`${post.data.title} - David Russell`}
+  title={`${post.data.title} — David Russell`}
   description={post.data.description ?? "Short, occasional, never spam."}
 >
   <Header />
   <main>
-    <article class="essay essay-v2">
+    <article class="reading essay-read">
       <a href="/writing/" class="back">← All writing</a>
 
       <header class="essay-head">
-        <p class="post-meta-line">
-          <span class="format-tag" data-format={post.data.format}>{post.data.format}</span>
-          <span class="meta-line">{metaLine.toLowerCase()}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</span>
-        </p>
+        <div class="essay-meta">
+          <span class="essay-format">{post.data.format}</span>
+          <span class="sep">·</span>
+          <span>{metaDate.toLowerCase()}</span>
+          {post.data.readTime && <><span class="sep">·</span><span>{post.data.readTime}</span></>}
+        </div>
         <h1>{post.data.title}</h1>
         {post.data.description && <p class="essay-dek">{post.data.description}</p>}
       </header>
@@ -64,27 +65,25 @@ const metaLine =
         <Content />
       </div>
 
-      {/* Inline subscribe — appears after the body, before related posts */}
       <aside class="essay-subscribe" aria-labelledby="inline-sub">
         <h3 id="inline-sub">Get the next one in your inbox.</h3>
-        <p>Short notes, essays, occasional debate. No schedule, no spam.</p>
-        <form class="essay-subscribe-form" id="essay-subscribe-form">
+        <p class="essay-subscribe-note">Short notes, essays, the occasional argument. No schedule, no spam.</p>
+        <form class="field-rule" id="essay-subscribe-form">
           <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
-          <button type="submit" data-event="newsletter-signup">Subscribe</button>
-          <p class="essay-subscribe-status" id="essay-subscribe-status" role="status" aria-live="polite" hidden></p>
+          <button type="submit" data-event="newsletter-signup">Subscribe →</button>
         </form>
+        <p class="subscribe-status" id="essay-subscribe-status" role="status" aria-live="polite" hidden></p>
       </aside>
 
-      {/* Related posts */}
       {related.length > 0 && (
         <section class="essay-related">
-          <h3>More like this</h3>
+          <div class="essay-sec-label">Filed nearby</div>
           <ul>
             {related.map((p) => (
               <li>
                 <a href={`/writing/${p.id}/`}>
-                  <span class="format-tag" data-format={p.data.format}>{p.data.format}</span>
-                  <span class="related-title">{p.data.title}</span>
+                  <span class="rel-format">{p.data.format}</span>
+                  <span class="rel-title">{p.data.title}</span>
                 </a>
               </li>
             ))}
@@ -92,19 +91,18 @@ const metaLine =
         </section>
       )}
 
-      {/* Prev / next navigation */}
       {(newer || older) && (
         <nav class="essay-nav" aria-label="Post navigation">
-          {older && (
-            <a class="essay-nav-link essay-nav-prev" href={`/writing/${older.id}/`}>
-              <span class="essay-nav-label">← Older</span>
-              <span class="essay-nav-title">{older.data.title}</span>
+          {older ? (
+            <a class="essay-nav-link prev" href={`/writing/${older.id}/`}>
+              <span class="nav-lab">← Older</span>
+              <span class="nav-title">{older.data.title}</span>
             </a>
-          )}
+          ) : <span></span>}
           {newer && (
-            <a class="essay-nav-link essay-nav-next" href={`/writing/${newer.id}/`}>
-              <span class="essay-nav-label">Newer →</span>
-              <span class="essay-nav-title">{newer.data.title}</span>
+            <a class="essay-nav-link next" href={`/writing/${newer.id}/`}>
+              <span class="nav-lab">Newer →</span>
+              <span class="nav-title">{newer.data.title}</span>
             </a>
           )}
         </nav>
@@ -115,7 +113,6 @@ const metaLine =
 </BaseLayout>
 
 <script>
-  /* Inline subscribe form on essay pages */
   (() => {
     const form = document.getElementById("essay-subscribe-form") as HTMLFormElement | null;
     const status = document.getElementById("essay-subscribe-status") as HTMLElement | null;
@@ -129,7 +126,7 @@ const metaLine =
       if (!email) return;
 
       const button = form.querySelector("button");
-      if (button) { button.disabled = true; button.textContent = "Sending"; }
+      if (button) { button.disabled = true; button.textContent = "Sending…"; }
 
       data.set("email", email);
       data.set("utm_source", "davidrussell.co");
@@ -143,259 +140,128 @@ const metaLine =
         form.reset();
         status.hidden = false;
         status.textContent = "Got it. Check your inbox to confirm.";
-        if (button) { button.disabled = false; button.textContent = "Subscribe"; }
+        if (button) { button.disabled = false; button.textContent = "Subscribe →"; }
       });
     });
   })();
 </script>
 
 <style>
-  /* Ferriss-style reading column — 680px max, generous body type. */
-  .essay-v2 {
+  .essay-read {
     max-width: 680px;
     margin: 0 auto;
-    padding: clamp(48px, 8vw, 88px) clamp(20px, 4vw, 28px) clamp(80px, 12vw, 140px);
+    padding: clamp(36px, 6vw, 72px) var(--pad) clamp(72px, 10vw, 120px);
   }
-  .essay-v2 .back {
+  .essay-read .back {
     display: inline-block;
-    margin-bottom: 56px;
-    color: var(--mist);
-    font-size: 14px;
+    margin-bottom: clamp(36px, 6vw, 60px);
     border: 0;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-faint);
   }
-  .essay-v2 .back:hover { color: var(--signal); }
+  .essay-read .back:hover { color: var(--oxblood); }
 
-  .essay-head { margin-bottom: clamp(40px, 6vw, 64px); }
-  .essay-v2 .post-meta-line {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
+  .essay-head { margin-bottom: clamp(32px, 5vw, 52px); }
+  .essay-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
     flex-wrap: wrap;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
   }
-  .essay-v2 h1 {
+  .essay-meta .essay-format { color: var(--oxblood); }
+  .essay-meta .sep { color: var(--rule-strong); }
+  .essay-head h1 {
     font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(40px, 6vw, 60px);
-    letter-spacing: -0.02em;
-    line-height: 1.04;
-    color: var(--star);
+    font-weight: 500;
+    font-size: clamp(36px, 6vw, 58px);
+    letter-spacing: -0.028em;
+    line-height: 1.02;
+    color: var(--ink);
     margin-bottom: 18px;
   }
   .essay-dek {
-    font-size: clamp(18px, 2vw, 22px);
-    line-height: 1.55;
-    color: var(--mist);
-    max-width: 56ch;
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.1vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 54ch;
   }
 
-  /* Post body — generous reading type */
-  .essay-v2 .post-body {
-    color: var(--star);
-    font-size: 19px;
-    line-height: 1.78;
+  /* Reading body — generous, with a drop cap on the opening paragraph */
+  .essay-read .post-body { font-size: 19px; line-height: 1.78; }
+  .essay-read .post-body > p:first-of-type::first-letter {
+    initial-letter: 3;
+    -webkit-initial-letter: 3;
+    font-weight: 600;
+    color: var(--oxblood);
+    margin-right: 0.08em;
   }
-  .essay-v2 .post-body p,
-  .essay-v2 .post-body ul,
-  .essay-v2 .post-body ol { margin-bottom: 24px; }
-  .essay-v2 .post-body h2 {
-    margin: 48px 0 16px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 1.15;
-    color: var(--star);
-  }
-  .essay-v2 .post-body h3 {
-    margin: 36px 0 12px;
-    font-family: var(--sans);
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    color: var(--star);
-  }
-  .essay-v2 .post-body ul,
-  .essay-v2 .post-body ol { padding-left: 24px; }
-  .essay-v2 .post-body blockquote {
-    margin: 32px 0;
-    padding-left: 22px;
-    border-left: 3px solid var(--signal);
-    color: var(--mist);
-    font-style: italic;
-    font-family: var(--serif);
-    font-size: 21px;
-    line-height: 1.55;
-  }
-  .essay-v2 .post-body em {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--star);
-  }
-  .essay-v2 .post-body a {
-    color: var(--signal);
-    border-bottom: 1px solid rgba(91, 141, 239, 0.35);
-  }
-  .essay-v2 .post-body a:hover {
-    border-bottom-color: var(--signal);
+  .essay-read .post-body h2 {
+    font-size: 28px;
+    margin: 46px 0 14px;
+    letter-spacing: -0.02em;
   }
 
-  /* Inline subscribe block */
+  /* Inline subscribe — ruled, not a colored box */
   .essay-subscribe {
-    margin: clamp(56px, 8vw, 80px) 0 clamp(48px, 6vw, 64px);
-    padding: clamp(28px, 4vw, 40px);
-    border: 1px solid rgba(91, 141, 239, 0.15);
-    border-radius: 14px;
-    background: rgba(91, 141, 239, 0.04);
+    margin: clamp(52px, 8vw, 76px) 0 clamp(44px, 6vw, 60px);
+    padding: clamp(24px, 4vw, 32px) 0;
+    border-top: 2px solid var(--rule-ink);
+    border-bottom: 1px solid var(--rule-ink);
   }
   .essay-subscribe h3 {
     font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(22px, 2.6vw, 28px);
-    color: var(--star);
-    margin-bottom: 8px;
-    letter-spacing: -0.015em;
-  }
-  .essay-subscribe p {
-    color: var(--mist);
-    font-size: 15px;
-    line-height: 1.5;
-    margin-bottom: 18px;
-  }
-  .essay-subscribe-form {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
-  }
-  .essay-subscribe-form input {
-    min-height: 46px;
-    padding: 0 14px;
-    border: 1px solid var(--rule-strong);
-    border-radius: 10px;
-    background: rgba(10, 14, 26, 0.5);
-    color: var(--star);
-    font-size: 15px;
-    outline: none;
-    transition: border-color 200ms ease, background 200ms ease;
-  }
-  .essay-subscribe-form input::placeholder { color: var(--smoke); }
-  .essay-subscribe-form input:focus {
-    border-color: var(--signal);
-    background: rgba(91, 141, 239, 0.06);
-  }
-  .essay-subscribe-form button {
-    min-height: 46px;
-    padding: 0 20px;
-    border: 0;
-    border-radius: 10px;
-    background: var(--signal);
-    color: var(--void);
-    font-family: var(--sans);
-    font-size: 15px;
     font-weight: 500;
-    cursor: pointer;
-    transition: background 200ms ease;
+    font-size: clamp(22px, 2.6vw, 28px);
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    margin-bottom: 6px;
   }
-  .essay-subscribe-form button:hover {
-    background: color-mix(in srgb, var(--signal) 88%, white);
-  }
-  .essay-subscribe-status {
-    grid-column: 1 / -1;
-    color: var(--signal);
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 15px;
-    margin: 6px 0 0;
-  }
+  .essay-subscribe-note { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-bottom: 16px; }
+  .essay-subscribe .field-rule { max-width: 420px; }
 
-  /* Related posts */
-  .essay-related {
-    margin-bottom: clamp(48px, 6vw, 64px);
-  }
-  .essay-related h3 {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 22px;
-    color: var(--star);
-    margin-bottom: 18px;
-  }
-  .essay-related ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0;
-  }
-  .essay-related li {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  .essay-related li:last-child {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
+  /* Related */
+  .essay-related { margin-bottom: clamp(44px, 6vw, 56px); }
+  .essay-sec-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-faint); margin-bottom: 6px; }
+  .essay-related ul { list-style: none; }
+  .essay-related li { border-top: 1px solid var(--rule-soft); }
+  .essay-related li:first-child { border-top: 0; }
   .essay-related a {
     display: flex;
     align-items: baseline;
     gap: 14px;
-    padding: 16px 0;
+    padding: 14px 0;
     border: 0;
-    transition: padding 220ms var(--ease-out), color 200ms ease;
+    transition: padding-left var(--dur) var(--ease);
   }
-  .essay-related a:hover {
-    padding-left: 6px;
-  }
-  .related-title {
-    font-family: var(--sans);
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--star);
-    letter-spacing: -0.01em;
-  }
-  .essay-related a:hover .related-title {
-    color: var(--signal);
-  }
+  .essay-related a:hover { padding-left: 6px; }
+  .rel-format { font-family: var(--mono); font-size: 11px; color: var(--oxblood); white-space: nowrap; }
+  .rel-title { font-family: var(--serif); font-size: 18px; color: var(--ink); letter-spacing: -0.01em; }
+  .essay-related a:hover .rel-title { color: var(--oxblood); }
 
-  /* Prev/next navigation */
-  .essay-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
+  /* Prev / next */
+  .essay-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .essay-nav-link {
     display: grid;
     gap: 6px;
-    padding: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    background: rgba(20, 21, 24, 0.5);
-    transition: border-color 240ms ease, background 240ms ease;
+    padding: 18px 0;
+    border: 0;
+    border-top: 1px solid var(--rule-ink);
+    transition: color var(--dur) var(--ease);
   }
-  .essay-nav-link:hover {
-    border-color: rgba(91, 141, 239, 0.3);
-    background: rgba(20, 21, 24, 0.7);
-  }
-  .essay-nav-prev:only-child { grid-column: 1 / 2; }
-  .essay-nav-next {
-    text-align: right;
-  }
-  .essay-nav-label {
-    color: var(--mist);
-    font-size: 13px;
-  }
-  .essay-nav-title {
-    color: var(--star);
-    font-family: var(--sans);
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-  }
+  .essay-nav-link.next { text-align: right; }
+  .nav-lab { font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); }
+  .nav-title { font-family: var(--serif); font-size: 17px; color: var(--ink); line-height: 1.25; letter-spacing: -0.01em; }
+  .essay-nav-link:hover .nav-title { color: var(--oxblood); }
 
-  @media (max-width: 640px) {
+  @media (max-width: 600px) {
     .essay-nav { grid-template-columns: 1fr; }
-    .essay-nav-next { text-align: left; }
-    .essay-subscribe-form { grid-template-columns: 1fr; }
+    .essay-nav-link.next { text-align: left; }
   }
 </style>

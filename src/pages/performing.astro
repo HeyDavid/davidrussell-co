@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
 
-const ventures = [
-  { tag: "MAGIC", name: "Close-up & stage", desc: "Card and coin work, parlor sets, occasional private events around South Florida. 20+ years at it — the best icebreaker I've got." },
-  { tag: "MUSIC", name: "Guitar & vocals", desc: "Acoustic, mostly. Original work and the songs people want to hear." },
-  { tag: "COMEDY & ACTING", name: "Reels & reactions", desc: "Short-form on Instagram. Sketches, real moments, the stuff that makes the internet feel less broken." },
-  { tag: "SPEAKING", name: "In the works", desc: "Talks on building small ventures, AI tooling, and what 10+ years of marketing taught me. Drop me a line if you're curating.", muted: true },
+const acts = [
+  { tag: "magic", name: "Close-up & stage", desc: "Card and coin work, parlor sets, occasional private events around South Florida. 20+ years at it — the best icebreaker I've got." },
+  { tag: "music", name: "Guitar & vocals", desc: "Acoustic, mostly. Original work and the songs people want to hear." },
+  { tag: "comedy & acting", name: "Reels & reactions", desc: "Short-form on Instagram. Sketches, real moments, the stuff that makes the internet feel less broken." },
+  { tag: "speaking", name: "In the works", desc: "Talks on building small ventures, AI tooling, and what 10+ years of marketing taught me. Drop me a line if you're curating.", muted: true },
 ];
 ---
 
@@ -14,84 +16,37 @@ const ventures = [
   description="Magic, music, and the occasional stage."
   noindex={true}
 >
-  <main class="performing-page">
-    <div class="performing-wrap">
-      <a href="/" class="top-link">&larr; Back to davidrussell.co</a>
+  <Header />
+  <main>
+    <article class="work">
+      <a href="/" class="back">← The almanac</a>
 
-      <section class="performing-hero">
-        <p class="label">The other half</p>
-        <h1>Magic, music, and the occasional stage.</h1>
-        <p class="lede">Before the ventures, there was a kid doing card tricks in a backyard. That kid is still here. Somewhere along the way he picked up a guitar, a microphone, and a taste for getting in front of a room.</p>
+      <header class="work-head">
+        <div class="dateline">The Field Almanac &nbsp;/&nbsp; No.&nbsp;01 &nbsp;/&nbsp; <b>The other half</b></div>
+        <h1>Magic, music, and the <em>occasional stage</em>.</h1>
+        <p class="work-lede">
+          Before the ventures, there was a kid doing card tricks in a backyard.
+          That kid is still here. Somewhere along the way he picked up a guitar,
+          a microphone, and a taste for getting in front of a room.
+        </p>
+      </header>
+
+      <section class="work-block">
+        <h2>The sideline.</h2>
+        <ul class="record">
+          {acts.map((a) => (
+            <li class="record-row" style={a.muted ? "opacity:0.62;" : undefined}>
+              <div class="record-name">{a.name}<span class="yr">{a.tag}</span></div>
+              <div class="record-why">{a.desc}</div>
+            </li>
+          ))}
+        </ul>
+        <p class="work-note">
+          Best place to follow this side of things:
+          <a href="https://instagram.com/heydavidr" target="_blank" rel="noopener">@heydavidr on Instagram</a>.
+        </p>
       </section>
-
-      <div class="performing-ventures">
-        {ventures.map((v) => (
-          <div class="venture" style={v.muted ? "opacity: 0.7;" : undefined}>
-            <div class="venture-tag">{v.tag}</div>
-            <div class="venture-name">{v.name}</div>
-            <div class="venture-desc" set:html={v.desc} />
-          </div>
-        ))}
-      </div>
-
-      <p class="background-note">Best place to follow this side of things: <a href="https://instagram.com/heydavidr">@heydavidr on Instagram</a>.</p>
-    </div>
+    </article>
   </main>
+  <Footer />
 </BaseLayout>
-
-<style>
-  .performing-page { position: relative; z-index: 1; }
-  .performing-wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
-  .top-link {
-    display: inline-block;
-    font-size: 14px;
-    color: #5a5142;
-    border-bottom: 1px solid currentColor;
-    padding-top: 32px;
-  }
-  .performing-hero { padding: 24px 0 56px; }
-  .performing-hero p.label {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: #8a7d63;
-    font-weight: 500;
-    margin-bottom: 18px;
-  }
-  .performing-hero h1 {
-    font-family: "Fraunces", Georgia, serif;
-    font-size: clamp(40px, 6vw, 64px);
-    font-weight: 400;
-    letter-spacing: -0.018em;
-    line-height: 1.1;
-    margin-bottom: 22px;
-    max-width: 22ch;
-  }
-  .performing-hero h1 em { font-style: italic; color: #6a5d44; }
-  .performing-hero .lede {
-    font-size: 19px;
-    color: #4a4133;
-    max-width: 60ch;
-    line-height: 1.6;
-  }
-  .performing-ventures {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(44, 36, 23, 0.12);
-  }
-  .background-note {
-    margin-top: 36px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(44, 36, 23, 0.12);
-    font-size: 14px;
-    color: #8a7d63;
-    font-style: italic;
-  }
-  @media (max-width: 720px) {
-    .performing-wrap { padding: 0 20px; }
-    .performing-hero { padding: 16px 0 40px; }
-    .performing-ventures { grid-template-columns: 1fr; }
-  }
-</style>

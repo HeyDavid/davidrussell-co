@@ -1,23 +1,22 @@
 ---
 ---
 
-<header class="masthead" id="masthead">
-  <div class="masthead-inner">
-    <a href="/" class="masthead-name">David Russell</a>
+<header class="runhead" id="runhead">
+  <div class="runhead-inner">
+    <a href="/" class="runhead-name">David Russell<span class="mono-no">№ 01</span></a>
     <nav aria-label="Primary">
       <a href="/writing/">Writing</a>
       <a href="/lets-chat/">Building</a>
       <a href="/background/">Background</a>
       <a href="/performing/">Performing</a>
-      <a href="/#subscribe">Subscribe</a>
+      <a href="/#find-me">Subscribe</a>
     </nav>
   </div>
 </header>
 
 <script>
-  /* Frosted glass nav after first scroll */
   (() => {
-    const m = document.getElementById("masthead");
+    const m = document.getElementById("runhead");
     if (!m) return;
     const onScroll = () => {
       if (window.scrollY > 8) m.classList.add("is-scrolled");

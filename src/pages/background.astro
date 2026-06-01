@@ -2,32 +2,67 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+
+const record = [
+  { name: "Marketing operator", yr: "10+ years", why: "Paid, content, brand, productized — most channels, most stages, across dozens of industries." },
+  { name: "Moolaguides", yr: "founder & exit", why: "Grew a Wix site into a marketplace doing $400K+ a year, then sold it." },
+  { name: "Syllble", yr: "co-founder", why: "Collaborative fiction publishing. 105+ novels and counting." },
+  { name: "Let's Chat", yr: "current", why: "Productized agency for service businesses. Websites, AI, the parts in between." },
+  { name: "Maker Margin", yr: "current", why: "A free fee calculator for Etsy sellers. Quietly compounding." },
+  { name: "Magic", yr: "20+ years", why: "Card and coin work since I was a kid. Still the best icebreaker I've got." },
+];
 ---
 
 <BaseLayout
-  title="Background - David Russell"
-  description="David Russell - a decade in marketing, built his own startups, grew a Wix site into a marketplace doing over $400,000 a year. Now building best-in-class websites and marketing funnels."
+  title="Background — David Russell"
+  description="David Russell — a decade in marketing, built his own startups, grew a Wix site into a marketplace doing over $400,000 a year. Now building best-in-class websites and marketing funnels."
 >
   <Header />
   <main>
-    <section class="essay">
-      <a href="/" class="back">Back to home</a>
-      <h1>Background.</h1>
-      <p class="lede">
-        I grew what started as a Wix site into a marketplace doing over $400,000 a year in sales. A decade of marketing experience behind it &mdash; building my own startups and consulting across dozens of industries. Now I'm building best-in-class websites and marketing funnels.
-      </p>
-      <div class="post-body">
-        <p>
-          The work has been the same shape for a long time: figure out what's actually useful, ship it cleanly, then keep tightening the loop between offer, audience, and the thing they buy. Some of it was mine end-to-end; a lot of it was alongside operators who needed a marketing brain that could also build the site, write the copy, and run the funnel.
+    <article class="work">
+      <a href="/" class="back">← The almanac</a>
+
+      <header class="work-head">
+        <div class="dateline">The Field Almanac &nbsp;/&nbsp; No.&nbsp;01 &nbsp;/&nbsp; <b>Background</b></div>
+        <h1>A Wix site, a marketplace, and a <em>decade of shipping</em>.</h1>
+        <p class="work-lede">
+          I grew what started as a Wix site into a marketplace doing over
+          $400,000 a year in sales. A decade of marketing behind it — building
+          my own startups and consulting across dozens of industries. Now I
+          build best-in-class websites and marketing funnels.
         </p>
-        <p>
-          That experience &mdash; my own startups plus consulting across dozens of industries &mdash; now goes into best-in-class websites and marketing funnels for people who care about both ends: the craft of the site and the math of the funnel underneath it.
+      </header>
+
+      <section class="work-block">
+        <h2>The record.</h2>
+        <ul class="record">
+          {record.map((r) => (
+            <li class="record-row">
+              <div class="record-name">{r.name}<span class="yr">{r.yr}</span></div>
+              <div class="record-why">{r.why}</div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="work-block">
+        <h2>How the work goes.</h2>
+        <p class="work-prose">
+          The work has been the same shape for a long time: figure out what&rsquo;s
+          actually useful, ship it cleanly, then keep tightening the loop between
+          offer, audience, and the thing they buy. Some of it was mine
+          end-to-end; a lot of it was alongside operators who needed a marketing
+          brain that could also build the site, write the copy, and run the funnel.
         </p>
-        <p>
-          If that's the kind of work you're looking for, the contact form on the home page is the fastest way in.
+        <p class="work-prose" style="margin-top:18px;">
+          That experience now goes into best-in-class websites and marketing
+          funnels for people who care about both ends: the craft of the site and
+          the math of the funnel underneath it. If that&rsquo;s the kind of work
+          you&rsquo;re after, the <a href="/#find-me">contact form on the home page</a>
+          is the fastest way in.
         </p>
-      </div>
-    </section>
+      </section>
+    </article>
   </main>
   <Footer />
 </BaseLayout>

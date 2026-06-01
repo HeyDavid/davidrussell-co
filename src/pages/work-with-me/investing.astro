@@ -4,18 +4,9 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 
 const thesis = [
-  {
-    name: "Operator-founders",
-    detail: "I back people who can build, sell, and ship the work themselves. Not professional fundraisers.",
-  },
-  {
-    name: "Productized service or tools",
-    detail: "I understand both sides — I've built and run them. I add real value here, not just capital.",
-  },
-  {
-    name: "Marketing-led growth motion",
-    detail: "If marketing is your moat or your bottleneck, I'm the operator-investor you want in the cap table.",
-  },
+  { name: "Operator-founders", detail: "I back people who can build, sell, and ship the work themselves. Not professional fundraisers." },
+  { name: "Productized service or tools", detail: "I understand both sides — I've built and run them. I add real value here, not just capital." },
+  { name: "Marketing-led growth motion", detail: "If marketing is your moat or your bottleneck, I'm the operator-investor you want in the cap table." },
 ];
 
 const stage = [
@@ -32,170 +23,49 @@ const stage = [
 >
   <Header />
   <main>
-    <article class="wwm-page">
-      <a href="/" class="wwm-back">← Home</a>
+    <article class="work">
+      <a href="/" class="back">← The almanac</a>
 
-      <header class="wwm-hero">
-        <div class="section-kicker">Investing</div>
+      <header class="work-head">
+        <div class="dateline">The Field Almanac &nbsp;/&nbsp; The doors &nbsp;/&nbsp; <b>Investing</b></div>
         <h1>Small checks. <em>Real operator help.</em></h1>
-        <p class="wwm-lede">
+        <p class="work-lede">
           I write small, early checks into operator-led companies where I can
           add more than capital. Marketing is usually the lever where I help
           the most. The bar is high on what I commit to — I take this
           seriously and stay close.
         </p>
-        <a class="wwm-cta-primary" href="mailto:david@letschatmarketing.com?subject=Investment+opportunity">
-          <span>Send me a deck</span>
-          <span class="arrow">→</span>
-        </a>
+        <a class="work-cta" href="mailto:david@letschatmarketing.com?subject=Investment+opportunity">Send me a deck →</a>
       </header>
 
-      <section class="wwm-block">
+      <section class="work-block">
         <h2>What I back.</h2>
-        <ul class="wwm-deliverables">
+        <ul class="record">
           {thesis.map((item) => (
-            <li>
-              <h3>{item.name}</h3>
-              <p>{item.detail}</p>
+            <li class="record-row">
+              <div class="record-name">{item.name}</div>
+              <div class="record-why">{item.detail}</div>
             </li>
           ))}
         </ul>
       </section>
 
-      <section class="wwm-block">
+      <section class="work-block">
         <h2>The basics.</h2>
-        <dl class="wwm-spec">
+        <dl class="work-spec">
           {stage.map((s) => (
-            <div class="wwm-spec-row">
+            <div class="spec-row">
               <dt>{s.label}</dt>
               <dd>{s.value}</dd>
             </div>
           ))}
         </dl>
-        <p class="wwm-note">
+        <p class="work-note">
           <em>Placeholder ranges.</em> These will firm up over time — for now,
           treat them as a starting point for the conversation.
         </p>
-      </section>
-
-      <section class="wwm-block">
-        <h2>What I actually do for founders.</h2>
-        <ul class="wwm-list">
-          <li>Marketing brain in your corner. Real strategy, not advice from the cheap seats.</li>
-          <li>An honest second opinion on positioning, pricing, and channel mix.</li>
-          <li>Network intros in service-business, agency, and operator circles.</li>
-          <li>Quiet by default. I'm not adding signal to the noise.</li>
-        </ul>
-      </section>
-
-      <section class="wwm-cta-block">
-        <h2>How to reach me.</h2>
-        <p>
-          A short email with the deck or a Notion / Google doc is the fastest
-          way in. I usually reply within a week. I'll tell you "no" fast if
-          it's a no — your time is worth that.
-        </p>
-        <a class="wwm-cta-primary" href="mailto:david@letschatmarketing.com?subject=Investment+opportunity">
-          <span>david@letschatmarketing.com</span>
-          <span class="arrow">→</span>
-        </a>
       </section>
     </article>
   </main>
   <Footer />
 </BaseLayout>
-
-<style>
-  .wwm-page {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: clamp(48px, 8vw, 96px) clamp(20px, 4vw, 28px) clamp(80px, 12vw, 140px);
-  }
-  .wwm-back { display: inline-block; margin-bottom: 48px; color: var(--mist); font-size: 14px; border: 0; }
-  .wwm-back:hover { color: var(--signal); }
-  .wwm-hero { margin-bottom: clamp(56px, 8vw, 88px); }
-  .wwm-hero h1 {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: clamp(40px, 6vw, 64px); letter-spacing: -0.02em; line-height: 1.05;
-    color: var(--star); margin: 8px 0 22px; max-width: 22ch;
-  }
-  .wwm-hero h1 em { font-style: italic; color: var(--signal); }
-  .wwm-lede { font-size: clamp(18px, 2vw, 22px); line-height: 1.55; color: var(--mist); margin-bottom: 32px; max-width: 56ch; }
-  .wwm-cta-primary {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 12px 22px; border-radius: 999px;
-    border: 1px solid rgba(91, 141, 239, 0.4); background: rgba(91, 141, 239, 0.10);
-    color: var(--star); font-family: var(--sans); font-size: 15px; font-weight: 500;
-    transition: background 220ms ease, border-color 220ms ease;
-  }
-  .wwm-cta-primary:hover { background: rgba(91, 141, 239, 0.20); border-color: rgba(91, 141, 239, 0.6); }
-  .wwm-cta-primary .arrow { transition: transform 200ms var(--ease-out); }
-  .wwm-cta-primary:hover .arrow { transform: translateX(3px); }
-  .wwm-block { margin-bottom: clamp(48px, 7vw, 80px); }
-  .wwm-block h2 {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.02em; line-height: 1.1;
-    color: var(--star); margin-bottom: 24px;
-  }
-  .wwm-deliverables { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
-  .wwm-deliverables li { padding: 22px 0; border-top: 1px solid rgba(255, 255, 255, 0.06); }
-  .wwm-deliverables li:first-child { border-top: 0; padding-top: 8px; }
-  .wwm-deliverables h3 {
-    font-family: var(--sans); font-size: 19px; font-weight: 500;
-    letter-spacing: -0.015em; color: var(--star); margin-bottom: 6px;
-  }
-  .wwm-deliverables p { color: var(--mist); font-size: 15px; line-height: 1.55; max-width: 54ch; }
-
-  .wwm-spec { display: grid; gap: 0; margin-bottom: 16px; }
-  .wwm-spec-row {
-    display: grid;
-    grid-template-columns: minmax(120px, 160px) 1fr;
-    gap: 24px;
-    padding: 16px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  .wwm-spec-row:first-child { border-top: 0; padding-top: 4px; }
-  .wwm-spec dt {
-    color: var(--mist);
-    font-size: 14px;
-    font-family: var(--sans);
-  }
-  .wwm-spec dd {
-    color: var(--star);
-    font-size: 16px;
-    margin: 0;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-  }
-  .wwm-note {
-    color: var(--smoke);
-    font-size: 14px;
-    line-height: 1.5;
-    margin-top: 4px;
-  }
-  .wwm-note em {
-    color: var(--mist);
-    font-style: italic;
-  }
-  .wwm-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
-  .wwm-list li {
-    padding-left: 24px;
-    position: relative;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--mist);
-    max-width: 60ch;
-  }
-  .wwm-list li::before { content: "→"; position: absolute; left: 0; color: var(--signal); }
-  .wwm-cta-block {
-    padding: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 44px);
-    border: 1px solid rgba(91, 141, 239, 0.15); border-radius: 16px;
-    background: rgba(91, 141, 239, 0.04);
-  }
-  .wwm-cta-block h2 {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.02em;
-    color: var(--star); margin-bottom: 14px;
-  }
-  .wwm-cta-block p { color: var(--mist); font-size: 16px; line-height: 1.6; margin-bottom: 22px; max-width: 52ch; }
-</style>

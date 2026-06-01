@@ -45,22 +45,25 @@ const groups: Group[] = [
 ];
 
 const letsBrands = [
-  { src: "/logos/letssmile.png", alt: "Let’s Smile", note: "Dental practice marketing." },
-  { src: "/logos/letsfix.png",   alt: "Let’s Fix",   note: "Home services marketing." },
-  { src: "/logos/letsaudit.png", alt: "Let’s Audit", note: "Audit-first lead magnet for any vertical." },
+  { src: "/logos/letssmile.png", alt: "Let's Smile", note: "Dental practice marketing." },
+  { src: "/logos/letsfix.png",   alt: "Let's Fix",   note: "Home services marketing." },
+  { src: "/logos/letsaudit.png", alt: "Let's Audit", note: "Audit-first lead magnet for any vertical." },
 ];
 ---
 
 <BaseLayout
-  title="Recommended. David Russell"
+  title="Recommended — David Russell"
   description="Tools, books, and people I actually use and recommend."
 >
   <Header />
   <main>
     <section class="essay">
+      <a href="/" class="back">← The almanac</a>
+      <div class="dateline" style="padding-bottom:14px;">The Field Almanac &nbsp;/&nbsp; No.&nbsp;01 &nbsp;/&nbsp; <b>Provisions</b></div>
       <h1>Recommended.</h1>
       <p class="lede">
-        Short list of what I actually use and recommend. Tools, books, people. No affiliate trickery. If it&rsquo;s on here, it&rsquo;s because I&rsquo;d be worse without it.
+        A short list of what I actually use and recommend. Tools, books, people.
+        No affiliate trickery. If it&rsquo;s on here, it&rsquo;s because I&rsquo;d be worse without it.
       </p>
 
       {groups.map((g) => (
@@ -72,10 +75,7 @@ const letsBrands = [
               <li>
                 <div>
                   <div class="rec-name">
-                    {i.href
-                      ? <a href={i.href}>{i.name}</a>
-                      : i.name
-                    }
+                    {i.href ? <a href={i.href}>{i.name}</a> : i.name}
                   </div>
                   <div class="rec-why">{i.why}</div>
                 </div>
@@ -95,17 +95,17 @@ const letsBrands = [
           {letsBrands.map((b) => (
             <div style="text-align:center;">
               <img src={b.src} alt={b.alt} />
-              <div style="font-family:var(--sans); font-size:13px; color:var(--mist); margin-top:8px; letter-spacing:-0.005em;">{b.alt}</div>
+              <div style="font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-top:8px;">{b.alt}</div>
             </div>
           ))}
         </div>
-        <p style="margin-top:16px; font-size:15px; color:var(--ink-faint); font-style:italic;">
-          Let&rsquo;s Counsel (legal) is next in the pipeline. Parent Let&rsquo;s Chat Marketing mark lives at <a href="https://letschatmarketing.com" style="border-bottom:1px solid var(--rule-strong);">letschatmarketing.com</a>.
+        <p class="work-note" style="margin-top:16px;">
+          Let&rsquo;s Counsel (legal) is next in the pipeline. The parent Let&rsquo;s Chat Marketing mark lives at <a href="https://letschatmarketing.com">letschatmarketing.com</a>.
         </p>
       </div>
 
-      <p style="margin-top:48px; font-size:15px; color:var(--ink-faint); font-style:italic;">
-        Missing something obvious? <a href="mailto:david@letschatmarketing.com" style="border-bottom:1px solid var(--rule-strong);">Tell me</a>. I update this list whenever I swap a habit.
+      <p class="work-note" style="margin-top:44px;">
+        Missing something obvious? <a href="mailto:david@letschatmarketing.com">Tell me</a>. I update this list whenever I swap a habit.
       </p>
     </section>
   </main>

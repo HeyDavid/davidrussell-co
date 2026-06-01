@@ -1,80 +1,45 @@
 ---
 ---
 
-<section class="card reveal" id="subscribe" aria-labelledby="contact-title">
-  <div class="section-head">
-    <span class="section-num" aria-hidden="true">5.</span>
-    <span class="section-label">Find me</span>
-  </div>
-  <h2 id="contact-title">
-    Doors are open.
-    <em>Most of them, anyway.</em>
-  </h2>
+<section class="movement reveal" id="find-me" aria-labelledby="find-title">
+  <div class="movement-grid">
+    <div class="movement-head">
+      <span class="numeral" aria-hidden="true">V</span>
+      <span class="kicker">find me</span>
+      <p class="margin-note">Drop a line, or <b>subscribe</b> and read along.</p>
+    </div>
+    <div class="movement-body">
+      <h2 class="movement-title" id="find-title">Doors are open. <em>Most of them, anyway.</em></h2>
 
-  <div class="contact-split">
-    <div class="contact-socials-col">
-      <p class="contact-invite">
-        Best way to start a conversation: drop your email below, or just
-        say hello directly.
-      </p>
-      <div class="socials" style="margin-top: 24px;">
-        <a href="mailto:david@letschatmarketing.com">email</a>
-        <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener">linkedin</a>
-        <a href="https://x.com/heydavidr" target="_blank" rel="noopener">x / twitter</a>
-        <a href="https://github.com/HeyDavid" target="_blank" rel="noopener">github</a>
+      <div class="find-grid">
+        <div>
+          <p class="find-invite">
+            Best way to start a conversation: drop your email below, or just say hello directly.
+          </p>
+          <div class="socials">
+            <a href="mailto:david@letschatmarketing.com">email<span class="arrow">→</span></a>
+            <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener">linkedin<span class="arrow">→</span></a>
+            <a href="https://x.com/heydavidr" target="_blank" rel="noopener">x / twitter<span class="arrow">→</span></a>
+            <a href="https://github.com/HeyDavid" target="_blank" rel="noopener">github<span class="arrow">→</span></a>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contact-form">
+          <label>
+            <span class="lab">Email</span>
+            <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            <span class="lab">Message (optional)</span>
+            <input type="text" name="message" placeholder="What are you building?" maxlength="160" />
+          </label>
+          <button type="submit" data-event="newsletter-signup">Subscribe</button>
+          <p class="subscribe-status" id="contact-status" role="status" aria-live="polite" hidden></p>
+        </form>
       </div>
     </div>
-
-    <form class="contact-form" id="contact-form">
-      <label>
-        <span>Email</span>
-        <input
-          type="email"
-          name="email"
-          autocomplete="email"
-          placeholder="you@example.com"
-          required
-        />
-      </label>
-      <label>
-        <span>Message (optional)</span>
-        <input
-          type="text"
-          name="message"
-          placeholder="What are you building?"
-          maxlength="160"
-        />
-      </label>
-      <button type="submit" data-event="newsletter-signup">Subscribe</button>
-      <p
-        class="subscribe-status"
-        id="contact-status"
-        role="status"
-        aria-live="polite"
-        hidden
-      ></p>
-    </form>
   </div>
 </section>
-
-<style>
-  .contact-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(32px, 6vw, 64px);
-    align-items: start;
-  }
-  .contact-invite {
-    font-size: 16px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-    max-width: 38ch;
-  }
-
-  @media (max-width: 720px) {
-    .contact-split { grid-template-columns: 1fr; }
-  }
-</style>
 
 <script>
   (() => {
@@ -90,7 +55,7 @@
       if (!email) return;
 
       const button = form.querySelector("button");
-      if (button) { button.disabled = true; button.textContent = "Sending..."; }
+      if (button) { button.disabled = true; button.textContent = "Sending…"; }
 
       data.set("email", email);
       data.set("utm_source", "davidrussell.co");

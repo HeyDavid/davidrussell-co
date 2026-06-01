@@ -1,92 +1,41 @@
 ---
+type Record = { name: string; yr: string; why: string };
+
+const records: Record[] = [
+  { name: "Marketing operator", yr: "10+ years", why: "Paid, content, brand, productized — most channels, most stages." },
+  { name: "Moolaguides", yr: "founder & exit", why: "Built it, grew it to $400K+, sold it." },
+  { name: "Syllble", yr: "co-founder", why: "Collaborative fiction publishing. 105+ novels and counting." },
+  { name: "Let's Chat", yr: "current", why: "Productized agency for service businesses. Websites, AI, the parts in between." },
+  { name: "Maker Margin", yr: "current", why: "Free fee calculator for Etsy sellers. Quietly compounding." },
+  { name: "Magic", yr: "20+ years", why: "Card and coin work since I was a kid. Still the best icebreaker I've got." },
+];
 ---
 
-<section class="card reveal" id="background" aria-labelledby="background-title">
-  <div class="section-head">
-    <span class="section-num" aria-hidden="true">4.</span>
-    <span class="section-label">Background</span>
-  </div>
-  <h2 id="background-title">
-    A decade of marketing, two ventures with my name on the door, and
-    a lot of late nights shipping.
-  </h2>
-
-  <div class="bg-finds">
-    <div class="bg-find">
-      <div class="find-name">Marketing operator · 10+ years</div>
-      <div class="find-why">Paid, content, brand, productized — most channels, most stages.</div>
+<section class="movement reveal" id="background" aria-labelledby="background-title">
+  <div class="movement-grid">
+    <div class="movement-head">
+      <span class="numeral" aria-hidden="true">IV</span>
+      <span class="kicker">the record</span>
+      <p class="margin-note">A decade in, two ventures with my name <b>on the door</b>.</p>
     </div>
-    <div class="bg-find">
-      <div class="find-name">Moolaguides · founder &amp; exit</div>
-      <div class="find-why">Built it, grew it to $400K+, sold it. <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" target="_blank" rel="noopener">Covered in College Magazine</a>.</div>
-    </div>
-    <div class="bg-find">
-      <div class="find-name">Syllble · co-founder</div>
-      <div class="find-why">Collaborative fiction publishing. 105+ novels and counting.</div>
-    </div>
-    <div class="bg-find">
-      <div class="find-name">Let's Chat · current</div>
-      <div class="find-why">Productized agency for service businesses. Websites, AI, the parts in between.</div>
-    </div>
-    <div class="bg-find">
-      <div class="find-name">Maker Margin · current</div>
-      <div class="find-why">Free fee calculator for Etsy sellers. Quietly compounding.</div>
-    </div>
-    <div class="bg-find">
-      <div class="find-name">Magic · 20+ years</div>
-      <div class="find-why">Card and coin work since I was a kid. Still the best icebreaker I've got.</div>
+    <div class="movement-body">
+      <h2 class="movement-title" id="background-title">A decade of marketing, and a lot of late nights shipping.</h2>
+      <ul class="record">
+        {records.map((r) => (
+          <li class="record-row">
+            <div class="record-name">{r.name}<span class="yr">{r.yr}</span></div>
+            <div class="record-why">
+              {r.name === "Moolaguides" ? (
+                <>Built it, grew it to $400K+, sold it. <a href="https://www.collegemagazine.com/making-moola-cm-interviews-the-moolaguides-team/" target="_blank" rel="noopener">Covered in College Magazine</a>.</>
+              ) : r.why}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="record-note">
+        More detail on <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener">LinkedIn</a>.
+        The tools and books I actually use live on the <a href="/recommended/">recommended</a> page.
+      </p>
     </div>
   </div>
-
-  <p class="bg-footer-note">
-    More detail on <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener">LinkedIn</a>.
-    Tools and books I actually use are on the
-    <a href="/recommended/">recommended</a> page.
-  </p>
 </section>
-
-<style>
-  .bg-finds {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 32px;
-  }
-  .bg-find {
-    padding: 14px 0;
-    border-bottom: 1px dotted var(--border);
-  }
-  .bg-find:last-child,
-  .bg-find:nth-last-child(2):nth-child(odd) { border-bottom: none; }
-  .find-name {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--ink);
-    margin-bottom: 3px;
-  }
-  .find-why {
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 1.50;
-  }
-  .find-why a {
-    color: var(--ink-soft);
-    border-bottom: 1px solid rgba(199, 93, 60, 0.25);
-  }
-  .find-why a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-  .bg-footer-note {
-    margin-top: 28px;
-    font-size: 14px;
-    color: var(--ink-soft);
-  }
-  .bg-footer-note a {
-    color: var(--ink);
-    border-bottom: 1px solid var(--border);
-  }
-  .bg-footer-note a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-
-  @media (max-width: 640px) {
-    .bg-finds { grid-template-columns: 1fr; }
-    .bg-find:last-child { border-bottom: none; }
-    .bg-find:nth-last-child(2):nth-child(odd) { border-bottom: 1px dotted var(--border); }
-  }
-</style>

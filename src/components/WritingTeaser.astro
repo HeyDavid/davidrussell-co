@@ -6,57 +6,38 @@ const latest = allPosts
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 4);
 
-const formatMeta = (post: (typeof latest)[number]) =>
+const dateOf = (post: (typeof latest)[number]) =>
   post.data.status === "coming-soon"
     ? "coming soon"
     : post.data.publishDate.toLocaleDateString("en-US", { year: "numeric", month: "short" });
 ---
 
-<section class="card reveal" id="writing" aria-labelledby="writing-title">
-  <div class="section-head">
-    <span class="section-num" aria-hidden="true">1.</span>
-    <span class="section-label">Writing</span>
+<section class="movement reveal" id="writing" aria-labelledby="writing-title">
+  <div class="movement-grid">
+    <div class="movement-head">
+      <span class="numeral" aria-hidden="true">I</span>
+      <span class="kicker">writing</span>
+      <p class="margin-note">Short, occasional, <b>never spam</b>. Notes, logs, the odd argument.</p>
+    </div>
+    <div class="movement-body">
+      <h2 class="movement-title" id="writing-title">Notes from the workbench.</h2>
+      <ul class="entries">
+        {latest.map((post) => (
+          <li class="entry">
+            <a href={`/writing/${post.id}/`}>
+              <div class="entry-dateline">
+                <span class="entry-format">{post.data.format}</span>
+                <span class="sep">·</span>
+                <span>{dateOf(post)}</span>
+                {post.data.readTime && <><span class="sep">·</span><span>{post.data.readTime}</span></>}
+              </div>
+              <div class="entry-title">{post.data.title}</div>
+              {post.data.description && <div class="entry-dek">{post.data.description}</div>}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="movement-more"><a href="/writing/">The full index →</a></p>
+    </div>
   </div>
-  <h2 id="writing-title">
-    Notes from the workbench.
-    <em>Short, occasional, never spam.</em>
-  </h2>
-
-  <ul class="essays-list">
-    {latest.map((post) => (
-      <li>
-        <a href={`/writing/${post.id}/`}>
-          <div class="essay-meta">
-            <span class="format-dot" data-format={post.data.format} aria-hidden="true"></span>
-            <span>{post.data.format}</span>
-            <span>·</span>
-            <span>{formatMeta(post)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</span>
-          </div>
-          <div class="essay-title">{post.data.title}</div>
-          {post.data.description && <div class="essay-dek">{post.data.description}</div>}
-        </a>
-      </li>
-    ))}
-  </ul>
-
-  <p class="all-writing-link">
-    <a href="/writing/">All writing →</a>
-  </p>
 </section>
-
-<style>
-  .all-writing-link {
-    margin-top: 28px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 17px;
-  }
-  .all-writing-link a {
-    color: var(--ink-soft);
-    border-bottom: 1px solid var(--border);
-  }
-  .all-writing-link a:hover {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-</style>

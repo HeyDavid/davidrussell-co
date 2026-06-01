@@ -5,23 +5,35 @@ import Footer from "@/components/Footer.astro";
 ---
 
 <BaseLayout
-  title="Let's Chat - David Russell"
-  description="David Russell's founder lane: Let's Chat, productized marketing systems, and small business AI."
+  title="Let's Chat — David Russell"
+  description="David Russell's founder lane: Let's Chat, productized marketing systems, and small-business AI."
 >
   <Header />
   <main>
-    <section class="essay">
-      <a href="/" class="back">Back to home</a>
-      <h1>Founder.</h1>
-      <p class="lede">
-        Let's Chat is where I package marketing work into clear systems for service businesses: better websites, sharper offers, and AI-enabled intake that does not feel like a science fair project.
-      </p>
-      <div class="post-body">
-        <p>
-          The public home for that work is <a href="https://letschatmarketing.com">letschatmarketing.com</a>. This lane exists here so the personal site has a clean path into the operating company without turning the whole homepage into a storefront.
+    <article class="work">
+      <a href="/" class="back">← The almanac</a>
+
+      <header class="work-head">
+        <div class="dateline">The Field Almanac &nbsp;/&nbsp; No.&nbsp;01 &nbsp;/&nbsp; <b>Building</b></div>
+        <h1>Founder.</h1>
+        <p class="work-lede">
+          Let&rsquo;s Chat is where I package marketing work into clear systems for
+          service businesses: better websites, sharper offers, and AI-enabled
+          intake that doesn&rsquo;t feel like a science-fair project.
         </p>
-      </div>
-    </section>
+        <a class="work-cta" href="https://letschatmarketing.com" target="_blank" rel="noopener">Visit letschatmarketing.com →</a>
+      </header>
+
+      <section class="work-block">
+        <h2>Why this lane lives here.</h2>
+        <p class="work-prose">
+          The public home for that work is
+          <a href="https://letschatmarketing.com" target="_blank" rel="noopener">letschatmarketing.com</a>.
+          This lane exists on the personal site so there&rsquo;s a clean path into the
+          operating company without turning the whole homepage into a storefront.
+        </p>
+      </section>
+    </article>
   </main>
   <Footer />
 </BaseLayout>
