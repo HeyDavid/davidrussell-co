@@ -68,9 +68,9 @@ const metaDate =
       <aside class="essay-subscribe" aria-labelledby="inline-sub">
         <h3 id="inline-sub">Get the next one in your inbox.</h3>
         <p class="essay-subscribe-note">Short notes, essays, the occasional argument. No schedule, no spam.</p>
-        <form class="field-rule" id="essay-subscribe-form">
-          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
-          <button type="submit" data-event="newsletter-signup">Subscribe →</button>
+        <form class="ws-sub" id="essay-subscribe-form">
+          <input type="email" name="email" autocomplete="email" placeholder="your email" aria-label="Email address" required />
+          <button type="submit" data-event="newsletter-signup">Subscribe</button>
         </form>
         <p class="subscribe-status" id="essay-subscribe-status" role="status" aria-live="polite" hidden></p>
       </aside>
@@ -112,156 +112,75 @@ const metaDate =
   <Footer />
 </BaseLayout>
 
-<script>
-  (() => {
-    const form = document.getElementById("essay-subscribe-form") as HTMLFormElement | null;
-    const status = document.getElementById("essay-subscribe-status") as HTMLElement | null;
+<script is:inline>
+  (function(){
+    var form = document.getElementById("essay-subscribe-form");
+    var status = document.getElementById("essay-subscribe-status");
     if (!form || !status) return;
-    const BEEHIIV_PUB = "pub_ed495df0-b44a-47ba-939c-eeb46089e27b";
-
-    form.addEventListener("submit", (event) => {
+    var PUB = "pub_ed495df0-b44a-47ba-939c-eeb46089e27b";
+    form.addEventListener("submit", function(event){
       event.preventDefault();
-      const data = new FormData(form);
-      const email = String(data.get("email") ?? "").trim();
+      var input = form.querySelector("input");
+      var email = (input.value || "").trim();
       if (!email) return;
-
-      const button = form.querySelector("button");
+      var button = form.querySelector("button");
       if (button) { button.disabled = true; button.textContent = "Sending…"; }
-
+      var data = new FormData();
       data.set("email", email);
       data.set("utm_source", "davidrussell.co");
       data.set("utm_medium", "essay-inline");
       data.set("tags", "dr-subscriber");
       data.set("referring_site", window.location.pathname);
-
-      fetch(`https://embeds.beehiiv.com/${BEEHIIV_PUB}`, {
-        method: "POST", mode: "no-cors", body: data,
-      }).finally(() => {
+      fetch("https://embeds.beehiiv.com/" + PUB, { method:"POST", mode:"no-cors", body:data }).finally(function(){
         form.reset();
         status.hidden = false;
-        status.textContent = "Got it. Check your inbox to confirm.";
-        if (button) { button.disabled = false; button.textContent = "Subscribe →"; }
+        status.textContent = "Submitted. Check your inbox to confirm.";
+        if (button) { button.disabled = false; button.textContent = "Subscribe"; }
       });
     });
   })();
 </script>
 
 <style>
-  .essay-read {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: clamp(36px, 6vw, 72px) var(--pad) clamp(72px, 10vw, 120px);
-  }
-  .essay-read .back {
-    display: inline-block;
-    margin-bottom: clamp(36px, 6vw, 60px);
-    border: 0;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--ink-faint);
-  }
-  .essay-read .back:hover { color: var(--oxblood); }
+  .essay-read{max-width:680px;margin:0 auto;padding:clamp(34px,6vw,72px) var(--pad) clamp(72px,10vw,120px)}
+  .essay-head{margin-bottom:clamp(30px,5vw,48px)}
+  .essay-meta{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:13.5px;font-weight:500;color:var(--faint);margin-bottom:16px}
+  .essay-meta .essay-format{color:var(--cobalt);font-weight:600}
+  .essay-meta .sep{color:var(--line-strong)}
+  .essay-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(36px,6vw,58px);letter-spacing:-.035em;line-height:1.02;color:var(--ink);margin-bottom:16px}
+  .essay-dek{font-family:var(--grot);font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink-soft);max-width:54ch}
+  .essay-read .post-body{font-size:19px;line-height:1.78}
+  .essay-read .post-body>p:first-of-type::first-letter{initial-letter:3;-webkit-initial-letter:3;font-weight:700;color:var(--cobalt);margin-right:.08em;font-family:var(--disp)}
+  .essay-read .post-body h2{font-size:28px}
 
-  .essay-head { margin-bottom: clamp(32px, 5vw, 52px); }
-  .essay-meta {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink-faint);
-    display: flex;
-    gap: 10px;
-    align-items: baseline;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-    letter-spacing: 0.01em;
-  }
-  .essay-meta .essay-format { color: var(--oxblood); }
-  .essay-meta .sep { color: var(--rule-strong); }
-  .essay-head h1 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(36px, 6vw, 58px);
-    letter-spacing: -0.028em;
-    line-height: 1.02;
-    color: var(--ink);
-    margin-bottom: 18px;
-  }
-  .essay-dek {
-    font-family: var(--serif);
-    font-size: clamp(18px, 2.1vw, 22px);
-    line-height: 1.5;
-    color: var(--ink-soft);
-    max-width: 54ch;
-  }
+  .essay-subscribe{margin:clamp(52px,8vw,76px) 0 clamp(44px,6vw,60px);padding:clamp(26px,4vw,34px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .essay-subscribe h3{font-family:var(--disp);font-weight:700;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em;color:var(--ink);margin-bottom:6px}
+  .essay-subscribe-note{font-size:14.5px;color:var(--dim);margin-bottom:16px}
+  .ws-sub{display:flex;background:var(--card);border:1.5px solid var(--line);border-radius:100px;padding:6px 6px 6px 22px;max-width:440px;transition:border-color .3s,box-shadow .3s}
+  .ws-sub:focus-within{border-color:var(--cobalt);box-shadow:0 0 0 4px rgba(47,43,240,.12)}
+  .ws-sub input{flex:1;min-width:0;border:0;background:transparent;outline:none;font:inherit;font-size:16px;color:var(--ink)}
+  .ws-sub input::placeholder{color:var(--faint)}
+  .ws-sub button{border:0;background:var(--ink);color:var(--paper);border-radius:100px;padding:11px 22px;font-weight:600;font-size:15px;cursor:pointer;white-space:nowrap;transition:background .3s}
+  .ws-sub button:hover{background:var(--cobalt)}
+  .ws-sub button:disabled{opacity:.6;cursor:default}
+  .subscribe-status{font-size:14px;color:var(--cobalt);font-weight:600;margin-top:12px}
 
-  /* Reading body — generous, with a drop cap on the opening paragraph */
-  .essay-read .post-body { font-size: 19px; line-height: 1.78; }
-  .essay-read .post-body > p:first-of-type::first-letter {
-    initial-letter: 3;
-    -webkit-initial-letter: 3;
-    font-weight: 600;
-    color: var(--oxblood);
-    margin-right: 0.08em;
-  }
-  .essay-read .post-body h2 {
-    font-size: 28px;
-    margin: 46px 0 14px;
-    letter-spacing: -0.02em;
-  }
+  .essay-related{margin-bottom:clamp(44px,6vw,56px)}
+  .essay-sec-label{font-size:13px;font-weight:600;color:var(--cobalt);margin-bottom:6px}
+  .essay-related ul{list-style:none}
+  .essay-related li{border-top:1px solid var(--line-soft)}
+  .essay-related li:first-child{border-top:0}
+  .essay-related a{display:flex;align-items:baseline;gap:14px;padding:14px 0;transition:padding-left .3s var(--ease)}
+  .essay-related a:hover{padding-left:6px}
+  .rel-format{font-size:12px;font-weight:600;color:var(--cobalt);white-space:nowrap}
+  .rel-title{font-family:var(--disp);font-weight:600;font-size:18px;color:var(--ink);letter-spacing:-.01em}
+  .essay-related a:hover .rel-title{color:var(--cobalt)}
 
-  /* Inline subscribe — ruled, not a colored box */
-  .essay-subscribe {
-    margin: clamp(52px, 8vw, 76px) 0 clamp(44px, 6vw, 60px);
-    padding: clamp(24px, 4vw, 32px) 0;
-    border-top: 2px solid var(--rule-ink);
-    border-bottom: 1px solid var(--rule-ink);
-  }
-  .essay-subscribe h3 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(22px, 2.6vw, 28px);
-    letter-spacing: -0.018em;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-  .essay-subscribe-note { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-bottom: 16px; }
-  .essay-subscribe .field-rule { max-width: 420px; }
-
-  /* Related */
-  .essay-related { margin-bottom: clamp(44px, 6vw, 56px); }
-  .essay-sec-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-faint); margin-bottom: 6px; }
-  .essay-related ul { list-style: none; }
-  .essay-related li { border-top: 1px solid var(--rule-soft); }
-  .essay-related li:first-child { border-top: 0; }
-  .essay-related a {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding: 14px 0;
-    border: 0;
-    transition: padding-left var(--dur) var(--ease);
-  }
-  .essay-related a:hover { padding-left: 6px; }
-  .rel-format { font-family: var(--mono); font-size: 11px; color: var(--oxblood); white-space: nowrap; }
-  .rel-title { font-family: var(--serif); font-size: 18px; color: var(--ink); letter-spacing: -0.01em; }
-  .essay-related a:hover .rel-title { color: var(--oxblood); }
-
-  /* Prev / next */
-  .essay-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .essay-nav-link {
-    display: grid;
-    gap: 6px;
-    padding: 18px 0;
-    border: 0;
-    border-top: 1px solid var(--rule-ink);
-    transition: color var(--dur) var(--ease);
-  }
-  .essay-nav-link.next { text-align: right; }
-  .nav-lab { font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); }
-  .nav-title { font-family: var(--serif); font-size: 17px; color: var(--ink); line-height: 1.25; letter-spacing: -0.01em; }
-  .essay-nav-link:hover .nav-title { color: var(--oxblood); }
-
-  @media (max-width: 600px) {
-    .essay-nav { grid-template-columns: 1fr; }
-    .essay-nav-link.next { text-align: left; }
-  }
+  .essay-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .essay-nav-link{display:grid;gap:6px;padding:18px 0;border-top:1px solid var(--line);transition:color .3s}
+  .essay-nav-link.next{text-align:right}
+  .nav-lab{font-size:12px;font-weight:600;color:var(--faint)}
+  .nav-title{font-family:var(--disp);font-weight:600;font-size:17px;color:var(--ink);line-height:1.25;letter-spacing:-.01em}
+  .essay-nav-link:hover .nav-title{color:var(--cobalt)}
+  @media(max-width:600px){.essay-nav{grid-template-columns:1fr}.essay-nav-link.next{text-align:left}}
 </style>

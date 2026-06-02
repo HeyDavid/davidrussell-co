@@ -20,19 +20,19 @@ const hasPosts = posts.length > 0;
 
 <BaseLayout
   title="Writing — David Russell"
-  description="Operator notes, essays, debates, and flow logs. Short, occasional, never spam."
+  description="Operator notes, essays, and flow logs. Short, occasional, never spam — and every piece ends with a sharper question."
 >
   <Header />
   <main>
     <article class="reading">
-      <a href="/" class="back">← The almanac</a>
+      <a href="/" class="back">← Home</a>
 
       <header class="reading-head">
-        <div class="dateline">The Field Almanac &nbsp;/&nbsp; No.&nbsp;01 &nbsp;/&nbsp; Writing</div>
-        <h1>Writing<span class="period">.</span></h1>
+        <div class="w-eyebrow">Operator notes &amp; essays</div>
+        <h1>Writing<span class="d">.</span></h1>
         <p class="reading-lede">
-          Operator notes, essays, debates, and flow logs. Anything from a
-          one-line scrap to a 3,000-word essay. Newest first.
+          Short, occasional, never spam. Anything from a one-line scrap to a
+          3,000-word essay — newest first. Reply to any of them.
         </p>
       </header>
 
@@ -55,7 +55,7 @@ const hasPosts = posts.length > 0;
         </ul>
       ) : (
         <p class="empty-note">
-          First essay shipping soon. <a href="/#find-me">Subscribe on the home page</a> and you&rsquo;ll be first to read it.
+          First essay shipping soon. <a href="/#subscribe">Subscribe on the home page</a> and you&rsquo;ll be first to read it.
         </p>
       )}
     </article>
@@ -64,54 +64,13 @@ const hasPosts = posts.length > 0;
 </BaseLayout>
 
 <style>
-  .reading {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: clamp(36px, 6vw, 72px) var(--pad) clamp(72px, 10vw, 120px);
-  }
-  .reading .back {
-    display: inline-block;
-    margin-bottom: clamp(28px, 5vw, 48px);
-    border: 0;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--ink-faint);
-  }
-  .reading .back:hover { color: var(--oxblood); }
-
-  .reading-head { margin-bottom: clamp(28px, 4vw, 44px); }
-  .reading-head .dateline { padding-bottom: 16px; }
-  .reading-head h1 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(52px, 10vw, 104px);
-    letter-spacing: -0.035em;
-    line-height: 0.92;
-    color: var(--ink);
-    border-bottom: 1px solid var(--rule-ink);
-    padding-bottom: 18px;
-  }
-  .reading-head h1 .period { color: var(--oxblood); }
-  .reading-lede {
-    font-family: var(--serif);
-    font-size: clamp(18px, 2.1vw, 22px);
-    line-height: 1.5;
-    color: var(--ink-soft);
-    max-width: 52ch;
-    margin-top: 20px;
-  }
-
-  /* index entries — a touch larger than the homepage teaser */
-  .index-entries .entry > a { padding: 26px 0; }
-  .index-entries .entry-title { font-size: clamp(23px, 3vw, 31px); }
-  .index-entries .entry-dek { font-size: 16.5px; max-width: 60ch; }
-
-  .empty-note {
-    font-family: var(--serif);
-    font-size: 18px;
-    color: var(--ink-soft);
-    padding: 24px 0;
-    border-top: 1px solid var(--rule);
-  }
-  .empty-note a { color: var(--oxblood); border-bottom: 1px solid var(--oxblood-soft); }
+  .reading{max-width:760px;margin:0 auto;padding:clamp(34px,6vw,72px) var(--pad) clamp(72px,10vw,120px)}
+  .reading-head{margin-bottom:clamp(28px,4vw,44px)}
+  .w-eyebrow{font-size:14px;font-weight:600;color:var(--cobalt);margin-bottom:14px}
+  .reading-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(48px,9vw,96px);letter-spacing:-.04em;line-height:.95;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:18px}
+  .reading-head h1 .d{color:var(--cobalt)}
+  .reading-lede{font-family:var(--grot);font-size:clamp(18px,2vw,21px);line-height:1.55;color:var(--ink-soft);max-width:54ch;margin-top:18px}
+  .index-entries .entry>a{padding:26px 0}
+  .empty-note{font-size:18px;color:var(--ink-soft);padding:24px 0;border-top:1px solid var(--line)}
+  .empty-note a{color:var(--cobalt);border-bottom:1px solid rgba(47,43,240,.3)}
 </style>

@@ -3,26 +3,31 @@
 
 <header class="runhead" id="runhead">
   <div class="runhead-inner">
-    <a href="/" class="runhead-name">David Russell<span class="mono-no">№ 01</span></a>
-    <nav aria-label="Primary">
+    <a href="/" class="runhead-brand" aria-label="David Russell — home">
+      <img src="/assets/headshot.jpg" alt="" width="38" height="38" decoding="async">
+      <span class="runhead-name">david <span class="d">russell</span></span>
+    </a>
+    <button class="rh-menu" id="rh-menu" type="button" aria-label="Open menu" aria-controls="rh-nav" aria-expanded="false"><span class="ic" aria-hidden="true"></span></button>
+    <nav id="rh-nav" aria-label="Primary">
       <a href="/writing/">Writing</a>
-      <a href="/lets-chat/">Building</a>
-      <a href="/background/">Background</a>
-      <a href="/performing/">Performing</a>
-      <a href="/#find-me">Subscribe</a>
+      <a href="/#built">Work</a>
+      <a href="/#about">About</a>
+      <a href="/#subscribe" class="cta">Subscribe</a>
     </nav>
   </div>
 </header>
 
-<script>
-  (() => {
-    const m = document.getElementById("runhead");
-    if (!m) return;
-    const onScroll = () => {
-      if (window.scrollY > 8) m.classList.add("is-scrolled");
-      else m.classList.remove("is-scrolled");
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+<script is:inline>
+  (function(){
+    var h=document.getElementById("runhead");
+    var m=document.getElementById("rh-menu");
+    var n=document.getElementById("rh-nav");
+    if(h){ var s=function(){ h.classList.toggle("is-scrolled", window.scrollY>8); }; addEventListener("scroll", s, {passive:true}); s(); }
+    if(m&&n){
+      function set(open){ m.classList.toggle("open",open); n.classList.toggle("open",open); m.setAttribute("aria-expanded",String(open)); m.setAttribute("aria-label",open?"Close menu":"Open menu"); }
+      m.addEventListener("click",function(){ set(!n.classList.contains("open")); });
+      n.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",function(){ set(false); }); });
+      document.addEventListener("keydown",function(e){ if(e.key==="Escape") set(false); });
+    }
   })();
 </script>

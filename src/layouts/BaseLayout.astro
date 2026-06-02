@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title = "David Russell",
-  description = "Solo founder in South Florida. Marketer for a decade. Grew a Wix site into a $400K+ marketplace. Building Let's Chat and a few smaller ventures.",
+  description = "Solo operator in South Florida. A decade in marketing and a $400K+ exit. I build small, useful companies and write about the work.",
   image = "/og.png",
   noindex = false,
 } = Astro.props;
@@ -41,16 +41,11 @@ const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toSt
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-<meta name="theme-color" content="#f4efe3">
+<meta name="theme-color" content="#fbf5ea">
 <meta name="color-scheme" content="light">
-<!-- Newsreader (editorial serif — voice) + Space Mono (data — datelines, index, labels) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-  rel="stylesheet"
->
-<!-- Cloudflare Web Analytics -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "374371c09f5d4d4b83fe5e0a2f55cbc6"}'></script>
 <title>{title}</title>
 </head>
@@ -61,10 +56,10 @@ const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toSt
 </div>
 
 <script is:inline>
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } });
   }, { threshold: 0.08 });
-  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+  document.querySelectorAll(".reveal").forEach(function(el){ obs.observe(el); });
 </script>
 
 </body>
