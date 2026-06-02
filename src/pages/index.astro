@@ -103,9 +103,9 @@ section{position:relative;z-index:1}
 }
 
 .hero{padding:clamp(36px,7vh,84px) 0 clamp(46px,7vw,90px);position:relative}
-#herogl{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.92;mix-blend-mode:multiply;
-  -webkit-mask-image:radial-gradient(92% 82% at 77% 28%,#000 0 38%,rgba(0,0,0,.82) 52%,transparent 78%);
-  mask-image:radial-gradient(92% 82% at 77% 28%,#000 0 38%,rgba(0,0,0,.82) 52%,transparent 78%)}
+#herogl{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.95;mix-blend-mode:multiply;
+  -webkit-mask-image:radial-gradient(125% 100% at 66% 34%,#000 0 48%,rgba(0,0,0,.78) 64%,transparent 86%);
+  mask-image:radial-gradient(125% 100% at 66% 34%,#000 0 48%,rgba(0,0,0,.78) 64%,transparent 86%)}
 .hero.nogl #herogl{background:radial-gradient(56% 62% at 76% 28%,rgba(47,43,240,.095),transparent 68%),linear-gradient(110deg,transparent 0 48%,rgba(27,24,18,.05) 48.1% 48.4%,transparent 48.5%)}
 @media(max-width:720px){#herogl{opacity:.55;-webkit-mask-image:radial-gradient(105% 82% at 80% 22%,#000 0 32%,transparent 72%);mask-image:radial-gradient(105% 82% at 80% 22%,#000 0 32%,transparent 72%)}}
 .hero .grid{display:grid;grid-template-columns:1.32fr .88fr;gap:clamp(30px,5vw,70px);align-items:center;position:relative;z-index:1}
@@ -129,7 +129,7 @@ section{position:relative;z-index:1}
 .field button:disabled{opacity:.6;cursor:default}
 .signup .cap{font-size:14.5px;color:var(--dim);margin-top:12px;padding-left:4px}
 .signup .cap.done{color:var(--cobalt);font-weight:600}
-.por{position:relative;justify-self:center;width:100%;max-width:380px}
+.por{position:relative;justify-self:end;width:100%;max-width:392px}
 .js .por{animation:rise 1.2s var(--ease) .32s both}
 .por .block{position:absolute;left:-22px;bottom:-22px;width:88%;height:84%;background:var(--cobalt);z-index:0}
 .por .frame{position:relative;z-index:1;aspect-ratio:4/5;border-radius:230px 230px 14px 14px;overflow:hidden;box-shadow:0 30px 60px rgba(27,24,18,.16)}
@@ -337,11 +337,15 @@ section{position:relative;z-index:1}
   var fine = window.matchMedia('(pointer:fine)').matches;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var cur = document.getElementById('cur'), aura = document.getElementById('aura');
+  window.__pointer = { x: innerWidth*0.72, y: innerHeight*0.30, active:false };
   if(fine && !reduce){
     var x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
-    addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;aura.style.setProperty('--mx',x+'px');aura.style.setProperty('--my',y+'px');});
+    addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;window.__pointer.x=x;window.__pointer.y=y;window.__pointer.active=true;aura.style.setProperty('--mx',x+'px');aura.style.setProperty('--my',y+'px');},{passive:true});
     (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;cur.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
-    document.querySelectorAll('[data-c],a,button').forEach(function(el){el.addEventListener('mouseenter',function(){cur.classList.add('big');});el.addEventListener('mouseleave',function(){cur.classList.remove('big');});});
+    // hover-grow on EVERY section via delegation — no per-node binding, catches dynamically considered targets too
+    var HOT='a,button,input,label,summary,[data-c],[role="button"],.mode,.post,.pk,.work-cta,.back,.brand';
+    document.addEventListener('mouseover',function(e){var el=e.target;cur.classList.toggle('big', !!(el&&el.closest&&el.closest(HOT)));},{passive:true});
+    document.addEventListener('mouseleave',function(){cur.classList.remove('big');});
   } else if(cur){ cur.style.display='none'; if(aura) aura.style.display='none'; }
 
   // accessible mobile menu
@@ -388,51 +392,92 @@ section{position:relative;z-index:1}
   }
   wire('sub1','hero'); wire('sub2','footer');
 
-  // "Signal on paper" — static Canvas2D hero (ink / paper / cobalt signal). No loop, no WebGL. Draws once + on resize.
+  // "Signal" — animated, cursor-reactive flow field (cobalt ink on paper). Canvas2D, no WebGL.
+  // Drifts on layered sines; the lines dimple around the pointer. Throttled, pauses offscreen, static under reduced-motion.
   (function(){
     var c=document.getElementById('herogl'); if(!c) return;
     var hero=c.closest('.hero'); if(!hero) return;
     var ctx=c.getContext('2d',{alpha:true,desynchronized:true});
     if(!ctx){ hero.classList.add('nogl'); return; }
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var coarse=window.matchMedia('(pointer: coarse)').matches;
-    var dprCap=coarse?1:1.5, raf=0;
     var INK='27,24,18', COB='47,43,240';
-    function seeded(s){return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
-    function schedule(){cancelAnimationFrame(raf);raf=requestAnimationFrame(draw);}
-    function draw(){
-      var rect=hero.getBoundingClientRect();
-      var W=Math.max(1,Math.round(rect.width)), H=Math.max(1,Math.round(rect.height));
-      var dpr=Math.min(window.devicePixelRatio||1,dprCap);
-      var sc=Math.min(1,960/W);
+    var dprCap=coarse?1:1.6;
+    var W=1,H=1,dpr=1,sc=1;
+    var LINES=coarse?10:16, STEP=coarse?24:16, R=coarse?170:230;
+    var t=0, raf=0, last=0, minDT=coarse?1000/30:1000/60, running=false, inView=true, pageVis=true;
+    var px=0.66, py=0.32, tx=0.66, ty=0.32; // pointer, normalized to hero, eased
+
+    function resize(){
+      var r=hero.getBoundingClientRect();
+      W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
+      dpr=Math.min(window.devicePixelRatio||1,dprCap);
+      sc=Math.min(1,1100/W);
       c.width=Math.round(W*sc*dpr); c.height=Math.round(H*sc*dpr);
       c.style.width='100%'; c.style.height='100%';
       ctx.setTransform(sc*dpr,0,0,sc*dpr,0,0);
-      ctx.clearRect(0,0,W,H);
-      // one quiet cobalt field
-      var g=ctx.createRadialGradient(W*.76,H*.28,0,W*.76,H*.28,Math.max(W,H)*.72);
-      g.addColorStop(0,'rgba('+COB+',.115)'); g.addColorStop(.48,'rgba('+COB+',.045)'); g.addColorStop(1,'rgba('+COB+',0)');
-      ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-      // calibration / contour lines
-      ctx.lineCap='round'; ctx.lineJoin='round';
-      var sX=W*.43, eX=W*1.06, rows=[.18,.30,.43,.58,.73,.86];
-      rows.forEach(function(p,i){
-        var y=H*p, lift=(i%2?-1:1)*H*.052;
-        ctx.beginPath(); ctx.moveTo(sX,y);
-        ctx.bezierCurveTo(W*.58,y+lift,W*.78,y-lift*.75,eX,y+lift*.18);
-        ctx.setLineDash(i===4?[1,7]:[]);
-        ctx.strokeStyle=i===2?'rgba('+COB+',.18)':'rgba('+INK+',.065)';
-        ctx.lineWidth=i===2?1.35:.85; ctx.stroke();
-      });
-      // registration ticks
-      ctx.setLineDash([]); ctx.strokeStyle='rgba('+COB+',.22)'; ctx.lineWidth=1;
-      for(var i=0;i<7;i++){ var x=W*(.61+i*.038), ty=H*(.16+(i%3)*.055); ctx.beginPath(); ctx.moveTo(x,ty); ctx.lineTo(x+18,ty-7); ctx.stroke(); }
-      // faint deterministic paper grain
-      var rand=seeded(41), dots=coarse?42:86;
-      for(var j=0;j<dots;j++){ var dx=W*(.48+rand()*.50), dy=H*(.08+rand()*.84), a=.022+rand()*.04; ctx.fillStyle='rgba('+INK+','+a+')'; ctx.fillRect(dx,dy,1,1); }
     }
-    if('ResizeObserver' in window){ new ResizeObserver(schedule).observe(hero); }
-    else { window.addEventListener('resize',schedule,{passive:true}); }
-    schedule();
+    function syncPointer(){
+      var p=window.__pointer; if(!p) return;
+      var r=hero.getBoundingClientRect();
+      tx=Math.min(1.2,Math.max(-0.2,(p.x-r.left)/Math.max(1,r.width)));
+      ty=Math.min(1.2,Math.max(-0.2,(p.y-r.top)/Math.max(1,r.height)));
+    }
+    function render(){
+      ctx.clearRect(0,0,W,H);
+      var cx=px*W, cy=py*H, R2=R*R;
+      // cobalt wash, nudged toward the pointer
+      var gx=(0.58+px*0.20)*W, gy=(0.22+py*0.18)*H;
+      var g=ctx.createRadialGradient(gx,gy,0,gx,gy,Math.max(W,H)*0.72);
+      g.addColorStop(0,'rgba('+COB+',.13)'); g.addColorStop(.45,'rgba('+COB+',.04)'); g.addColorStop(1,'rgba('+COB+',0)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+      ctx.lineCap='round'; ctx.lineJoin='round';
+      var top=H*0.05, span=H*0.92;
+      for(var i=0;i<LINES;i++){
+        var ly=top+span*(i/(LINES-1));
+        var ph=t+i*0.40, accent=(i%4===2);
+        ctx.beginPath();
+        for(var x=-24, first=1; x<=W+24; x+=STEP){
+          var base=Math.sin(x*0.0040+ph)*20 + Math.sin(x*0.0115-ph*1.25)*8;
+          var ddx=x-cx, ddy=ly-cy, d2=ddx*ddx+ddy*ddy;
+          var dimple=Math.exp(-d2/(2*R2))*44*(ddy>=0?1:-1); // fabric-press around the pointer
+          var y=ly+base+dimple;
+          if(first){ctx.moveTo(x,y);first=0;} else ctx.lineTo(x,y);
+        }
+        ctx.strokeStyle=accent?'rgba('+COB+',.42)':'rgba('+INK+',.10)';
+        ctx.lineWidth=accent?1.45:0.9;
+        ctx.stroke();
+      }
+      // one crisp dashed "scan" line for the signal read
+      ctx.beginPath();
+      for(var x2=-24, f2=1; x2<=W+24; x2+=STEP){
+        var ys=H*0.20 + Math.sin(x2*0.006+t*1.5)*6;
+        if(f2){ctx.moveTo(x2,ys);f2=0;} else ctx.lineTo(x2,ys);
+      }
+      ctx.setLineDash([1,9]); ctx.strokeStyle='rgba('+COB+',.5)'; ctx.lineWidth=1.1; ctx.stroke(); ctx.setLineDash([]);
+    }
+    function frame(now){
+      if(!running) return;
+      raf=requestAnimationFrame(frame);
+      if(now-last<minDT) return; last=now;
+      syncPointer();
+      px+=(tx-px)*0.07; py+=(ty-py)*0.07;
+      t+=0.0065;
+      render();
+    }
+    function start(){ if(running||reduce) return; running=true; last=0; raf=requestAnimationFrame(frame); }
+    function stop(){ if(!running) return; running=false; cancelAnimationFrame(raf); }
+    function sync(){ (inView && pageVis && !reduce) ? start() : stop(); }
+
+    resize();
+    if(reduce){ syncPointer(); px=tx; py=ty; render(); } else { start(); }
+
+    if('ResizeObserver' in window){ new ResizeObserver(function(){ resize(); if(reduce||!running) render(); }).observe(hero); }
+    else { window.addEventListener('resize',function(){ resize(); if(reduce||!running) render(); },{passive:true}); }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ inView=e.isIntersecting; }); sync(); },{threshold:0}).observe(hero);
+    }
+    document.addEventListener('visibilitychange',function(){ pageVis=!document.hidden; sync(); });
   })();
 })();
 </script>
