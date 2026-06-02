@@ -26,42 +26,45 @@ const faq = [
   <main>
     <article class="work">
       <a href="/" class="back">← Home</a>
+      <div class="work-grid">
+        <header class="work-head">
+          <div class="dateline">The doors &nbsp;/&nbsp; <b>Marketing</b></div>
+          <h1>Better websites. Better funnels. <em>Built by an operator.</em></h1>
+          <p class="work-lede">
+            Most marketing sites are decoration. The work I do is structural —
+            the page, the copy, the funnel underneath, and the math that proves
+            it&rsquo;s earning. For service businesses and operator-led companies
+            who want the math to actually work.
+          </p>
+          <a class="work-cta" href="/#subscribe">Tell me about your project →</a>
+        </header>
 
-      <header class="work-head">
-        <div class="dateline">The doors &nbsp;/&nbsp; <b>Marketing</b></div>
-        <h1>Better websites. Better funnels. <em>Built by an operator.</em></h1>
-        <p class="work-lede">
-          Most marketing sites are decoration. The work I do is structural —
-          the page, the copy, the funnel underneath, and the math that proves
-          it&rsquo;s earning. For service businesses and operator-led companies
-          who want the math to actually work.
-        </p>
-        <a class="work-cta" href="/#find-me">Tell me about your project →</a>
-      </header>
+        <div class="work-body">
+          <section class="work-block">
+            <h2>What you&rsquo;re getting.</h2>
+            <ul class="record">
+              {deliverables.map((d) => (
+                <li class="record-row">
+                  <div class="record-name">{d.name}</div>
+                  <div class="record-why">{d.detail}</div>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-      <section class="work-block">
-        <h2>What you&rsquo;re getting.</h2>
-        <ul class="record">
-          {deliverables.map((d) => (
-            <li class="record-row">
-              <div class="record-name">{d.name}</div>
-              <div class="record-why">{d.detail}</div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section class="work-block">
-        <h2>Common questions.</h2>
-        <div class="qa">
-          {faq.map((f) => (
-            <div class="qa-row">
-              <div class="qa-q">{f.q}</div>
-              <div class="qa-a">{f.a}</div>
+          <section class="work-block">
+            <h2>Common questions.</h2>
+            <div class="qa">
+              {faq.map((f) => (
+                <div class="qa-row">
+                  <div class="qa-q">{f.q}</div>
+                  <div class="qa-a">{f.a}</div>
+                </div>
+              ))}
             </div>
-          ))}
+          </section>
         </div>
-      </section>
+      </div>
     </article>
   </main>
   <Footer />

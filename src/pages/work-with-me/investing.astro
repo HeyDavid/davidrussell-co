@@ -25,46 +25,49 @@ const stage = [
   <main>
     <article class="work">
       <a href="/" class="back">← Home</a>
+      <div class="work-grid">
+        <header class="work-head">
+          <div class="dateline">The doors &nbsp;/&nbsp; <b>Investing</b></div>
+          <h1>Small checks. <em>Real operator help.</em></h1>
+          <p class="work-lede">
+            I write small, early checks into operator-led companies where I can
+            add more than capital. Marketing is usually the lever where I help
+            the most. The bar is high on what I commit to — I take this
+            seriously and stay close.
+          </p>
+          <a class="work-cta" href="mailto:david@letschatmarketing.com?subject=Investment+opportunity">Send me a deck →</a>
+        </header>
 
-      <header class="work-head">
-        <div class="dateline">The doors &nbsp;/&nbsp; <b>Investing</b></div>
-        <h1>Small checks. <em>Real operator help.</em></h1>
-        <p class="work-lede">
-          I write small, early checks into operator-led companies where I can
-          add more than capital. Marketing is usually the lever where I help
-          the most. The bar is high on what I commit to — I take this
-          seriously and stay close.
-        </p>
-        <a class="work-cta" href="mailto:david@letschatmarketing.com?subject=Investment+opportunity">Send me a deck →</a>
-      </header>
+        <div class="work-body">
+          <section class="work-block">
+            <h2>What I back.</h2>
+            <ul class="record">
+              {thesis.map((item) => (
+                <li class="record-row">
+                  <div class="record-name">{item.name}</div>
+                  <div class="record-why">{item.detail}</div>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-      <section class="work-block">
-        <h2>What I back.</h2>
-        <ul class="record">
-          {thesis.map((item) => (
-            <li class="record-row">
-              <div class="record-name">{item.name}</div>
-              <div class="record-why">{item.detail}</div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section class="work-block">
-        <h2>The basics.</h2>
-        <dl class="work-spec">
-          {stage.map((s) => (
-            <div class="spec-row">
-              <dt>{s.label}</dt>
-              <dd>{s.value}</dd>
-            </div>
-          ))}
-        </dl>
-        <p class="work-note">
-          <em>Placeholder ranges.</em> These will firm up over time — for now,
-          treat them as a starting point for the conversation.
-        </p>
-      </section>
+          <section class="work-block">
+            <h2>The basics.</h2>
+            <dl class="work-spec">
+              {stage.map((s) => (
+                <div class="spec-row">
+                  <dt>{s.label}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p class="work-note">
+              <em>Placeholder ranges.</em> These will firm up over time — for now,
+              treat them as a starting point for the conversation.
+            </p>
+          </section>
+        </div>
+      </div>
     </article>
   </main>
   <Footer />

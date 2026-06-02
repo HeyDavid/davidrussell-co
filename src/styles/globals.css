@@ -66,18 +66,22 @@ button,input,textarea,select{font:inherit;color:inherit}
 }
 
 /* ─── SHARED READING CONTAINERS ─── */
-.essay,.work{max-width:760px;margin:0 auto;padding:clamp(34px,6vw,72px) var(--pad) clamp(64px,9vw,110px)}
+.essay{max-width:760px;margin:0 auto;padding:clamp(34px,6vw,72px) var(--pad) clamp(64px,9vw,110px)}
+.work{max-width:1080px;margin:0 auto;padding:clamp(34px,6vw,72px) var(--pad) clamp(64px,9vw,110px)}
+.work-grid{display:grid;gap:clamp(26px,4vw,52px)}
+@media(min-width:860px){.work-grid{grid-template-columns:.92fr 1.08fr;gap:clamp(48px,6vw,88px);align-items:start}.work-grid .work-head{position:sticky;top:96px;margin-bottom:0}.work-body>.work-block:first-child{border-top:0;padding-top:0}}
 .back{display:inline-block;margin-bottom:clamp(28px,5vw,48px);font-size:15px;font-weight:600;color:var(--cobalt)}
 .dateline{font-size:14px;font-weight:600;color:var(--cobalt);letter-spacing:.01em}
 .dateline b{font-weight:700}
 
 /* Big page headline */
-.essay>h1,.work-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(40px,7vw,76px);letter-spacing:-.035em;line-height:.98;color:var(--ink);margin-bottom:20px}
+.essay>h1,.work-head h1{font-family:var(--disp);font-weight:600;font-size:clamp(40px,6.4vw,72px);letter-spacing:-.02em;line-height:1.0;color:var(--ink);margin-bottom:20px}
 .work-head h1 em{font-style:normal;color:var(--cobalt)}
 .essay .lede,.work-lede{font-family:var(--grot);font-size:clamp(19px,2.1vw,23px);line-height:1.5;color:var(--ink-soft);max-width:54ch;margin-bottom:34px}
 .work-head{margin-bottom:clamp(30px,5vw,48px)}
 .work-head .dateline{display:block;margin-bottom:16px}
-.work-cta{display:inline-block;margin-top:6px;font-size:15px;font-weight:600;color:var(--cobalt);border-bottom:2px solid var(--cobalt);padding-bottom:2px}
+.work-cta{display:inline-block;margin-top:20px;background:var(--cobalt);color:#fff;font-weight:600;font-size:16px;padding:13px 26px;border-radius:100px;transition:background .3s var(--ease),transform .3s var(--ease)}
+.work-cta:hover{background:var(--cobalt-deep);color:#fff;transform:translateY(-2px)}
 
 /* Prose */
 .post-body{font-family:var(--grot);font-size:18px;line-height:1.72;color:var(--ink)}

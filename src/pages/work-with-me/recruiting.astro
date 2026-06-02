@@ -26,48 +26,51 @@ const whatItsLike = [
   <main>
     <article class="work">
       <a href="/" class="back">← Home</a>
+      <div class="work-grid">
+        <header class="work-head">
+          <div class="dateline">The doors &nbsp;/&nbsp; <b>Recruiting</b></div>
+          <h1>If you need a marketing brain that also <em>ships</em>.</h1>
+          <p class="work-lede">
+            I&rsquo;m open to a small number of full-time or fractional roles where the
+            work is real and the leverage is high. I&rsquo;m not chasing titles or
+            checking a network-status box. I&rsquo;m looking for the kind of company
+            where I can move the needle and be proud of how it was moved.
+          </p>
+          <a class="work-cta" href="mailto:david@letschatmarketing.com?subject=Work+with+me">Email me directly →</a>
+        </header>
 
-      <header class="work-head">
-        <div class="dateline">The doors &nbsp;/&nbsp; <b>Recruiting</b></div>
-        <h1>If you need a marketing brain that also <em>ships</em>.</h1>
-        <p class="work-lede">
-          I&rsquo;m open to a small number of full-time or fractional roles where the
-          work is real and the leverage is high. I&rsquo;m not chasing titles or
-          checking a network-status box. I&rsquo;m looking for the kind of company
-          where I can move the needle and be proud of how it was moved.
-        </p>
-        <a class="work-cta" href="mailto:david@letschatmarketing.com?subject=Work+with+me">Email me directly →</a>
-      </header>
+        <div class="work-body">
+          <section class="work-block">
+            <h2>What I&rsquo;m looking for.</h2>
+            <ul class="record">
+              {lookingFor.map((item) => (
+                <li class="record-row">
+                  <div class="record-name">{item.role}</div>
+                  <div class="record-why">{item.detail}</div>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-      <section class="work-block">
-        <h2>What I&rsquo;m looking for.</h2>
-        <ul class="record">
-          {lookingFor.map((item) => (
-            <li class="record-row">
-              <div class="record-name">{item.role}</div>
-              <div class="record-why">{item.detail}</div>
-            </li>
-          ))}
-        </ul>
-      </section>
+          <section class="work-block">
+            <h2>What working with me looks like.</h2>
+            <ul class="work-list">
+              {whatItsLike.map((item) => (<li>{item}</li>))}
+            </ul>
+          </section>
 
-      <section class="work-block">
-        <h2>What working with me looks like.</h2>
-        <ul class="work-list">
-          {whatItsLike.map((item) => (<li>{item}</li>))}
-        </ul>
-      </section>
-
-      <section class="work-block">
-        <h2>Background.</h2>
-        <p class="work-prose">
-          A decade of marketing across dozens of industries. Grew a Wix site
-          into a marketplace doing $400K+ a year. Built several startups under
-          my own name. Currently running Let&rsquo;s Chat (productized agency)
-          plus a few smaller ventures. More on the
-          <a href="/background/"> background page</a>.
-        </p>
-      </section>
+          <section class="work-block">
+            <h2>Background.</h2>
+            <p class="work-prose">
+              A decade of marketing across dozens of industries. Grew a Wix site
+              into a marketplace doing $400K+ a year. Built several startups under
+              my own name. Currently running Let&rsquo;s Chat (an AI voice studio)
+              plus a few smaller ventures. More on the
+              <a href="/background/"> background page</a>.
+            </p>
+          </section>
+        </div>
+      </div>
     </article>
   </main>
   <Footer />
