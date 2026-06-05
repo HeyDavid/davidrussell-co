@@ -42,12 +42,16 @@ const groups: Group[] = [
       { name: "Patrick Collison", href: "https://patrickcollison.com/", tag: "Builder", why: "Bookshelf and essays. The questions list alone is worth a read once a year." },
     ],
   },
-];
-
-const letsBrands = [
-  { src: "/logos/letssmile.png", alt: "Let's Smile", note: "Dental practice marketing." },
-  { src: "/logos/letsfix.png",   alt: "Let's Fix",   note: "Home services marketing." },
-  { src: "/logos/letsaudit.png", alt: "Let's Audit", note: "Audit-first lead magnet for any vertical." },
+  {
+    title: "What I'm building now",
+    note: "The current portfolio — this site is the umbrella; each of these stands on its own.",
+    items: [
+      { name: "Cura", href: "https://curadental.co", tag: "Flagship", why: "The AI front desk for dental practices — website, receptionist, reviews, and reporting, sold as one system." },
+      { name: "Let's Chat", href: "https://letschatmarketing.com", tag: "Active", why: "AI voice studio. Custom phone agents that answer, book, and qualify — built and run for businesses that live on the phone." },
+      { name: "ScamCapital", href: "https://scamcapital.com", tag: "Active", why: "Turns confusing scams into clear, plain-English warnings regular people can act on." },
+      { name: "Computer Input", href: "https://computerinput.com", tag: "Family", why: "My parents' 40-year cabling business. I run the marketing — and test the playbook here first." },
+    ],
+  },
 ];
 ---
 
@@ -85,24 +89,6 @@ const letsBrands = [
           </ul>
         </div>
       ))}
-
-      <div class="rec-group">
-        <h3>What I&rsquo;m building under one roof</h3>
-        <p class="rec-group-note">
-          Let&rsquo;s Chat Marketing is the agency. The verticals below live inside it. Same playbook, different rooms.
-        </p>
-        <div class="rec-logos">
-          {letsBrands.map((b) => (
-            <div style="text-align:center;">
-              <img src={b.src} alt={b.alt} />
-              <div style="font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-top:8px;">{b.alt}</div>
-            </div>
-          ))}
-        </div>
-        <p class="work-note" style="margin-top:16px;">
-          Let&rsquo;s Counsel (legal) is next in the pipeline. The parent Let&rsquo;s Chat Marketing mark lives at <a href="https://letschatmarketing.com">letschatmarketing.com</a>.
-        </p>
-      </div>
 
       <p class="work-note" style="margin-top:44px;">
         Missing something obvious? <a href="mailto:david@letschatmarketing.com">Tell me</a>. I update this list whenever I swap a habit.

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://davidrussell.co/sitemap.xml
+Sitemap: https://davidrussell.co/sitemap-index.xml

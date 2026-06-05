@@ -34,6 +34,7 @@ const hasPosts = posts.length > 0;
           Short, occasional, never spam. Anything from a one-line scrap to a
           3,000-word essay — newest first. Reply to any of them.
         </p>
+        <p class="feed-note">Follow by <a href="/#subscribe">email</a> or <a href="/rss.xml">RSS</a>.</p>
       </header>
 
       {hasPosts ? (
@@ -70,6 +71,8 @@ const hasPosts = posts.length > 0;
   .reading-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(48px,9vw,96px);letter-spacing:-.04em;line-height:.95;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:18px}
   .reading-head h1 .d{color:var(--cobalt)}
   .reading-lede{font-family:var(--grot);font-size:clamp(18px,2vw,21px);line-height:1.55;color:var(--ink-soft);max-width:54ch;margin-top:18px}
+  .feed-note{font-size:14px;color:var(--ink-faint);margin-top:14px}
+  .feed-note a{color:var(--cobalt);border-bottom:1px solid rgba(47,43,240,.3)}
   .index-entries .entry>a{padding:26px 0}
   .empty-note{font-size:18px;color:var(--ink-soft);padding:24px 0;border-top:1px solid var(--line)}
   .empty-note a{color:var(--cobalt);border-bottom:1px solid rgba(47,43,240,.3)}
