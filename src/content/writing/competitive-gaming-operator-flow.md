@@ -1,62 +1,62 @@
 ---
 title: "What competitive gaming taught me about operator flow"
-description: "I left ranked games because losing ate me. The same intensity, channeled differently, is what I am trying to bring to building things now."
+description: "I left ranked games because losing ate me. The same intensity, pointed at building, is the most valuable thing I took with me."
 publishDate: 2026-05-24
 readTime: "4 min"
 format: "log"
 tags: ["operator-notes", "deep-ideas"]
 ---
 
-A confession to start. I used to play ranked Dota 2, Starcraft 2, WoW arena,
-Halo, Rocket League, a few others. Different games, same pattern — I would
-climb to the top ten percent, get obsessed, push for top one percent, and at
-some point realize I had been awake for eight hours doing nothing else.
+I used to play ranked everything. Dota 2, Starcraft 2, WoW arena, Halo, Rocket
+League — different games, same arc. Climb into the top ten percent. Get
+obsessed. Push for top one. Look up and eight hours are gone and I haven't done
+anything else.
 
-I stepped away from ranked games about two years ago. The losing started to eat
-me in a way that was not healthy. The wins were unbelievable focus. The losses
-were anxiety and despair. The math stopped paying out.
+I quit ranked about two years ago because the math stopped paying out. Wins
+bought me focus like nothing else in my life. Losses bought anxiety I'd carry
+into the next morning. When the downside column gets that heavy, you fold.
 
-But the experience of being **locked in** — totally absorbed, every decision
-seven moves ahead, time disappearing — was some of the best of my life. Most
-people who have played competitively at any level know exactly what I am
-talking about. There is a reason it is hard to walk away from.
+But I never stopped missing the locked-in part. Every decision seven moves
+ahead, time gone, the world reduced to the next play. If you've competed at
+anything, you know exactly the state I mean — and you know why it's hard to
+walk away from.
 
-The thing I am working on now is moving that capability into building. Not the
-*addiction* part. The **focus** part. The locked-in part.
+What I've figured out since: that state was never the game. It was the
+conditions. And conditions can be rebuilt.
 
 ## What carries over
 
-The conditions for flow are the same in business as they were in ranked games:
+Flow needs the same four things at a desk that it needed in queue:
 
-- A clear goal you actually care about.
-- Immediate feedback that is mostly honest.
-- Difficulty matched to skill — slightly above, ideally.
-- Distractions surgically removed before the session, not during.
+- A goal you actually care about — a fight you want to win, not a task list.
+- Feedback that's fast and mostly honest.
+- Difficulty slightly above your skill. Not at it — above it.
+- Distractions removed *before* the session. Mid-session discipline is a myth.
+  I have never once gotten locked back in after checking my phone.
 
-The cheapest version of this for me: a two-hour block, phone in another room,
-one browser tab, one document. The first twenty minutes feels like nothing is
-happening. The next ninety minutes is where the actual work lives.
+My cheapest working version: a two-hour block, phone in another room, one tab,
+one document. The first twenty minutes feel like nothing is happening. The real
+work lives in the back ninety.
 
-## What does not carry over
+## What doesn't carry over
 
-Two things.
+Two things, and they're both about the loop.
 
-**The intensity is built differently.** Ranked games are tuned by engineers to
-be maximally engaging. The match-three-and-you-rank-up loop is dopamine
-engineering. Business does not give you that for free. You have to build the
-loop yourself. The flywheel of writing a post, watching it land or not, writing
-a better one is real but slow — measured in weeks, not minutes.
+Ranked ladders are engineered by very smart people to be maximally gripping —
+the climb, the rating, the next match starting in 8… 7… 6. Business hands you
+no loop. You build your own or you drift. Mine right now is writing: ship a
+post, watch it land or whiff, ship a better one. It's real, but it pays out in
+weeks, not minutes.
 
-**The losses do not sting the same way.** Shipping a post that flops just means
-you write a better one. There is no MMR decay. Nobody is laughing in your team
-chat. The asymmetry is in your favor for the first time.
+And the losses don't sting right anymore — in a good way. A post that flops
+costs me nothing but the lesson. No rating decay, nobody laughing in team chat.
+For the first time, the asymmetry runs in my favor.
 
-## The current experiment
+## The experiment
 
-Two ninety-minute writing blocks per week. Phone in another room. Single tab
-open. If I hit eight of those in a row I will know the model is working. I will
-log how it goes here — that is part of the point of this format.
+Two ninety-minute blocks a week, ranked rules: phone gone, single tab, a fight
+I care about. Eight in a row and I'll trust the model.
 
-There is a thing competitive players say about climbing: *if you are not
-improving every patch you are falling behind*. I am trying to mean that about
-building now instead of games. We will see.
+Competitive players say if you're not improving every patch, you're falling
+behind. I spent years meaning that about games. I'm learning to mean it about
+the work.
