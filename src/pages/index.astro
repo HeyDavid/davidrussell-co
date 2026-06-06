@@ -13,11 +13,6 @@ const questions: Record<string, string> = {
   "marketing-is-splitting-in-half": "Are you building the slop machine or the craft brand?",
   "sapiens-in-a-hurry": "Which fiction are you strengthening — and should you be?",
 };
-const peekLabel: Record<string, string> = {
-  "competitive-gaming-operator-flow": "log · operator flow",
-  "marketing-is-splitting-in-half": "note · the split",
-  "sapiens-in-a-hurry": "note · sapiens",
-};
 const fallbackQ = "Reply and tell me where I'm wrong.";
 
 const title = "David Russell — operator, writer";
@@ -55,6 +50,8 @@ const ogImage = "https://davidrussell.co/og.png";
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "374371c09f5d4d4b83fe5e0a2f55cbc6"}'></script>
+<!-- Umami analytics — self-host; CF beacon kept as redundancy -->
+<script is:inline defer src="https://umami-nine-gilt.vercel.app/script.js" data-website-id="944e0f3c-fc3f-4251-95fe-e70ee25234d4"></script>
 <script type="application/ld+json" is:inline>{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://davidrussell.co/#person","name":"David Russell","url":"https://davidrussell.co/","jobTitle":"Solo operator and writer","sameAs":["https://www.linkedin.com/in/heydavidr/","https://x.com/heydavidr","https://github.com/HeyDavid"]},{"@type":"WebSite","@id":"https://davidrussell.co/#website","url":"https://davidrussell.co/","name":"David Russell","description":"Operator notes from David Russell, a solo founder and writer in South Florida.","publisher":{"@id":"https://davidrussell.co/#person"}}]}</script>
 <style is:global>
 :root{
@@ -70,18 +67,18 @@ body{background:var(--paper);color:var(--ink);font-family:var(--grot);font-size:
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--cobalt);color:#fff}
 :where(a,button,input,textarea,select):focus-visible{outline:3px solid rgba(47,43,240,.55);outline-offset:4px;border-radius:8px}
-.nav a:focus-visible,.brand:focus-visible,.mode:focus-visible,.post a:focus-visible{outline-offset:6px}
+.nav a:focus-visible,.brand:focus-visible,.mode:focus-visible,.wrow a:focus-visible{outline-offset:6px}
 #aura{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;background:radial-gradient(460px 460px at var(--mx,50%) var(--my,36%),rgba(47,43,240,.06),transparent 70%)}
 #cur{position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:var(--cobalt);z-index:9999;pointer-events:none;transform:translate(-50%,-50%);transition:width .28s var(--ease),height .28s var(--ease),opacity .28s}
 #cur.big{width:60px;height:60px;opacity:.18}
-.inner{max-width:1140px;margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative;z-index:1}
+.inner{max-width:1280px;margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative;z-index:1}
 section{position:relative;z-index:1}
 
 .bar{position:sticky;top:0;z-index:60;background:rgba(251,245,234,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
 .bar.scrolled{border-bottom-color:var(--line)}
-.bar .in{max-width:1140px;margin:0 auto;padding:14px clamp(22px,5vw,64px);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.bar .in{max-width:1280px;margin:0 auto;padding:14px clamp(22px,5vw,64px);display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand .ava{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 14%}
+.brand .ava{width:40px;height:40px;object-fit:contain}
 .brand .wm{font-family:var(--disp);font-weight:700;font-size:24px;letter-spacing:-.035em;line-height:1}
 .brand .wm .d{color:var(--cobalt)}
 .nav{display:flex;align-items:center;gap:26px;font-size:16px;font-weight:500}
@@ -148,30 +145,22 @@ section{position:relative;z-index:1}
 .sec-h .all{font-size:16px;font-weight:600;color:var(--cobalt);white-space:nowrap}
 .sec-note{color:var(--dim);font-size:17px;max-width:58ch;line-height:1.55;margin-bottom:42px}
 
-.blog{display:grid;grid-template-columns:1fr .82fr;gap:48px;align-items:start}
-.posts{list-style:none}
-.post a{display:block;position:relative;padding:26px 0;border-top:1px solid var(--line-soft);transition:padding-left .5s var(--ease),opacity .4s}
-.post:first-child a{border-top:0}
-.posts:hover .post a{opacity:.4}.posts .post a:hover{opacity:1;padding-left:16px}
-.post .pt{font-family:var(--disp);font-weight:600;font-size:clamp(25px,2.9vw,36px);line-height:1.08;letter-spacing:-.012em}
-.post .pm{font-size:14.5px;color:var(--dim);margin-top:8px;font-weight:500}
-.peek{position:sticky;top:110px}
-.pkbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px 34px;min-height:288px;position:relative;overflow:hidden}
-.pkbox::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--cobalt)}
-.pk{position:absolute;inset:0;padding:30px 34px;opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .6s var(--ease)}
-.pk.on{opacity:1;transform:none}
-.pk .pkk{font-size:13.5px;color:var(--cobalt);font-weight:700;margin-bottom:13px;text-transform:lowercase}
-.pk .pkd{font-family:var(--disp);font-weight:600;font-size:clamp(21px,2.2vw,27px);line-height:1.2;letter-spacing:-.01em}
-.pk .q{margin-top:20px;padding-top:16px;border-top:1px solid var(--line-soft)}
-.pk .q .ql{font-size:13px;color:var(--dim);margin-bottom:6px;font-weight:500}
-.pk .q .qt{font-weight:600;font-size:clamp(17px,1.8vw,20px);line-height:1.32}
-.pk-default .pkd{color:var(--ink)}
-.featgo{margin-top:18px;font-size:15px;font-weight:600;color:var(--cobalt)}
-.pk-default .q .qt{font-weight:500;color:var(--dim);font-size:clamp(15px,1.5vw,17px);line-height:1.5}
+.wrows{list-style:none;border-top:1px solid var(--line)}
+.wrow{border-bottom:1px solid var(--line)}
+.wrow a{display:grid;grid-template-columns:150px 1fr minmax(240px,300px);gap:clamp(20px,3.4vw,52px);padding:clamp(26px,3.2vw,42px) 0;align-items:baseline;transition:opacity .4s}
+.wrows:hover .wrow a{opacity:.45}.wrows .wrow a:hover{opacity:1}
+.wrow .wmeta{font-size:14px;font-weight:700;color:var(--cobalt);text-transform:lowercase}
+.wrow .wmeta .wd{display:block;color:var(--dim);font-weight:500;margin-top:6px;font-size:13.5px;text-transform:none}
+.wrow .wt{font-family:var(--disp);font-weight:600;font-size:clamp(26px,3.4vw,44px);line-height:1.04;letter-spacing:-.014em;transition:color .3s}
+.wrow a:hover .wt{color:var(--cobalt)}
+.wrow .wdesc{font-size:16px;color:var(--dim);line-height:1.5;margin-top:10px;max-width:62ch}
+.wrow .wq{font-size:15.5px;line-height:1.45;color:var(--ink);font-weight:500;border-left:3px solid var(--cobalt);padding-left:16px}
+.wrow .wq .ql{display:block;font-size:12px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+@media(max-width:860px){.wrow a{grid-template-columns:1fr;gap:12px}.wrow .wq{margin-top:4px}}
 
-.lead-line{font-family:var(--disp);font-weight:600;font-size:clamp(24px,3.2vw,40px);line-height:1.12;letter-spacing:-.012em;max-width:22ch;margin-bottom:52px}
-.lead-line .c{color:var(--cobalt)}
 .modes{border-bottom:1px solid var(--line)}
+.mode .body .chip{display:inline-block;font-family:var(--grot);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cobalt);border:1.5px solid currentColor;border-radius:100px;padding:3px 11px;margin-left:12px;position:relative;top:-4px}
+.mode .body .chip.fam{color:var(--faint)}
 .mode{display:grid;grid-template-columns:minmax(0,auto) 1fr;gap:clamp(20px,4vw,56px);align-items:center;padding:clamp(28px,3.6vw,46px) 0;border-top:1px solid var(--line)}
 .mode .verb{font-family:var(--disp);font-weight:700;font-size:clamp(48px,8.4vw,116px);line-height:.86;letter-spacing:-.028em;color:var(--cobalt);transition:transform .5s var(--ease)}
 .mode:hover .verb{transform:translateX(10px)}
@@ -203,18 +192,23 @@ section{position:relative;z-index:1}
 
 .aboutgrid{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(30px,5vw,64px);align-items:start}
 .aboutimg{width:100%;max-width:280px;aspect-ratio:1/1;border-radius:18px;object-fit:cover;object-position:center 14%}
+.aboutimg.mark{object-fit:contain;border-radius:0;background:transparent;padding:10px}
 .about p{font-size:clamp(19px,2vw,23px);line-height:1.5;font-family:var(--disp);font-weight:500;letter-spacing:-.01em}
 .about p+p{margin-top:18px;font-size:18px;font-family:var(--grot);font-weight:400;color:var(--dim);letter-spacing:0;line-height:1.6}
 .about .more{margin-top:24px;font-size:16px;font-weight:600;color:var(--cobalt);display:inline-block}
 @media(max-width:720px){.aboutgrid{grid-template-columns:1fr}}
 
-.close{padding:clamp(70px,9vw,140px) 0}
-.talk{font-family:var(--disp);font-weight:700;font-size:clamp(52px,9.5vw,128px);line-height:.94;letter-spacing:-.022em}
+.close{padding:clamp(64px,8vw,120px) 0 clamp(30px,4vw,52px)}
+.talk{font-family:var(--disp);font-weight:700;font-size:clamp(48px,8.6vw,116px);line-height:.96;letter-spacing:-.022em}
 .talk .c{color:var(--cobalt)}
-.cmeta{display:flex;flex-wrap:wrap;gap:16px 30px;margin-top:36px;font-size:17px;font-weight:500}
+.labrow{margin-top:30px}
+.labrow .ll{display:block;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--cobalt);margin-bottom:12px}
+.labrow .lk{display:inline-block;font-size:16px;font-weight:600;color:var(--ink);border-bottom:2px solid var(--line);padding-bottom:2px;margin:0 22px 10px 0;transition:color .3s,border-color .3s}
+.labrow .lk:hover{color:var(--cobalt);border-color:var(--cobalt)}
+.cmeta{display:flex;flex-wrap:wrap;gap:16px 30px;margin-top:34px;font-size:17px;font-weight:500}
 .cmeta a{color:var(--ink);border-bottom:2px solid var(--line);padding-bottom:3px;transition:border-color .3s,color .3s}
 .cmeta a:hover{color:var(--cobalt);border-color:var(--cobalt)}
-.colophon{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--dim);padding:34px 0;border-top:1px solid var(--line-soft);margin-top:56px}
+.colophon{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--dim);padding:24px 0 0;border-top:1px solid var(--line-soft);margin-top:36px}
 
 .up{}
 .js .up{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -227,7 +221,7 @@ section{position:relative;z-index:1}
 <div id="aura"></div><div id="cur"></div>
 
 <header class="bar" id="bar"><div class="in">
-  <a class="brand" href="#top" data-c><img class="ava" src="/assets/headshot.jpg" alt="" width="40" height="40" decoding="async"><span class="wm">david <span class="d">russell</span></span></a>
+  <a class="brand" href="#top" data-c><img class="ava" src="/assets/david-portrait-mark.png" alt="" width="40" height="40" decoding="async"><span class="wm">david <span class="d">russell</span></span></a>
   <button class="menu" id="menu" type="button" aria-label="Open menu" aria-controls="nav" aria-expanded="false"><span class="ic" aria-hidden="true"></span></button>
   <nav class="nav" id="nav" aria-label="Primary"><a href="#writing" data-c>Writing</a><a href="#built" data-c>Work</a><a href="#about" data-c>About</a><a href="#subscribe" class="cta" data-c>Subscribe</a></nav>
 </div></header>
@@ -238,7 +232,7 @@ section{position:relative;z-index:1}
     <div>
       <div class="ey">david russell · operator &amp; writer · south florida</div>
       <h1>I build small companies and <span class="c">write down</span> what I learn.</h1>
-      <p class="sub">A decade in marketing and a <b>$400K+ exit</b> behind me. I publish in the open — then I read every reply. Read along, and push back.</p>
+      <p class="sub">A decade in marketing and a <b>$400K+ exit</b> behind me. I publish in the open — then I read every reply. Follow along, and tell me where I&rsquo;m wrong.</p>
       <form class="signup" id="sub1">
         <div class="field"><input type="email" name="email" placeholder="your email" autocomplete="email" aria-label="Email address" required><button type="submit" data-c>Subscribe</button></div>
         <div class="cap">A few notes a month. No spam — and every issue is a conversation.</div>
@@ -259,44 +253,36 @@ section{position:relative;z-index:1}
 <section class="sec up" id="writing"><div class="inner">
   <div class="sec-h"><h2>The <span class="c">writing.</span></h2><a class="all" href="/writing/" data-c>Read everything →</a></div>
   <p class="sec-note">Operator notes, the odd argument, a flow log when something works. Each piece ends with a sharper question.</p>
-  <div class="blog">
-    <ul class="posts" id="posts">
-      {posts.map((post) => (
-        <li class="post"><a href={`/writing/${post.id}/`} data-pk={post.id} data-c><div class="pt">{post.data.title}</div><div class="pm">{post.data.format} · {fmt(post.data.publishDate)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</div></a></li>
-      ))}
-    </ul>
-    <div class="peek"><div class="pkbox" id="peek">
-      <a class="pk pk-default on" href={`/writing/${posts[0].id}/`} data-c>
-        <div class="pkk">Latest</div>
-        <div class="pkd">{posts[0].data.title}</div>
-        <div class="q"><div class="ql">{posts[0].data.format} · {fmt(posts[0].data.publishDate)}{posts[0].data.readTime ? ` · ${posts[0].data.readTime}` : ""}</div><div class="qt">{posts[0].data.description}</div></div>
-        <div class="featgo">Read the latest →</div>
-      </a>
-      {posts.map((post) => (
-        <div class="pk" data-for={post.id}>
-          <div class="pkk">{peekLabel[post.id] ?? post.data.format}</div>
-          <div class="pkd">{post.data.description}</div>
-          <div class="q"><div class="ql">Leaves you with</div><div class="qt">&ldquo;{questions[post.id] ?? fallbackQ}&rdquo;</div></div>
-        </div>
-      ))}
-    </div></div>
-  </div>
+  <ul class="wrows">
+    {posts.map((post) => (
+      <li class="wrow"><a href={`/writing/${post.id}/`} data-c>
+        <div class="wmeta">{post.data.format}<span class="wd">{fmt(post.data.publishDate)}{post.data.readTime ? ` · ${post.data.readTime}` : ""}</span></div>
+        <div><div class="wt">{post.data.title}</div><div class="wdesc">{post.data.description}</div></div>
+        <div class="wq"><span class="ql">Leaves you with</span>&ldquo;{questions[post.id] ?? fallbackQ}&rdquo;</div>
+      </a></li>
+    ))}
+  </ul>
 </div></section>
 
 <section class="sec up" id="built"><div class="inner">
-  <p class="lead-line">I don&rsquo;t have one neat job title. I <span class="c">build around the problems</span> I keep seeing.</p>
+  <div class="sec-h"><h2>What I&rsquo;m <span class="c">building.</span></h2></div>
+  <p class="sec-note">A small portfolio, built to compound. Each one owns a real problem.</p>
   <div class="modes">
-    <a class="mode" href="https://letschatmarketing.com" target="_blank" rel="noopener" data-c>
-      <div class="verb">Serve.</div>
-      <div class="body"><div class="pn">Let&rsquo;s Chat <span class="ar">&#8599;</span></div><div class="ps">An AI voice studio — custom phone agents that answer, book, and qualify, so a business never misses the call that matters.</div></div>
-    </a>
     <a class="mode" href="https://curadental.co" target="_blank" rel="noopener" data-c>
       <div class="verb">Care.</div>
-      <div class="body"><div class="pn">Cura <span class="ar">&#8599;</span></div><div class="ps">The same front desk, built for dental — a premium AI receptionist, site, and review engine for practices that run full.</div></div>
+      <div class="body"><div class="pn">Cura <span class="ar">&#8599;</span><span class="chip">Flagship</span></div><div class="ps">A premium AI front desk, site, and review engine for dental practices that want to run full.</div></div>
+    </a>
+    <a class="mode" href="https://letschatmarketing.com" target="_blank" rel="noopener" data-c>
+      <div class="verb">Serve.</div>
+      <div class="body"><div class="pn">Let&rsquo;s Chat <span class="ar">&#8599;</span><span class="chip">Active</span></div><div class="ps">An AI voice studio — custom phone agents that answer, book, and qualify, so a business never misses the call that matters.</div></div>
     </a>
     <a class="mode" href="https://scamcapital.com" target="_blank" rel="noopener" data-c>
       <div class="verb">Warn.</div>
-      <div class="body"><div class="pn">ScamCapital <span class="ar">&#8599;</span></div><div class="ps">Turns confusing scams into clear, plain-English warnings regular people can act on.</div></div>
+      <div class="body"><div class="pn">ScamCapital <span class="ar">&#8599;</span><span class="chip">Active</span></div><div class="ps">Turns confusing scams into clear, plain-English warnings regular people can act on.</div></div>
+    </a>
+    <a class="mode" href="https://computerinput.com" target="_blank" rel="noopener" data-c>
+      <div class="verb">Connect.</div>
+      <div class="body"><div class="pn">Computer Input <span class="ar">&#8599;</span><span class="chip fam">Family</span></div><div class="ps">My parents&rsquo; 40-year cabling and networking firm — I run the marketing, and Jackie, their AI receptionist.</div></div>
     </a>
   </div>
 </div></section>
@@ -329,7 +315,7 @@ section{position:relative;z-index:1}
 <section class="sec up" id="about"><div class="inner">
   <div class="sec-h"><h2>Who&rsquo;s <span class="c">writing.</span></h2></div>
   <div class="aboutgrid">
-    <img class="aboutimg" src="/assets/headshot.jpg" alt="David Russell" width="280" height="280" loading="lazy" decoding="async">
+    <img class="aboutimg mark" src="/assets/david-portrait-mark.png" alt="Illustrated portrait of David Russell" width="280" height="280" loading="lazy" decoding="async">
     <div class="about">
       <p>I&rsquo;m David — a solo operator in South Florida. I grew a Wix site into a marketplace doing $400K+ a year, sold it, and spent a decade doing marketing across dozens of industries.</p>
       <p>Now I build small, useful companies and write about the work: what compounds, what&rsquo;s evergreen, and where I&rsquo;m probably wrong. If marketing is your moat or your bottleneck, we should talk.</p>
@@ -339,11 +325,16 @@ section{position:relative;z-index:1}
 </div></section>
 
 <section class="close up" id="subscribe"><div class="inner">
-  <h2 class="talk">Read along.<br><span class="c">Push back.</span></h2>
+  <h2 class="talk">Build small. Own it.<br><span class="c">Compound.</span></h2>
   <form class="signup" id="sub2" style="margin-top:34px;max-width:480px">
     <div class="field"><input type="email" name="email" placeholder="your email" autocomplete="email" aria-label="Email address" required><button type="submit" data-c>Subscribe</button></div>
     <div class="cap">A few notes a month. Reply to any of them — that&rsquo;s the whole idea.</div>
   </form>
+  <div class="labrow">
+    <span class="ll">From the lab — AI-first experiments</span>
+    <a class="lk" href="https://heydavid.github.io/pages-that-are-places/" target="_blank" rel="noopener" data-c>Pages that are places &#8599;</a>
+    <a class="lk" href="https://github.com/HeyDavid/ai-front-desk-architect" target="_blank" rel="noopener" data-c>AI Front Desk Architect &#8599;</a>
+  </div>
   <div class="cmeta">
     <a href="mailto:david@letschatmarketing.com" data-c>david@letschatmarketing.com</a>
     <a href="https://www.linkedin.com/in/heydavidr/" target="_blank" rel="noopener" data-c>LinkedIn</a>
@@ -364,7 +355,7 @@ section{position:relative;z-index:1}
     addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;window.__pointer.x=x;window.__pointer.y=y;window.__pointer.active=true;aura.style.setProperty('--mx',x+'px');aura.style.setProperty('--my',y+'px');},{passive:true});
     (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;cur.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
     // hover-grow on EVERY section via delegation — no per-node binding, catches dynamically considered targets too
-    var HOT='a,button,input,label,summary,[data-c],[role="button"],.mode,.post,.pk,.work-cta,.back,.brand';
+    var HOT='a,button,input,label,summary,[data-c],[role="button"],.mode,.wrow,.work-cta,.back,.brand';
     document.addEventListener('mouseover',function(e){var el=e.target;cur.classList.toggle('big', !!(el&&el.closest&&el.closest(HOT)));},{passive:true});
     document.addEventListener('mouseleave',function(){cur.classList.remove('big');});
   } else if(cur){ cur.style.display='none'; if(aura) aura.style.display='none'; }
@@ -375,16 +366,6 @@ section{position:relative;z-index:1}
   menu.addEventListener('click',function(){setMenu(!nav.classList.contains('open'));});
   nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
-
-  // writing reveal (mouse + keyboard)
-  var posts=document.getElementById('posts'),peek=document.getElementById('peek');
-  function show(id){peek.querySelectorAll('.pk').forEach(function(r){r.classList.toggle('on',id?r.getAttribute('data-for')===id:r.classList.contains('pk-default'));});}
-  posts.querySelectorAll('[data-pk]').forEach(function(a){
-    a.addEventListener('mouseenter',function(){show(a.getAttribute('data-pk'));});
-    a.addEventListener('focus',function(){show(a.getAttribute('data-pk'));});
-    a.addEventListener('blur',function(){show(null);});
-  });
-  posts.addEventListener('mouseleave',function(){show(null);});
 
   var bar=document.getElementById('bar');addEventListener('scroll',function(){bar.classList.toggle('scrolled',scrollY>8);},{passive:true});
 

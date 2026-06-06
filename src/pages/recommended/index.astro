@@ -42,17 +42,9 @@ const groups: Group[] = [
       { name: "Patrick Collison", href: "https://patrickcollison.com/", tag: "Builder", why: "Bookshelf and essays. The questions list alone is worth a read once a year." },
     ],
   },
-  {
-    title: "What I'm building now",
-    note: "The current portfolio — this site is the umbrella; each of these stands on its own.",
-    items: [
-      { name: "Cura", href: "https://curadental.co", tag: "Flagship", why: "The AI front desk for dental practices — website, receptionist, reviews, and reporting, sold as one system." },
-      { name: "Let's Chat", href: "https://letschatmarketing.com", tag: "Active", why: "AI voice studio. Custom phone agents that answer, book, and qualify — built and run for businesses that live on the phone." },
-      { name: "ScamCapital", href: "https://scamcapital.com", tag: "Active", why: "Turns confusing scams into clear, plain-English warnings regular people can act on." },
-      { name: "Computer Input", href: "https://computerinput.com", tag: "Family", why: "My parents' 40-year cabling business. I run the marketing — and test the playbook here first." },
-    ],
-  },
 ];
+
+const [tools, ...rest] = groups;
 ---
 
 <BaseLayout
@@ -61,36 +53,59 @@ const groups: Group[] = [
 >
   <Header />
   <main>
-    <section class="essay">
+    <section class="work">
       <a href="/" class="back">← Home</a>
       <div class="dateline" style="padding-bottom:14px;"><b>Provisions</b></div>
       <h1>Recommended.</h1>
-      <p class="lede">
-        A short list of what I actually use and recommend. Tools, books, people.
+      <p class="work-lede">
+        A short list of what I actually use. Tools, books, people.
         No affiliate trickery. If it&rsquo;s on here, it&rsquo;s because I&rsquo;d be worse without it.
       </p>
 
-      {groups.map((g) => (
-        <div class="rec-group">
-          <h3>{g.title}</h3>
-          {g.note && <p class="rec-group-note">{g.note}</p>}
-          <ul class="rec-list">
-            {g.items.map((i) => (
-              <li>
-                <div>
-                  <div class="rec-name">
-                    {i.href ? <a href={i.href}>{i.name}</a> : i.name}
+      <div class="rec-cols">
+        <div>
+          <div class="rec-group">
+            <h3>{tools.title}</h3>
+            {tools.note && <p class="rec-group-note">{tools.note}</p>}
+            <ul class="rec-list">
+              {tools.items.map((i) => (
+                <li>
+                  <div>
+                    <div class="rec-name">
+                      {i.href ? <a href={i.href}>{i.name}</a> : i.name}
+                    </div>
+                    <div class="rec-why">{i.why}</div>
                   </div>
-                  <div class="rec-why">{i.why}</div>
-                </div>
-                {i.tag && <div class="rec-tag">{i.tag}</div>}
-              </li>
-            ))}
-          </ul>
+                  {i.tag && <div class="rec-tag">{i.tag}</div>}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      ))}
+        <div>
+          {rest.map((g) => (
+            <div class="rec-group">
+              <h3>{g.title}</h3>
+              {g.note && <p class="rec-group-note">{g.note}</p>}
+              <ul class="rec-list">
+                {g.items.map((i) => (
+                  <li>
+                    <div>
+                      <div class="rec-name">
+                        {i.href ? <a href={i.href}>{i.name}</a> : i.name}
+                      </div>
+                      <div class="rec-why">{i.why}</div>
+                    </div>
+                    {i.tag && <div class="rec-tag">{i.tag}</div>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
 
-      <p class="work-note" style="margin-top:44px;">
+      <p class="work-note" style="margin-top:34px;">
         Missing something obvious? <a href="mailto:david@letschatmarketing.com">Tell me</a>. I update this list whenever I swap a habit.
       </p>
     </section>
