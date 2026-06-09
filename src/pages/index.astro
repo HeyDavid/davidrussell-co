@@ -48,7 +48,7 @@ const ogImage = "https://davidrussell.co/og-2026.png";
 <script is:inline>document.documentElement.className += ' js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "374371c09f5d4d4b83fe5e0a2f55cbc6"}'></script>
 <!-- Umami analytics — self-host; CF beacon kept as redundancy -->
 <script is:inline defer src="https://umami-nine-gilt.vercel.app/script.js" data-website-id="944e0f3c-fc3f-4251-95fe-e70ee25234d4"></script>
@@ -105,6 +105,8 @@ section{position:relative;z-index:1}
   mask-image:radial-gradient(125% 100% at 66% 34%,#000 0 48%,rgba(0,0,0,.78) 64%,transparent 86%)}
 .hero.nogl #herogl{background:radial-gradient(56% 62% at 76% 28%,rgba(47,43,240,.095),transparent 68%),linear-gradient(110deg,transparent 0 48%,rgba(27,24,18,.05) 48.1% 48.4%,transparent 48.5%)}
 @media(max-width:720px){#herogl{opacity:.55;-webkit-mask-image:radial-gradient(105% 82% at 80% 22%,#000 0 32%,transparent 72%);mask-image:radial-gradient(105% 82% at 80% 22%,#000 0 32%,transparent 72%)}}
+.sig-day{position:absolute;right:clamp(16px,3vw,30px);bottom:13px;z-index:1;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);opacity:.8;pointer-events:none}
+.sig-day:empty{display:none}
 .hero .grid{display:grid;grid-template-columns:1.32fr .88fr;gap:clamp(30px,5vw,70px);align-items:center;position:relative;z-index:1}
 .hero .ey{font-size:15px;font-weight:600;color:var(--cobalt);margin-bottom:22px}
 .js .hero .ey{animation:rise 1s var(--ease) .05s both}
@@ -174,6 +176,13 @@ section{position:relative;z-index:1}
 .mode:hover .body .pn .ar{transform:translate(6px,-6px)}
 .mode .body .ps{color:var(--dim);font-size:17px;line-height:1.5;margin-top:8px;max-width:46ch}
 @media(max-width:720px){.mode{grid-template-columns:1fr;gap:8px}.mode .verb{font-size:clamp(60px,20vw,90px)}}
+/* verb lock-in — each verb solidifies from thin to set as it enters view (scroll-driven, no JS) */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .mode .verb{animation:verb-lock linear both;animation-timeline:view();animation-range:entry 0% cover 38%}
+    @keyframes verb-lock{from{font-weight:200;opacity:.28;letter-spacing:.012em}to{font-weight:700;opacity:1;letter-spacing:-.028em}}
+  }
+}
 
 .desk{background:var(--cobalt);color:#fff}
 .desk .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,72px);align-items:center}
@@ -232,7 +241,7 @@ section{position:relative;z-index:1}
 </div></header>
 
 <div id="top"></div>
-<section class="hero"><canvas id="herogl" aria-hidden="true"></canvas><div class="inner">
+<section class="hero"><canvas id="herogl" aria-hidden="true"></canvas><span class="sig-day" id="sig-day" aria-hidden="true"></span><div class="inner">
   <div class="grid">
     <div>
       <div class="ey">david russell · operator &amp; writer · south florida</div>
@@ -409,6 +418,10 @@ section{position:relative;z-index:1}
     var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var coarse=window.matchMedia('(pointer: coarse)').matches;
     var INK='27,24,18', COB='47,43,240';
+    // almanac seed — the field drifts differently every calendar day, same for every visitor that day
+    var DAY=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/864e5);
+    var SEED=(DAY*0.618)%(Math.PI*2);
+    var sd=document.getElementById('sig-day'); if(sd) sd.textContent='signal · day '+DAY;
     var dprCap=coarse?1:1.6;
     var W=1,H=1,dpr=1,sc=1;
     var LINES=coarse?10:16, STEP=coarse?24:16, R=coarse?170:230;
@@ -443,7 +456,7 @@ section{position:relative;z-index:1}
       var top=H*0.05, span=H*0.92;
       for(var i=0;i<LINES;i++){
         var ly=top+span*(i/(LINES-1));
-        var ph=t+i*0.40, accent=(i%4===2);
+        var ph=t+i*0.40+SEED, accent=(i%4===2);
         ctx.beginPath();
         for(var x=-24, first=1; x<=W+24; x+=STEP){
           var base=Math.sin(x*0.0040+ph)*20 + Math.sin(x*0.0115-ph*1.25)*8;
@@ -461,7 +474,7 @@ section{position:relative;z-index:1}
       // one crisp dashed "scan" line for the signal read
       ctx.beginPath();
       for(var x2=-24, f2=1; x2<=W+24; x2+=STEP){
-        var ys=H*0.20 + Math.sin(x2*0.006+t*1.5)*6;
+        var ys=H*0.20 + Math.sin(x2*0.006+t*1.5+SEED)*6;
         if(f2){ctx.moveTo(x2,ys);f2=0;} else ctx.lineTo(x2,ys);
       }
       ctx.setLineDash([1,9]); ctx.strokeStyle='rgba('+COB+',.5)'; ctx.lineWidth=1.1; ctx.stroke(); ctx.setLineDash([]);
