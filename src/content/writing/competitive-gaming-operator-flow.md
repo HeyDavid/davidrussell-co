@@ -5,6 +5,7 @@ publishDate: 2026-05-24
 readTime: "4 min"
 format: "log"
 tags: ["operator-notes", "deep-ideas"]
+draft: true # retired 2026-06-11 — off-thesis for the build-receipts direction
 ---
 
 I used to play ranked everything. Dota 2, Starcraft 2, WoW arena, Halo, Rocket

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="David Russell monogram">
   <rect width="64" height="64" rx="15" fill="#2563eb"/>
   <g stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none">
     <circle cx="23" cy="38" r="8.5"/>

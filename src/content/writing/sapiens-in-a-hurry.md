@@ -5,6 +5,7 @@ publishDate: 2026-05-22
 readTime: "3 min"
 format: "note"
 tags: ["deep-ideas", "review"]
+draft: true # retired 2026-06-11 — off-thesis for the build-receipts direction
 ---
 
 Sapiens is the book everyone has read, half-read, or nods along about. I
