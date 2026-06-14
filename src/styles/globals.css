@@ -40,6 +40,12 @@ a:hover{color:var(--cobalt)}
 button,input,textarea,select{font:inherit;color:inherit}
 :where(a,button,input,textarea,select):focus-visible{outline:3px solid rgba(37,99,235,.55);outline-offset:4px;border-radius:8px}
 
+/* ─── Cross-document view transitions (native MPA; degrades to instant nav) ─── */
+@view-transition{ navigation: auto; }
+@media (prefers-reduced-motion: reduce){
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){ animation: none !important; }
+}
+
 /* ─── HEADER (runhead) ─── */
 .runhead{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color var(--dur)}
 .runhead.is-scrolled{border-bottom-color:var(--line)}
