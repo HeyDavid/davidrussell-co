@@ -10,6 +10,8 @@
   /* New tokens */
   --paper:#ffffff; --card:#f7f9fc; --ink:#0e1626; --dim:#4b5565; --faint:#7b8494;
   --cobalt:#2563eb; --cobalt-deep:#1d4ed8; --cream-on:#dbe6ff;
+  /* P3 wide-gamut accent — OKLCH override; browsers without oklch keep the hex above */
+  --cobalt:oklch(0.546 0.245 262.881); --cobalt-deep:oklch(0.488 0.243 264.376);
   --line:rgba(14,22,38,.12); --line-soft:rgba(14,22,38,.07); --line-strong:rgba(14,22,38,.28);
   --disp:"Plus Jakarta Sans",system-ui,sans-serif;
   --grot:"Plus Jakarta Sans",system-ui,sans-serif;
