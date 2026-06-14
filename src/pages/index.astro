@@ -93,7 +93,9 @@ a{color:inherit;text-decoration:none}
 }
 
 /* hero */
-.hero{padding:clamp(48px,8vh,96px) 0 clamp(40px,6vw,72px)}
+.hero{position:relative;isolation:isolate;padding:clamp(48px,8vh,96px) 0 clamp(40px,6vw,72px)}
+.hero .inner{z-index:1}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;border:0;pointer-events:none;display:block;--hero-bg-fallback:radial-gradient(120% 92% at 78% 6%,#cfe0ff 0%,#e9f0ff 44%,#ffffff 80%);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.5) 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.5) 78%,transparent 100%)}
 .hero .grid{display:grid;grid-template-columns:1.35fr .85fr;gap:clamp(32px,5vw,72px);align-items:center}
 .hero .ey{font-size:14px;font-weight:700;color:var(--blue);letter-spacing:.02em;margin-bottom:20px;text-transform:uppercase}
 .hero h1{font-weight:800;font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-.03em}
@@ -210,7 +212,7 @@ a{color:inherit;text-decoration:none}
 </div></header>
 
 <div id="top"></div>
-<section class="hero"><div class="inner">
+<section class="hero"><canvas class="hero-bg" id="hero-bg" aria-hidden="true" role="presentation"></canvas><div class="inner">
   <div class="grid">
     <div>
       <div class="ey">Operator notes &middot; South Florida</div>
@@ -370,6 +372,74 @@ a{color:inherit;text-decoration:none}
     });
   }
   wire('sub1','hero'); wire('sub2','footer');
+})();
+</script>
+
+<script is:inline>
+/* Ambient hero gradient — zero-dependency WebGL. Blue-family, subtle, Stripe-style flow.
+   Reduced-motion = one static frame; no-WebGL = CSS gradient; DPR-capped; pauses when hidden/off-screen. */
+(function(){
+  var canvas=document.getElementById('hero-bg');
+  if(!canvas) return;
+  function hx(h){var c=parseInt(h.slice(1),16);return [((c>>16)&255)/255,((c>>8)&255)/255,(c&255)/255];}
+  // Blue-family stops (near-white -> soft sky -> soft periwinkle -> near-white). Swap freely.
+  var CFG={ stops:[hx('#EAF1FF'),hx('#BBD3FF'),hx('#B7C2FF'),hx('#F1F5FF')], speed:0.020, scale:1.4, intensity:0.68 };
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
+  if(!gl){ var fb=getComputedStyle(canvas).getPropertyValue('--hero-bg-fallback').trim(); canvas.style.background=fb||'radial-gradient(120% 92% at 78% 6%,#cfe0ff,#e9f0ff 44%,#fff 80%)'; return; }
+  var VERT='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  var FRAG=[
+    '#ifdef GL_FRAGMENT_PRECISION_HIGH','precision highp float;','#else','precision mediump float;','#endif',
+    'uniform float u_t;uniform vec2 u_res;uniform float u_scale;uniform float u_int;',
+    'uniform vec3 c0;uniform vec3 c1;uniform vec3 c2;uniform vec3 c3;',
+    'float hash(vec2 p){p=fract(p*vec2(127.1,311.7));p+=dot(p,p+19.19);return fract(p.x*p.y);}',
+    'float noise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*f*(f*(f*6.-15.)+10.);',
+    'float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));',
+    'return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}',
+    'float fbm(vec2 p){return .6*noise(p)+.4*noise(p*2.1+vec2(3.71,1.53));}',
+    'void main(){',
+    'vec2 uv=gl_FragCoord.xy/u_res;float asp=u_res.x/max(u_res.y,1.);',
+    'vec2 q=(uv-.5)*vec2(asp,1.)*u_scale;float t=u_t;',
+    'float n1=fbm(q+vec2(t*.31,t*.19));',
+    'float n2=fbm(q+vec2(-t*.17,t*.27)+vec2(4.,1.5));',
+    'float n3=fbm(q+vec2(t*.23,-t*.13)+vec2(1.8,3.2));',
+    'float sel=clamp(n1*.5+n2*.3+n3*.2,0.,1.);',
+    'vec3 col;float s=sel*3.;',
+    'if(s<1.)col=mix(c0,c1,smoothstep(0.,1.,s));',
+    'else if(s<2.)col=mix(c1,c2,smoothstep(0.,1.,s-1.));',
+    'else col=mix(c2,c3,smoothstep(0.,1.,s-2.));',
+    'float side=smoothstep(.12,.62,uv.x);',           // bias colour to the right; keep left text crisp
+    'float vign=1.-smoothstep(.40,1.12,length(uv-.5)*1.35);',
+    'gl_FragColor=vec4(col,u_int*vign*mix(.45,1.,side));',
+    '}'
+  ].join('\n');
+  function sh(t,src){var s=gl.createShader(t);gl.shaderSource(s,src);gl.compileShader(s);return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null;}
+  var vs=sh(gl.VERTEX_SHADER,VERT),fs=sh(gl.FRAGMENT_SHADER,FRAG);
+  if(!vs||!fs)return;
+  var prog=gl.createProgram();gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS))return;
+  gl.useProgram(prog);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  var loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  var uT=gl.getUniformLocation(prog,'u_t'),uR=gl.getUniformLocation(prog,'u_res'),uS=gl.getUniformLocation(prog,'u_scale'),uI=gl.getUniformLocation(prog,'u_int');
+  gl.uniform1f(uS,CFG.scale);gl.uniform1f(uI,CFG.intensity);
+  gl.uniform3fv(gl.getUniformLocation(prog,'c0'),CFG.stops[0]);gl.uniform3fv(gl.getUniformLocation(prog,'c1'),CFG.stops[1]);
+  gl.uniform3fv(gl.getUniformLocation(prog,'c2'),CFG.stops[2]);gl.uniform3fv(gl.getUniformLocation(prog,'c3'),CFG.stops[3]);
+  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0,0,0,0);
+  var CAP=1.5;
+  function resize(){var dpr=Math.min(devicePixelRatio||1,CAP);var w=Math.max(1,Math.round(canvas.clientWidth*dpr)),h=Math.max(1,Math.round(canvas.clientHeight*dpr));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.viewport(0,0,w,h);gl.uniform2f(uR,w,h);}
+  resize();
+  if('ResizeObserver' in window){new ResizeObserver(resize).observe(canvas);}else{addEventListener('resize',resize,{passive:true});}
+  function draw(e){gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform1f(uT,e);gl.drawArrays(gl.TRIANGLES,0,6);}
+  if(reduce){draw(8.0);return;}
+  var raf=null,running=false,prev=null,acc=0;
+  function loop(ts){if(prev===null)prev=ts;var dt=ts-prev;prev=ts;if(dt>100)dt=16;acc+=dt;draw(acc*0.001*CFG.speed);raf=requestAnimationFrame(loop);}
+  function start(){if(running)return;running=true;prev=null;raf=requestAnimationFrame(loop);}
+  function stop(){running=false;if(raf){cancelAnimationFrame(raf);raf=null;}}
+  draw(0.6);
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(en){en.isIntersecting?start():stop();});},{threshold:0}).observe(canvas);}else{start();}
 })();
 </script>
 </body>
