@@ -382,7 +382,7 @@ a{color:inherit;text-decoration:none}
   if(!canvas) return;
   function hx(h){var c=parseInt(h.slice(1),16);return [((c>>16)&255)/255,((c>>8)&255)/255,(c&255)/255];}
   // Blue-family stops (near-white -> soft sky -> soft periwinkle -> near-white). Swap freely.
-  var CFG={ stops:[hx('#EAF1FF'),hx('#BBD3FF'),hx('#B7C2FF'),hx('#F1F5FF')], speed:0.020, scale:1.4, intensity:0.68 };
+  var CFG={ stops:[hx('#e9f1ff'),hx('#9bc0ff'),hx('#5b8af0'),hx('#b9d2ff')], speed:0.020, scale:1.4, intensity:0.80 };
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
   if(!gl){ var fb=getComputedStyle(canvas).getPropertyValue('--hero-bg-fallback').trim(); canvas.style.background=fb||'radial-gradient(120% 92% at 78% 6%,#cfe0ff,#e9f0ff 44%,#fff 80%)'; return; }
@@ -407,9 +407,10 @@ a{color:inherit;text-decoration:none}
     'if(s<1.)col=mix(c0,c1,smoothstep(0.,1.,s));',
     'else if(s<2.)col=mix(c1,c2,smoothstep(0.,1.,s-1.));',
     'else col=mix(c2,c3,smoothstep(0.,1.,s-2.));',
-    'float side=smoothstep(.12,.62,uv.x);',           // bias colour to the right; keep left text crisp
-    'float vign=1.-smoothstep(.40,1.12,length(uv-.5)*1.35);',
-    'gl_FragColor=vec4(col,u_int*vign*mix(.45,1.,side));',
+    'float top=smoothstep(-0.15,0.95,uv.y);',          // bloom toward the top, fade downward
+    'float side=smoothstep(0.0,0.5,uv.x);',            // soften the far-left text edge
+    'float vign=1.-smoothstep(.42,1.18,length(uv-.5)*1.3);',
+    'gl_FragColor=vec4(col,u_int*vign*mix(.18,1.,top)*mix(.6,1.,side));',
     '}'
   ].join('\n');
   function sh(t,src){var s=gl.createShader(t);gl.shaderSource(s,src);gl.compileShader(s);return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null;}
