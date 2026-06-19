@@ -436,8 +436,8 @@ a{color:inherit;text-decoration:none}
   var canvas=document.getElementById('hero-bg');
   if(!canvas) return;
   function hx(h){var c=parseInt(h.slice(1),16);return [((c>>16)&255)/255,((c>>8)&255)/255,(c&255)/255];}
-  // Blue-family stops (near-white -> soft sky -> soft periwinkle -> near-white). Swap freely.
-  var CFG={ stops:[hx('#4f86f5'),hx('#9bc0ff'),hx('#5b8af0'),hx('#b9d2ff')], speed:0.45, scale:1.4, intensity:0.90 };
+  // Rich multi-hue mesh stops: indigo -> cyan -> violet -> warm spark (off the flat blue).
+  var CFG={ stops:[hx('#4f6ef5'),hx('#5fd0e6'),hx('#8a6cf0'),hx('#ffb39e')], speed:0.42, scale:1.0, intensity:0.82 };
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
   if(!gl){ var fb=getComputedStyle(canvas).getPropertyValue('--hero-bg-fallback').trim(); canvas.style.background=fb||'radial-gradient(120% 92% at 78% 6%,#cfe0ff,#e9f0ff 44%,#fff 80%)'; return; }
@@ -446,20 +446,21 @@ a{color:inherit;text-decoration:none}
     '#ifdef GL_FRAGMENT_PRECISION_HIGH','precision highp float;','#else','precision mediump float;','#endif',
     'uniform float u_t;uniform vec2 u_res;uniform float u_scale;uniform float u_int;',
     'uniform vec3 c0;uniform vec3 c1;uniform vec3 c2;uniform vec3 c3;',
-    'vec2 rot(vec2 q,float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c)*q;}',
+    'float hash(vec2 p){p=fract(p*vec2(123.34,345.45));p+=dot(p,p+34.345);return fract(p.x*p.y);}',
+    'float noise(vec2 p){vec2 i=floor(p),f=fract(p);float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));vec2 u=f*f*(3.-2.*f);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}',
+    'float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<4;i++){v+=a*noise(p);p*=2.02;a*=0.5;}return v;}',
     'void main(){',
-    'vec2 uv=gl_FragCoord.xy/u_res;float asp=u_res.x/max(u_res.y,1.);',
-    'vec2 p=vec2((uv.x-0.5)*asp,uv.y-0.5);p=rot(p,-0.30);',   // diagonal flow
-    'float t=u_t;float a=0.0;vec3 col=vec3(0.0);',
-    'for(int i=0;i<5;i++){float fi=float(i);',                // 5 soft flowing ribbons
-    'float yc=(-0.34+fi*0.15)+0.07*sin(p.x*2.0+t*0.5+fi*1.9)+0.035*sin(p.x*4.3-t*0.33+fi*2.7);',
-    'float w=0.085+0.03*sin(p.x*1.3+fi*1.1);',
-    'float d=abs(p.y-yc);float band=smoothstep(w,0.0,d);',
-    'float fade=0.5+0.5*sin(p.x*0.9+t*0.4+fi*2.1);',          // streaky fade along each ribbon
-    'float bb=band*fade;a+=bb;col+=mix(c0,c1,0.5+0.5*sin(fi*1.3+t*0.2))*bb;}',
-    'a=clamp(a,0.0,1.0);col=a>0.001?col/max(a,0.001):c0;',
-    'float top=smoothstep(-0.1,0.95,uv.y);float vign=1.0-smoothstep(0.55,1.3,length(uv-0.5));',
-    'gl_FragColor=vec4(col,u_int*a*mix(0.3,1.0,top)*vign);',
+    'vec2 uv=gl_FragCoord.xy/u_res;',
+    'vec2 p=uv*vec2(2.2,2.4)*u_scale;',                       // domain-warped flowing mesh
+    'float t=u_t;',
+    'vec2 q=vec2(fbm(p+vec2(0.0,t)),fbm(p+vec2(5.2,-t*0.9)));',
+    'float n=fbm(p+q*1.7+vec2(t*0.5,t*0.2));',
+    'vec3 col=mix(c0,c1,smoothstep(0.15,0.65,n));',
+    'col=mix(col,c2,smoothstep(0.5,0.95,n)*0.8);',
+    'col=mix(col,c3,smoothstep(0.5,1.0,q.x*q.y+0.15)*0.6);', // warm spark where flow peaks
+    'float top=smoothstep(-0.12,0.95,uv.y);',                 // top-weighted; CSS mask fades the base
+    'float a=(0.45+0.55*n)*top;',
+    'gl_FragColor=vec4(col,u_int*a*0.95);',
     '}'
   ].join('\n');
   function sh(t,src){var s=gl.createShader(t);gl.shaderSource(s,src);gl.compileShader(s);return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null;}
