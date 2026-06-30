@@ -314,43 +314,12 @@ const comingSoon = [
       <div class="form-intro">
         <p class="section-eyebrow">Get started</p>
         <h2>Start my site</h2>
-        <p class="form-lede">Fill this out. We'll respond within 24 hours with a deposit invoice and any clarifying questions.</p>
+        <p class="form-lede">Grab a 20-minute build call. We'll cover your business, the page, and pricing — and you'll leave with a deposit invoice and a start date. Async-friendly.</p>
       </div>
-      <form class="spark-form" id="spark-form">
-        <label>
-          <span>Business name</span>
-          <input name="businessName" type="text" placeholder="Acme Plumbing" required />
-        </label>
-        <label>
-          <span>Business type</span>
-          <select name="businessType" required>
-            <option value="" disabled selected>Select one</option>
-            {businessTypes.map((t) => <option value={t}>{t}</option>)}
-          </select>
-        </label>
-        <label>
-          <span>Current website URL <em>(if any)</em></span>
-          <input name="currentUrl" type="url" placeholder="https://oldsite.com" />
-        </label>
-        <label>
-          <span>Your email</span>
-          <input name="email" type="email" inputmode="email" placeholder="you@business.com" required />
-        </label>
-        <label>
-          <span>Your phone <em>(optional, for a 15-minute discovery call)</em></span>
-          <input name="phone" type="tel" inputmode="tel" placeholder="(555) 000-0000" />
-        </label>
-        <label>
-          <span>Referred by, or how did you hear about us? <em>(optional)</em></span>
-          <input name="referredBy" type="text" placeholder="Tom Steed, a Google search, a friend, etc." />
-        </label>
-        <label class="label-tall">
-          <span>Tell us about your business <em>(3 to 5 sentences)</em></span>
-          <textarea name="brief" rows="5" placeholder="What your business does, who you want to reach, and what you want visitors to do first." required></textarea>
-        </label>
-        <button class="submit-button" type="submit">Send my intake →</button>
-        <p class="form-note" id="spark-status" aria-live="polite">Async only. We reply within 24 hours.</p>
-      </form>
+      <div class="spark-form">
+        <a class="submit-button" href="https://calendar.app.google/xroSbRWZsBiArUS2A" style="display:flex;align-items:center;justify-content:center;text-decoration:none">Book my build call →</a>
+        <p class="form-note">Pick a time that works. We'll talk through your business, the page, and pricing — and you'll leave with a deposit invoice and next steps.</p>
+      </div>
     </section>
 
     <!-- Tom referral banner (shown only with ?ref=tom-steed) -->
