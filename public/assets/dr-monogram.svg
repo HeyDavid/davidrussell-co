@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 156">
+  <!-- The signature scene: the D's crossbar is a cantilevered deck — two figures at
+       the railing looking out at the horizon. The R's leg is the support strut,
+       "ussell" sits in the underbrush below. After David's handwritten signature. -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 28 H206" stroke="#2563eb" stroke-width="7"/>
+    <path d="M46 28 A26 26 0 0 1 46 80 H20" stroke="#2563eb" stroke-width="12"/>
+    <path d="M20 28 V102" stroke="#0e1626" stroke-width="12"/>
+    <path d="M44 80 L80 120" stroke="#0e1626" stroke-width="12"/>
+    <path d="M162 12 H206" stroke="#0e1626" stroke-width="2.2"/>
+    <path d="M176 13 V24.5" stroke="#0e1626" stroke-width="5.5"/>
+    <path d="M194 11 V24.5" stroke="#0e1626" stroke-width="5.8"/>
+    <circle cx="306" cy="20" r="8" stroke="#2563eb" stroke-width="2.6"/>
+    <path d="M100 132 H272" stroke="#0e1626" stroke-width="2.4" opacity=".4"/>
+    <path d="M92 132 q4 -10 12 -8 M90 132 q-5 -9 -12 -7 M228 132 q4 -9 11 -7" stroke="#0e1626" stroke-width="2.4"/>
+    <path d="M250 132 C248 116 254 104 250 96" stroke="#0e1626" stroke-width="3"/>
+    <path d="M250 96 q-10 -6 -18 0 M250 96 q2 -10 10 -12 M250 96 q10 -4 16 3" stroke="#0e1626" stroke-width="2.4"/>
+    <path d="M268 132 C266 122 270 114 267 108" stroke="#0e1626" stroke-width="2.6"/>
+    <path d="M267 108 q-8 -4 -13 1 M267 108 q3 -8 10 -8" stroke="#0e1626" stroke-width="2.2"/>
+  </g>
+  <circle cx="176" cy="6.6" r="4" fill="#0e1626"/>
+  <circle cx="194" cy="4.2" r="4.2" fill="#0e1626"/>
+  <g fill="#0e1626" font-family="'Plus Jakarta Sans',system-ui,sans-serif" font-weight="700" font-size="34" letter-spacing="-0.5">
+    <text x="76" y="23">avid</text>
+    <text x="98" y="126">ussell</text>
+  </g>
+</svg>

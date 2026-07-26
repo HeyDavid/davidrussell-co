@@ -42,18 +42,30 @@ a:hover{color:var(--cobalt)}
 button,input,textarea,select{font:inherit;color:inherit}
 :where(a,button,input,textarea,select):focus-visible{outline:3px solid rgba(37,99,235,.55);outline-offset:4px;border-radius:8px}
 
-/* ─── Cross-document view transitions (native MPA; degrades to instant nav) ─── */
+/* ─── Cross-document view transitions (native MPA; degrades to instant nav) ───
+   Choreography: the sticky header persists as its own group while page content
+   does a short fade-rise. Article titles morph between index rows and essay
+   headlines via per-post view-transition-name set inline in the templates. */
 @view-transition{ navigation: auto; }
+.runhead{ view-transition-name: runhead; }
+::view-transition-old(root){ animation: 200ms var(--ease) both vt-page-out; }
+::view-transition-new(root){ animation: 300ms 60ms var(--ease) both vt-page-in; }
+::view-transition-group(*){ animation-timing-function: var(--ease); }
+@keyframes vt-page-out{ to{ opacity:0; translate:0 -8px; } }
+@keyframes vt-page-in{ from{ opacity:0; translate:0 12px; } }
 @media (prefers-reduced-motion: reduce){
   ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){ animation: none !important; }
 }
+
+/* Keyword sizes (auto, max-content…) are animatable where supported */
+:root{ interpolate-size: allow-keywords; }
 
 /* ─── HEADER (runhead) ─── */
 .runhead{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color var(--dur)}
 .runhead.is-scrolled{border-bottom-color:var(--line)}
 .runhead-inner{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:20px}
 .runhead-brand{display:flex;align-items:center;gap:12px;border:0}
-.runhead-brand img{width:38px;height:38px;object-fit:contain}
+.runhead-brand img{height:40px;width:auto;object-fit:contain}
 .runhead-name{font-family:var(--disp);font-weight:700;font-size:23px;letter-spacing:-.035em;line-height:1;color:var(--ink)}
 .runhead-name .d{color:var(--cobalt)}
 .runhead nav{display:flex;align-items:center;gap:24px;font-size:16px;font-weight:500}
@@ -165,6 +177,18 @@ button,input,textarea,select{font:inherit;color:inherit}
 .entry-title{font-family:var(--disp);font-weight:600;font-size:clamp(23px,3vw,33px);letter-spacing:-.02em;line-height:1.1;color:var(--ink);transition:color var(--dur)}
 .entry>a:hover .entry-title{color:var(--cobalt)}
 .entry-dek{font-size:16px;line-height:1.5;color:var(--ink-soft);margin-top:7px;max-width:62ch}
+
+/* Question-led essay pattern: open-question cards (authored in post markdown) */
+.q-card{margin:34px 0;padding:clamp(22px,3.5vw,30px);background:var(--card);border-left:4px solid var(--cobalt);border-radius:0 18px 18px 0}
+.q-card p.q-card-k{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cobalt);margin:0 0 10px}
+.q-card p.q-card-q{font-family:var(--disp);font-weight:700;font-size:clamp(20px,2.6vw,26px);line-height:1.28;letter-spacing:-.02em;color:var(--ink);margin:0 0 14px;text-wrap:balance}
+.q-card p.q-card-take{font-size:16px;line-height:1.65;color:var(--ink-soft);margin:0}
+.q-card .q-who{font-weight:700;color:var(--ink)}
+
+/* Interactive figures + question cards break into the right whitespace on wide screens */
+@media(min-width:1360px){
+  .post-body>.q-card,.post-body>figure.zt-demo,.post-body>.zt-test{width:calc(100% + 110px)}
+}
 
 /* Reveal */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}

@@ -1,9 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="15" fill="#2563eb"/>
-  <g stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none">
-    <circle cx="23" cy="38" r="8.5"/>
-    <line x1="31.5" y1="17" x2="31.5" y2="46.5"/>
-    <line x1="41.5" y1="30.5" x2="41.5" y2="46.5"/>
-    <path d="M41.5 37.5 Q41.5 30.5 49.5 30.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- D/R signature mark: deck (D crossbar), strut (R leg), one figure looking out -->
+  <rect width="128" height="128" rx="30" fill="#0e1626"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 36 H104" stroke="#2563eb" stroke-width="13"/>
+    <path d="M52 36 A23 23 0 0 1 52 82 H30" stroke="#2563eb" stroke-width="15"/>
+    <path d="M30 36 V106" stroke="#ffffff" stroke-width="15"/>
+    <path d="M50 82 L84 108" stroke="#ffffff" stroke-width="15"/>
+    <path d="M94 20 V32" stroke="#ffffff" stroke-width="8"/>
   </g>
+  <circle cx="94" cy="13" r="6" fill="#ffffff"/>
 </svg>

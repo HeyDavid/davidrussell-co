@@ -48,7 +48,7 @@ const hasPosts = posts.length > 0;
                   <span>{dateOf(post)}</span>
                   {post.data.readTime && <><span class="sep">·</span><span>{post.data.readTime}</span></>}
                 </div>
-                <div class="entry-title">{post.data.title}</div>
+                <div class="entry-title" style={`view-transition-name: vt-${post.id}`}>{post.data.title}</div>
                 {post.data.description && <div class="entry-dek">{post.data.description}</div>}
               </a>
             </li>
