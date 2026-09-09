@@ -104,6 +104,8 @@ button,input,textarea,select{font:inherit;color:inherit}
 .work-head .dateline{display:block;margin-bottom:16px}
 .work-cta{display:inline-block;margin-top:20px;background:var(--cobalt);color:#fff;font-weight:600;font-size:16px;padding:13px 26px;border-radius:100px;transition:background .3s var(--ease),transform .3s var(--ease)}
 .work-cta:hover{background:var(--cobalt-deep);color:#fff;transform:translateY(-2px)}
+.work-alt{margin-top:18px;font-family:var(--grot);font-size:16px;color:var(--ink-soft)}
+.work-alt a{color:var(--cobalt);font-weight:600}
 
 /* Prose */
 .post-body{font-family:var(--grot);font-size:18px;line-height:1.72;color:var(--ink)}
