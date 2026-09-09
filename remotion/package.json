@@ -1,0 +1,22 @@
+{
+  "name": "davidrussell-co-remotion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build-time only. Renders social/OG artwork for davidrussell.co into ../public/og. Ships ZERO bytes to the live site — never referenced from the Astro build.",
+  "scripts": {
+    "studio": "remotion studio",
+    "og": "node render-og.mjs",
+    "still": "remotion still"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.520",
+    "@remotion/cli": "^4.0.520",
+    "@remotion/google-fonts": "^4.0.520",
+    "@remotion/layout-utils": "^4.0.520",
+    "@remotion/renderer": "^4.0.520",
+    "gray-matter": "^4.0.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.520"
+  }
+}
