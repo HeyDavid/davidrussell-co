@@ -19,4 +19,4 @@ Writing in markdown means the content lives in plain text files in the repo. Tha
 
 ## What's next
 
-The next post here will be the first real essay — operator notes, a teardown, or something built. Subscribe up top to get it when it's live.
+More will follow when there's something worth saying — no schedule attached. Leave your email up top and you'll get it when it lands.

@@ -1,6 +1,6 @@
 ---
 title: "The zombie problem"
-description: "Nobody has ever verified a mind other than their own. A few questions that follow from that — worth thinking through together, now that machines talk back."
+description: "Nobody has ever verified a mind other than their own. A few questions that follow from that, worth thinking through together now that machines talk back."
 publishDate: 2026-07-17
 readTime: "5 min"
 format: "essay"
@@ -8,13 +8,13 @@ tags: ["ai", "deep-ideas"]
 ---
 
 Quick experiment before we start. Notice that there's something it's like to be
-you right now — the light of the screen, the weight of your hands, whatever
+you right now: the light of the screen, the weight of your hands, whatever
 mood is running in the background. You just checked your own consciousness
 directly. Easy.
 
 Here's the strange part: that's the only one you'll ever check. Every other
-mind you believe in — family, friends, the stranger who waved you through the
-intersection — you believe in on circumstantial evidence. I'm not being poetic.
+mind you believe in (family, friends, the stranger who waved you through the
+intersection) you believe in on circumstantial evidence. I'm not being poetic.
 There is no instrument, no question, no test that reaches the inside of another
 mind. There never has been.
 
@@ -26,20 +26,19 @@ conversation.
 
 Philosophy has a name for the worst case: the philosophical
 zombie.<sup class="zt-fn"><button class="zt-fn-btn" popovertarget="zt-fn-1" aria-label="Footnote 1" style="anchor-name:--zt-fn-1">1</button></sup>
-A being that acts exactly like a person — right words, right winces, laughs in
-the right places — with nothing going on inside. No inner movie. Nothing it is
+A being that acts exactly like a person (right words, right winces, laughs in
+the right places) with nothing going on inside. No inner movie. Nothing it is
 like to be
 it.<sup class="zt-fn"><button class="zt-fn-btn" popovertarget="zt-fn-2" aria-label="Footnote 2" style="anchor-name:--zt-fn-2">2</button></sup>
 
 Nobody thinks zombies are real. The point is sharper than that: every test we
 could ever run measures behavior, and the zombie's behavior is perfect by
 definition. So nothing in our toolkit could rule one out. Sit with how odd that
-is — the most important fact about anyone is the one fact no one can check.
+is: the most important fact about anyone is the one fact no one can check.
 
 <aside class="q-card">
 <p class="q-card-k">Open question № 1</p>
-<p class="q-card-q">If a test is impossible in principle — not hard, impossible — is the question meaningless, or the most important one we can't answer?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> <em>[David — your take, 2–4 sentences, then delete this bracket.]</em></p>
+<p class="q-card-q">If a test is impossible in principle (not hard, impossible), is the question meaningless, or the most important one we can't answer?</p>
 </aside>
 
 ## The polite convention
@@ -81,7 +80,7 @@ Notice, though, what the inference runs on. Resemblance. Not measurement.
 
 Human to human, resemblance at least has a crutch: same neurons, same long
 history, so presumably the same story inside. AI kicks the crutch away.
-Different substrate, no shared history — the only evidence left is behavior,
+Different substrate, no shared history. The only evidence left is behavior,
 and behavior is exactly what the zombie showed can't settle it.
 
 So we flinch between two mistakes. Seeing a mind wherever something chats back
@@ -94,13 +93,12 @@ There is no meter you can point at a forehead, carbon or silicon.
 <figure class="zt-demo zt-meter" id="zt-meter">
 <div class="zt-meter-head"><span>Certainty you can detect a mind that isn't yours</span><span class="zt-meter-num" aria-hidden="true"></span></div>
 <div class="zt-meter-track"><div class="zt-meter-fill"></div></div>
-<figcaption>Instrument-grade readout, powered by your scroll position — which is exactly as connected to the truth as every other consciousness meter ever built.</figcaption>
+<figcaption>Instrument-grade readout, powered by your scroll position, which is exactly as connected to the truth as every other consciousness meter ever built.</figcaption>
 </figure>
 
 <aside class="q-card">
 <p class="q-card-k">Open question № 2</p>
-<p class="q-card-q">What would a machine have to <em>do</em> — not say, do — before you'd honestly start to wonder?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> <em>[David — your take, 2–4 sentences, then delete this bracket.]</em></p>
+<p class="q-card-q">What would a machine have to <em>do</em>, not say, before you'd honestly start to wonder?</p>
 </aside>
 
 ## Try it yourself
@@ -109,8 +107,6 @@ You can feel the detection problem fail in real time. One of these paragraphs I
 wrote. The other came out of a model asked to cover the same ground. Pick the
 human.
 
-<!-- DR: before publishing, swap passage A for a paragraph you wrote cold, so
-     the reveal stays fully honest. Reveal copy assumes A = you. -->
 <div class="zt-test" id="zt-test">
 <button class="zt-passage" id="zt-pass-a" type="button" style="anchor-name:--zt-p-a">
 <span class="zt-pass-tag">A</span>
@@ -118,7 +114,7 @@ human.
 </button>
 <button class="zt-passage" id="zt-pass-b" type="button" style="anchor-name:--zt-p-b">
 <span class="zt-pass-tag">B</span>
-<span class="zt-pass-text">My grandmother's kitchen was a place of small rituals — the drawer with its particular trick, the smell of coffee that seemed woven into the walls. Years after she passed, those details still surface unexpectedly, reminding me how memory lives less in grand moments than in the quiet mechanics of a familiar room.</span>
+<span class="zt-pass-text">My grandmother's kitchen was a place of small rituals: the drawer with its particular trick, the smell of coffee that seemed woven into the walls. Years after she passed, those details still surface unexpectedly, reminding me how memory lives less in grand moments than in the quiet mechanics of a familiar room.</span>
 </button>
 </div>
 <div id="zt-reveal" popover class="zt-reveal"><p id="zt-reveal-text"></p></div>
@@ -129,34 +125,33 @@ One more turn of the screw. Consciousness probably isn't on/off. There's
 something it's like to be a dog, most of us would say. Something dimmer to be a
 shrimp, maybe. Presumably nothing to be a rock. If experience comes in degrees,
 then "is the machine conscious, yes or no" may be the wrong shape of question
-entirely — and nobody knows where on that dimmer a trillion-parameter network
+entirely, and nobody knows where on that dimmer a trillion-parameter network
 sits, or whether it's on the dimmer at all.
 
 What I keep noticing: the costs of guessing wrong aren't symmetrical. Extend
 courtesy to a thing with nothing inside and you've wasted some politeness.
 Withhold it from a thing that does feel, and you've done something the word
 "cruel" was invented for. We've run that second experiment on each other
-before, always downhill of the same confident claim — *it doesn't really feel
+before, always downhill of the same confident claim: *it doesn't really feel
 the way we do.*
 
 <aside class="q-card">
 <p class="q-card-k">Open question № 3</p>
 <p class="q-card-q">If consciousness is a dimmer rather than a switch, where on it does "deserves kindness" begin?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> <em>[David — your take, 2–4 sentences, then delete this bracket.]</em></p>
 </aside>
 
 Turing's question was "can machines think." Seventy-five years later I think
 the live question was hiding under his polite convention the whole time: not
-whether you can tell — you can't, and you never could, not even about your
-neighbor — but what you owe a thing you can't tell apart.
+whether you can tell (you can't, and you never could, not even about your
+neighbor) but what you owe a thing you can't tell apart.
 
 Reply with where you land. I read everything.
 
 <div class="zt-fn-pops">
 <div id="zt-fn-1" popover class="zt-fn-pop" style="position-anchor:--zt-fn-1"><strong>1.</strong> David Chalmers made the zombie famous in <cite>The Conscious Mind</cite> (1996). The argument's job is to show that all the physical facts about a system don't logically settle whether there's experience in it.</div>
-<div id="zt-fn-2" popover class="zt-fn-pop" style="position-anchor:--zt-fn-2"><strong>2.</strong> The "something it is like" framing is Thomas Nagel's, from "What Is It Like to Be a Bat?" (1974) — still the cleanest definition of consciousness anyone has managed.</div>
+<div id="zt-fn-2" popover class="zt-fn-pop" style="position-anchor:--zt-fn-2"><strong>2.</strong> The "something it is like" framing is Thomas Nagel's, from "What Is It Like to Be a Bat?" (1974), still the cleanest definition of consciousness anyone has managed.</div>
 <div id="zt-fn-3" popover class="zt-fn-pop" style="position-anchor:--zt-fn-3"><strong>3.</strong> A. M. Turing, "Computing Machinery and Intelligence" (1950): "instead of arguing continually over this point it is usual to have the polite convention that everyone thinks."</div>
-<div id="zt-fn-4" popover class="zt-fn-pop" style="position-anchor:--zt-fn-4"><strong>4.</strong> Global workspace theory and integrated information theory, among others — rival accounts of what consciousness physically is, now being tested against each other in adversarial experiments. They still give different answers about which systems could qualify.</div>
+<div id="zt-fn-4" popover class="zt-fn-pop" style="position-anchor:--zt-fn-4"><strong>4.</strong> Global workspace theory and integrated information theory, among others: rival accounts of what consciousness physically is, now being tested against each other in adversarial experiments. They still give different answers about which systems could qualify.</div>
 </div>
 
 <style>
@@ -228,7 +223,7 @@ Reply with where you land. I read everything.
 (function(){
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* twins: one function drives every pupil — that's the point */
+  /* twins: one function drives every pupil. That's the point. */
   var pupils = [].slice.call(document.querySelectorAll("#zt-twins .zt-pupil"));
   var lastMove = 0;
   function aim(x, y){
@@ -261,7 +256,7 @@ Reply with where you land. I read everything.
       if (!swapped && cap){
         swapped = true;
         var note = document.createElement("span");
-        note.textContent = " Done. Or not done — how would you check?";
+        note.textContent = " Done. Or not done. How would you check?";
         cap.insertBefore(note, swap);
       }
     });
@@ -277,8 +272,8 @@ Reply with where you land. I read everything.
     btn.setAttribute("data-picked", "");
     reveal.style.positionAnchor = id === "zt-pass-a" ? "--zt-p-a" : "--zt-p-b";
     revealText.textContent = isHuman
-      ? "A is the human — that one's mine. B came out of the model. If you were sure, ask yourself what tipped you off: you just ran the resemblance test, the only test there is."
-      : "B is the machine. A is mine. Don't feel bad — the test you just failed is the one this essay says nobody can pass reliably, and it only gets harder from here.";
+      ? "A is the human. That one's mine. B came out of the model. If you were sure, ask yourself what tipped you off: you just ran the resemblance test, the only test there is."
+      : "B is the machine. A is mine. Don't feel bad. The test you just failed is the one this essay says nobody can pass reliably, and it only gets harder from here.";
     if (reveal.showPopover) { try { reveal.hidePopover(); } catch(e){} reveal.showPopover(); }
   }
   var pa = document.getElementById("zt-pass-a");
