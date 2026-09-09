@@ -8,14 +8,8 @@ const posts = all
 
 const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
 
-const upcoming = [
-  "Voice AI for small business — where it helps, where it hurts",
-  "Anatomy of an AI front desk — what happens when the phone rings",
-  "One night, 33 illustrations — an AI image pipeline that doesn't drift",
-];
-
-const title = "David Russell — building small, useful companies";
-const description = "I run a small portfolio of AI-powered companies from South Florida, and write the occasional essay about the parts that generalize.";
+const title = "David Russell · small, useful companies";
+const description = "Solo operator in South Florida. I run a small portfolio of AI-powered companies and write the occasional essay.";
 const canonical = "https://davidrussell.co/";
 const ogImage = "https://davidrussell.co/og-2026b.png";
 ---
@@ -48,10 +42,10 @@ const ogImage = "https://davidrussell.co/og-2026b.png";
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "374371c09f5d4d4b83fe5e0a2f55cbc6"}'></script>
-<!-- Umami analytics — self-host; CF beacon kept as redundancy -->
+<!-- Umami analytics, self-hosted; CF beacon kept as redundancy -->
 <script is:inline defer src="https://umami-nine-gilt.vercel.app/script.js" data-website-id="944e0f3c-fc3f-4251-95fe-e70ee25234d4"></script>
 <script is:inline type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
-<script type="application/ld+json" is:inline>{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://davidrussell.co/#person","name":"David Russell","url":"https://davidrussell.co/","jobTitle":"Solo operator and writer","sameAs":["https://www.linkedin.com/in/heydavidr/","https://x.com/heydavidr","https://github.com/HeyDavid"]},{"@type":"WebSite","@id":"https://davidrussell.co/#website","url":"https://davidrussell.co/","name":"David Russell","description":"David Russell — solo operator and writer in South Florida.","publisher":{"@id":"https://davidrussell.co/#person"}}]}</script>
+<script type="application/ld+json" is:inline>{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://davidrussell.co/#person","name":"David Russell","url":"https://davidrussell.co/","jobTitle":"Solo operator and writer","sameAs":["https://www.linkedin.com/in/heydavidr/","https://x.com/heydavidr","https://github.com/HeyDavid"]},{"@type":"WebSite","@id":"https://davidrussell.co/#website","url":"https://davidrussell.co/","name":"David Russell","description":"David Russell, solo operator and writer in South Florida.","publisher":{"@id":"https://davidrussell.co/#person"}}]}</script>
 <style is:global>
 :root{
   --paper:#ffffff; --card:#f7f9fc; --ink:#0e1626; --dim:#4b5565; --faint:#7b8494;
@@ -199,7 +193,7 @@ a{color:inherit;text-decoration:none}
 .colophon a{color:var(--dim);font-weight:600}
 .colophon a:hover{color:var(--blue)}
 
-/* reveal — scroll-driven where supported; visible everywhere else (fail-safe) */
+/* reveal: scroll-driven where supported; visible everywhere else (fail-safe) */
 @keyframes up-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @supports (animation-timeline:view()){@media (prefers-reduced-motion:no-preference){
   .js .up{animation:up-rise both;animation-timeline:view();animation-range:entry 2% cover 34%}
@@ -245,7 +239,7 @@ a{color:inherit;text-decoration:none}
 <body>
 
 <header class="bar" id="bar"><div class="in">
-  <a class="brand" href="#top" aria-label="David Russell — top">
+  <a class="brand" href="#top" aria-label="David Russell, top of page">
     <img class="dr-sig" src="/assets/signature.png" alt="" width="45" height="40" decoding="async">
   </a>
   <button class="menu" id="menu" type="button" aria-label="Open menu" aria-controls="nav" aria-expanded="false"><span class="ic" aria-hidden="true"></span></button>
@@ -258,10 +252,10 @@ a{color:inherit;text-decoration:none}
     <div>
       <div class="ey">Solo operator &middot; South Florida</div>
       <h1>I build <span class="c">small, useful</span> companies.</h1>
-      <p class="sub">I run a small portfolio — an AI front desk for dental practices, a voice-agent studio, a scam-warning directory. Every so often I write about the parts that generalize. Useful if you&rsquo;re building something of your own, or want help with yours.</p>
+      <p class="sub">I run a small portfolio: an AI front desk for dental practices, the same system for other local businesses, and a directory of how scams actually work. Every so often I write an essay. Useful if you&rsquo;re building something of your own, or want help with yours.</p>
       <form class="signup" id="sub1">
 <div class="field"><input type="email" name="email" placeholder="your email" autocomplete="email" aria-label="Email address" required><button type="submit" data-umami-event="subscribe_submit" data-umami-event-location="hero">Get new essays</button></div>
-        <div class="cap">Occasional essays. No schedule, no spam &mdash; and I read every reply.</div>
+        <div class="cap">Occasional essays. No schedule, no spam. I read every reply.</div>
       </form>
 <div class="alt"><a href="/work-with-me/marketing/" data-umami-event="work_cta_click" data-umami-event-location="hero">Or see how to work with me &rarr;</a></div>
     </div>
@@ -275,8 +269,8 @@ a{color:inherit;text-decoration:none}
 <section class="stats"><div class="inner">
   <div class="row">
     <div class="st"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l5-5 4 3 6.5-7.5"/><path d="M15.5 6.5H20V11"/></svg></span><b>$400K+/yr</b> marketplace built &amp; sold</div>
-    <div class="st"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span><b>4 ventures</b> live today</div>
-    <div class="st"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h3l1.4 4-1.9 1.2a11 11 0 0 0 5 5L15 12.3 19 13.7V17a2 2 0 0 1-2 2A14.5 14.5 0 0 1 4 6 2 2 0 0 1 6 4z"/></svg></span><b>AI phone agents</b> answering real calls</div>
+    <div class="st"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span><b>4 ventures</b> in the portfolio</div>
+    <div class="st"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h3l1.4 4-1.9 1.2a11 11 0 0 0 5 5L15 12.3 19 13.7V17a2 2 0 0 1-2 2A14.5 14.5 0 0 1 4 6 2 2 0 0 1 6 4z"/></svg></span><b>AI receptionists</b> on real phone lines</div>
     <div class="st"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 1.8"/></svg></span><b>A decade</b> of marketing across industries</div>
   </div>
 </div></section>
@@ -286,50 +280,47 @@ a{color:inherit;text-decoration:none}
     <div class="pcopy">
       <div class="ey2">What the work looks like</div>
       <h3>Real builds, not slideware.</h3>
-      <p>An AI front desk taking a live call &mdash; answering, qualifying, booking &mdash; the kind of thing I ship for clients, then write about here.</p>
+      <p>An AI front desk that answers, qualifies, and books. The kind of thing I ship, then write about here. Don&rsquo;t take my word for it: it will call your phone.</p>
     </div>
-    <div class="callcard" aria-hidden="true">
-      <div class="callhead"><span class="dot"></span> Live call &middot; AI front desk</div>
+    <a class="callcard" href="https://curadental.co/hear" target="_blank" rel="noopener" data-umami-event="lab_click" data-umami-event-project="cura-hear">
+      <div class="callhead"><span class="dot"></span> Live demo &middot; AI front desk</div>
       <div class="bubbles">
-        <div class="b caller">Hi &mdash; do you take new patients? My tooth&rsquo;s been killing me.</div>
-        <div class="b agent">We do. Dr. Lee has an opening tomorrow at 9:40 &mdash; want me to book it?</div>
-        <div class="b caller">Yes, please.</div>
-        <div class="b agent">Booked. You&rsquo;ll get a text confirmation in a moment. Feel better soon.</div>
+        <div class="b caller">Enter your number at curadental.co/hear. The front desk calls you within seconds. Ask it to book you, ask about hours, switch it to Spanish.</div>
       </div>
-      <div class="callfoot">Booked in 38s &middot; caller details captured</div>
-    </div>
+      <div class="callfoot">Real system, real booking flow, about ten seconds &rarr;</div>
+    </a>
   </div>
 </div></section>
 
 <section class="sec up" id="built"><div class="inner">
   <div class="sec-h"><h2>What I&rsquo;m building.</h2></div>
-  <p class="sec-note">A small portfolio, built to compound. Each one owns a real problem, and each one is where the writing comes from.</p>
+  <p class="sec-note">Four small companies. Each one is where the writing comes from.</p>
   <div class="cards">
     <a class="card" href="https://curadental.co" target="_blank" rel="noopener">
       <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.4c-1.3-1.2-2.9-1.6-4.3-1.1C6.2 4.8 5.2 6.3 5.2 8c0 1.4.5 2.6.8 4 .3 1.4.5 3.1.7 4.7.2 1.4.4 2.8 1.3 2.8.9 0 1-1.8 1.2-3.1.1-1 .2-1.9.8-1.9s.7.9.8 1.9c.2 1.3.3 3.1 1.2 3.1.9 0 1.1-1.4 1.3-2.8.2-1.6.4-3.3.7-4.7.3-1.4.8-2.6.8-4 0-1.7-1-3.2-2.5-3.7-1.4-.5-3-.1-4.3 1.1z"/></svg></div>
-      <div class="top"><span class="nm">Cura</span><span class="chip">Flagship</span></div>
-      <div class="ds">A premium AI front desk, website, and review engine for dental practices that want to run full.</div>
-      <div class="pf">Live at curadental.co &middot; founding cohort open</div>
+      <div class="top"><span class="nm">Cura</span><span class="chip">Product</span></div>
+      <div class="ds">An AI front desk, website, and review engine for dental practices.</div>
+      <div class="pf">Live at curadental.co</div>
       <div class="go">Visit &rarr;</div>
     </a>
     <a class="card" href="https://letschatmarketing.com" target="_blank" rel="noopener">
       <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 10v4M8 7v10M12 4.5v15M16 8v8M20 11v2"/></svg></div>
       <div class="top"><span class="nm">Let&rsquo;s Chat</span><span class="chip">Active</span></div>
-      <div class="ds">An AI voice studio — custom phone agents that answer, book, and qualify, so a business never misses the call that matters.</div>
-      <div class="pf">Agents in production, answering real phones</div>
+      <div class="ds">The AI front desk system for local businesses: the phone, the reviews, the follow-up texts, the monthly report.</div>
+      <div class="pf">On real phone lines today</div>
       <div class="go">Visit &rarr;</div>
     </a>
     <a class="card" href="https://scamcapital.com" target="_blank" rel="noopener">
       <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2l7 2.4v5.2c0 4.1-2.9 7.1-7 8.2-4.1-1.1-7-4.1-7-8.2V5.6z"/><path d="M9 12l2 2 4-4"/></svg></div>
       <div class="top"><span class="nm">ScamCapital</span><span class="chip">Active</span></div>
-      <div class="ds">Plain-English dossiers on how scams actually work, so regular people can spot them early and act.</div>
-      <div class="pf">Live &middot; fully illustrated case directory</div>
+      <div class="ds">Plain-English case files on how specific scams work, step by step.</div>
+      <div class="pf">Live case directory</div>
       <div class="go">Visit &rarr;</div>
     </a>
     <a class="card" href="https://computerinput.com" target="_blank" rel="noopener">
       <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.3"/><circle cx="5.5" cy="18" r="2.3"/><circle cx="18.5" cy="18" r="2.3"/><path d="M12 7.3v3.2M10.4 12.4l-3.1 3.6M13.6 12.4l3.1 3.6"/></svg></div>
       <div class="top"><span class="nm">Computer Input</span><span class="chip fam">Family</span></div>
-      <div class="ds">My parents&rsquo; cabling and networking firm — I run the marketing, and Jackie, their AI receptionist.</div>
+      <div class="ds">My parents&rsquo; cabling and networking firm. I run the marketing and Jackie, their AI receptionist.</div>
       <div class="pf">40 years in business &middot; AI on the phones</div>
       <div class="go">Visit &rarr;</div>
     </a>
@@ -338,7 +329,7 @@ a{color:inherit;text-decoration:none}
 
 <section class="sec up" id="writing"><div class="inner">
   <div class="sec-h"><h2>Writing.</h2><a class="all" href="/writing/">Read everything &rarr;</a></div>
-  <p class="sec-note">Notes from real builds — what worked, what it cost in time and attention, and what I&rsquo;d skip next time.</p>
+  <p class="sec-note">Essays and notes. What I tried, what it cost, what I still don&rsquo;t know.</p>
   <ul class="wrows">
     {posts.map((post) => (
       <li class="wrow"><a href={`/writing/${post.id}/`}>
@@ -347,22 +338,16 @@ a{color:inherit;text-decoration:none}
       </a></li>
     ))}
   </ul>
-  <div class="soon">
-    <div class="sl">In the works</div>
-    <ul>
-      {upcoming.map((t) => <li>{t}</li>)}
-    </ul>
-  </div>
 </div></section>
 
 <section class="sec lab up" id="lab"><div class="inner">
   <div class="sec-h"><h2>From the lab.</h2></div>
-  <p class="sec-note">Experiments in what one person with AI tooling can ship. Less polished, more alive — and some of my favorite work.</p>
+  <p class="sec-note">Experiments in what one person with AI tools can ship.</p>
   <div class="labcards">
 <a class="labcard" href="https://heydavid.github.io/pages-that-are-places/" target="_blank" rel="noopener" data-umami-event="lab_click" data-umami-event-project="pages-that-are-places">
       <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.5l1.8 4.7 4.7 1.8-4.7 1.8-1.8 4.7-1.8-4.7L4 10l4.7-1.8z"/><path d="M18 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></div>
       <div class="nm">Pages that are Places</div>
-      <div class="ds">An interactive museum of web-art experiments — rooms you walk through, built in one long night.</div>
+      <div class="ds">An interactive museum of web-art experiments. Rooms you walk through, built in one long night.</div>
       <div class="go">Wander in &rarr;</div>
     </a>
 <a class="labcard" href="https://github.com/HeyDavid/ai-front-desk-architect" target="_blank" rel="noopener" data-umami-event="lab_click" data-umami-event-project="ai-front-desk-architect">
@@ -379,9 +364,10 @@ a{color:inherit;text-decoration:none}
   <div class="aboutgrid">
     <img class="aboutimg" src="/assets/headshot.jpg" alt="David Russell" width="260" height="260" loading="lazy" decoding="async">
     <div class="about">
-      <p>I&rsquo;m David — a solo operator in South Florida. I grew a Wix site into a marketplace doing $400K+ a year, sold it, and spent a decade doing marketing across dozens of industries.</p>
-      <p>Now I build small, useful companies and write about the work: what compounds, what&rsquo;s evergreen, and where I&rsquo;m probably wrong. If marketing is your moat or your bottleneck, we should talk.</p>
-<a class="more" href="/work-with-me/marketing/" data-umami-event="work_cta_click" data-umami-event-location="about">The longer version &amp; how to work with me &rarr;</a>
+      <p>I&rsquo;m David, a solo operator in South Florida. I grew a Wix site into a marketplace doing $400K+ a year, sold it, and spent a decade doing marketing across dozens of industries.</p>
+      <p>Now I build small, useful companies and write about the work. If you need marketing or a website that has to earn its keep, we should talk.</p>
+<a class="more" href="/background/">The longer version &rarr;</a>
+<a class="more" href="/work-with-me/marketing/" data-umami-event="work_cta_click" data-umami-event-location="about" style="margin-left:22px">How to work with me &rarr;</a>
     </div>
   </div>
 </div></section>
@@ -390,7 +376,7 @@ a{color:inherit;text-decoration:none}
   <h2 class="talk">Build small. Own it.<br><span class="c">Compound.</span></h2>
   <form class="signup" id="sub2" style="margin-top:32px;max-width:480px">
 <div class="field"><input type="email" name="email" placeholder="your email" autocomplete="email" aria-label="Email address" required><button type="submit" data-umami-event="subscribe_submit" data-umami-event-location="footer">Get new essays</button></div>
-    <div class="cap">Occasional essays, no schedule. Reply to any of them — that&rsquo;s the whole idea.</div>
+    <div class="cap">Occasional essays, no schedule. Reply to any of them.</div>
   </form>
   <div class="cmeta">
     <a href="mailto:david@letschatmarketing.com">david@letschatmarketing.com</a>
@@ -399,7 +385,7 @@ a{color:inherit;text-decoration:none}
     <a href="https://github.com/HeyDavid" target="_blank" rel="noopener">GitHub</a>
   </div>
   <div class="colophon">
-    <span>South Florida &mdash; 2026 &middot; Built by hand. Reply to anything.</span>
+    <span>South Florida, 2026 &middot; Built by hand. Reply to anything.</span>
     <span>Currently supporting <a href="https://secure.givewell.org/" target="_blank" rel="noopener">GiveWell</a>.</span>
   </div>
 </div></section>
@@ -415,7 +401,7 @@ a{color:inherit;text-decoration:none}
 
   var bar=document.getElementById('bar');addEventListener('scroll',function(){bar.classList.toggle('scrolled',scrollY>8);},{passive:true});
 
-  // Section reveals are CSS scroll-driven now (.up + @supports animation-timeline) — no JS needed.
+  // Section reveals are CSS scroll-driven now (.up + @supports animation-timeline); no JS needed.
 
   // Beehiiv subscribe
   function wire(formId, medium){
@@ -429,7 +415,7 @@ a{color:inherit;text-decoration:none}
       d.set('email',email); d.set('utm_source','davidrussell.co'); d.set('utm_medium',medium); d.set('tags','dr-subscriber'); d.set('referring_site','davidrussell.co');
       fetch('https://embeds.beehiiv.com/pub_ed495df0-b44a-47ba-939c-eeb46089e27b',{method:'POST',mode:'no-cors',body:d}).finally(function(){
         f.reset(); btn.disabled=false; btn.textContent=old;
-        if(cap){ cap.textContent='Submitted. Check your inbox to confirm.'; cap.classList.add('done'); }
+        if(cap){ cap.textContent='Sent. A confirmation email should arrive within a minute. If it does not, email me and I will add you by hand.'; cap.classList.add('done'); }
       });
     });
   }
@@ -438,14 +424,14 @@ a{color:inherit;text-decoration:none}
 </script>
 
 <script is:inline>
-/* Ambient hero gradient — zero-dependency WebGL. Blue-family, subtle, Stripe-style flow.
+/* Ambient hero gradient: zero-dependency WebGL. Blue-family, subtle, Stripe-style flow.
    Reduced-motion = one static frame; no-WebGL = CSS gradient; DPR-capped; pauses when hidden/off-screen. */
 (function(){
   var canvas=document.getElementById('hero-bg');
   if(!canvas) return;
   function hx(h){var c=parseInt(h.slice(1),16);return [((c>>16)&255)/255,((c>>8)&255)/255,(c&255)/255];}
-  // Rich multi-hue mesh stops: indigo -> cyan -> violet -> warm spark (off the flat blue).
-  var CFG={ stops:[hx('#4f6ef5'),hx('#5fd0e6'),hx('#8a6cf0'),hx('#ffb39e')], speed:0.42, scale:1.0, intensity:0.82 };
+  // Mesh stops: cobalt -> cyan -> sky -> warm spark. Stays in the site's blue family; no violet or indigo (banned).
+  var CFG={ stops:[hx('#2563eb'),hx('#5fd0e6'),hx('#9dbcff'),hx('#ffb39e')], speed:0.42, scale:1.0, intensity:0.82 };
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
   if(!gl){ var fb=getComputedStyle(canvas).getPropertyValue('--hero-bg-fallback').trim(); canvas.style.background=fb||'radial-gradient(120% 92% at 78% 6%,#cfe0ff,#e9f0ff 44%,#fff 80%)'; return; }

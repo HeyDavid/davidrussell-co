@@ -5,8 +5,8 @@ import Footer from "@/components/Footer.astro";
 
 const thesis = [
   { name: "Operator-founders", detail: "I back people who can build, sell, and ship the work themselves. Not professional fundraisers." },
-  { name: "Productized service or tools", detail: "I understand both sides — I've built and run them. I add real value here, not just capital." },
-  { name: "Marketing-led growth motion", detail: "If marketing is your moat or your bottleneck, I'm the operator-investor you want in the cap table." },
+  { name: "Productized service or tools", detail: "I've built and run both, so I can help with more than capital." },
+  { name: "Marketing-led growth motion", detail: "If marketing is the lever, I can pull it with you." },
 ];
 
 const stage = [
@@ -18,8 +18,9 @@ const stage = [
 ---
 
 <BaseLayout
-  title="Build with me (investing) — David Russell"
-  description="Small operator-led checks for early operator-founders. Marketing-led companies especially. By David Russell, South Florida."
+  title="Investing · David Russell"
+  description="Small early checks into operator-led companies, with marketing help attached. David Russell, South Florida."
+  noindex={true}
 >
   <Header />
   <main>
@@ -27,13 +28,12 @@ const stage = [
       <a href="/" class="back">← Home</a>
       <div class="work-grid">
         <header class="work-head">
-          <div class="dateline">The doors &nbsp;/&nbsp; <b>Investing</b></div>
+          <div class="dateline">Work with me &nbsp;/&nbsp; <b>Investing</b></div>
           <h1>Small checks. <em>Real operator help.</em></h1>
           <p class="work-lede">
             I write small, early checks into operator-led companies where I can
-            add more than capital. Marketing is usually the lever where I help
-            the most. The bar is high on what I commit to — I take this
-            seriously and stay close.
+            add more than capital. Marketing is usually where I help the most.
+            I commit to few, and I stay close.
           </p>
           <a class="work-cta" href="mailto:david@letschatmarketing.com?subject=Investment+opportunity">Send me a deck →</a>
         </header>
@@ -62,8 +62,7 @@ const stage = [
               ))}
             </dl>
             <p class="work-note">
-              <em>Placeholder ranges.</em> These will firm up over time — for now,
-              treat them as a starting point for the conversation.
+              These ranges are a starting point for a conversation, not a term sheet.
             </p>
           </section>
         </div>

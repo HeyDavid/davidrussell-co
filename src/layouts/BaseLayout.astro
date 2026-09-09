@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title = "David Russell",
-  description = "Solo operator in South Florida. A decade in marketing and a $400K+ exit. I build small, useful companies and write about the work.",
+  description = "Solo operator in South Florida. I build small, useful companies and write about the work.",
   image = "/og-2026.png",
   noindex = false,
 } = Astro.props;
@@ -26,7 +26,7 @@ const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toSt
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content={description}>
 <link rel="canonical" href={canonical}>
-<link rel="alternate" type="application/rss+xml" title="David Russell — writing" href="/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="David Russell: writing" href="/rss.xml">
 <meta property="og:type" content="website">
 <meta property="og:title" content={title}>
 <meta property="og:description" content={description}>
@@ -49,7 +49,7 @@ const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toSt
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script is:inline type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "374371c09f5d4d4b83fe5e0a2f55cbc6"}'></script>
-<!-- Umami analytics — self-host; CF beacon kept as redundancy -->
+<!-- Umami analytics, self-hosted; CF beacon kept as redundancy -->
 <script is:inline defer src="https://umami-nine-gilt.vercel.app/script.js" data-website-id="944e0f3c-fc3f-4251-95fe-e70ee25234d4"></script>
 <title>{title}</title>
 </head>

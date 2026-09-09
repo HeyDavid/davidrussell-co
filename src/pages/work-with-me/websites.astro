@@ -16,9 +16,6 @@ const businessTypes = [
   "Other",
 ];
 
-// Slot scarcity. Updated monthly. Keep honest: David sets this manually.
-const monthName = new Date().toLocaleString("en-US", { month: "long" });
-const slotsRemaining = 10;
 
 const portfolio = [
   {
@@ -68,7 +65,7 @@ const steps = [
     day: "Day 7 to 10",
     label: "Live on your domain",
     desc: "Domain, hosting, SSL, all handled on our side. We point everything to your new site and you go live.",
-    deliverable: "A real website at your domain. Maintenance kicks in at $15 a month.",
+    deliverable: "A real website at your domain. Hosting and upkeep are $29 a month after launch.",
   },
 ];
 
@@ -89,7 +86,7 @@ const comparison = [
   {
     label: "Spark (us)",
     tag: "Concierge, limited slots",
-    price: "$499 setup, $15 a month",
+    price: "$499 setup, $29 a month",
     time: "7 days",
     bullets: [
       "Real copy, written for you",
@@ -122,16 +119,12 @@ const addons = [
   { label: "Custom integrations", desc: "Stripe, calendars, CRMs, whatever your tool stack already uses." },
 ];
 
-const comingSoon = [
-  "Voice receptionist (early access)",
-  "Built-in scheduling heat map",
-  "Same-day publish for emergency updates",
-];
 ---
 
 <BaseLayout
-  title="Spark — a real one-page website. Built in a week. $499."
-  description="A concierge one-page website for the dog walker, the artist, the solopreneur. $499 setup. $15 a month maintenance. Done in seven days. Limited slots."
+  title="Spark: a one-page website, built in a week, $499"
+  description="A concierge one-page website for the dog walker, the artist, the solopreneur. $499 setup, $29 a month for hosting and upkeep. Done in seven days."
+  noindex={true}
 >
   <main class="spark-page">
 
@@ -143,15 +136,10 @@ const comingSoon = [
       <div class="hero-orb" aria-hidden="true"></div>
       <div class="hero-orb hero-orb--two" aria-hidden="true"></div>
 
-      <div class="hero-status" aria-label="Slot availability">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span><strong>{slotsRemaining} slots open</strong> for {monthName}</span>
-      </div>
-
       <p class="eyebrow">Spark · The starting line</p>
       <h1>A modern website.<br>Done in a week.<br>$499.</h1>
       <p class="lede">
-        Built for the dog walker, the artist, the solopreneur. Spark is where great businesses start showing up online. We write the copy, ship the site, and keep it running. AI tools are quietly built in, never in your face.
+        Built for the dog walker, the artist, the solopreneur. We write the copy, ship the site, and keep it running.
       </p>
       <div class="hero-actions">
         <a class="btn-primary" href="#intake-form">Start my site →</a>
@@ -163,8 +151,6 @@ const comingSoon = [
         <span>Mobile-perfect</span>
         <span aria-hidden="true">·</span>
         <span>Concierge, by text</span>
-        <span aria-hidden="true">·</span>
-        <span>{slotsRemaining} slots a month</span>
       </p>
     </section>
 
@@ -174,7 +160,7 @@ const comingSoon = [
         <p class="section-eyebrow">How it works</p>
         <h2>From intake form to a live website. In a week.</h2>
         <p class="how-lede">
-          No discovery decks. No drawn-out kickoff calls. We learn the shape of your business, build the page, and move quickly enough that the result still feels current when it launches.
+          No discovery decks. No drawn-out kickoff calls. We learn the shape of your business, build the page, and ship it in a week.
         </p>
       </div>
 
@@ -193,7 +179,7 @@ const comingSoon = [
       </ol>
 
       <p class="how-foot">
-        Concierge, not committee. You text one person, you get one answer. We only take {slotsRemaining} new builds a month so we can actually keep that promise.
+        Concierge, not committee. You text one person, you get one answer.
       </p>
     </section>
 
@@ -223,7 +209,7 @@ const comingSoon = [
         <p class="section-eyebrow">Why Spark</p>
         <h2>The three ways to get a website. Pick the one that fits.</h2>
         <p class="compare-lede">
-          Most small businesses end up choosing between a templated DIY site or a five-figure agency engagement. Spark exists for the gap in the middle. Concierge work, real deliverables, honest pricing, limited slots.
+          Most small businesses end up choosing between a templated DIY site and a five-figure agency engagement. Spark is the gap in the middle: concierge work, real deliverables, visible pricing.
         </p>
       </div>
 
@@ -276,7 +262,7 @@ const comingSoon = [
         <div class="price-card">
           <div class="price-top">
             <p class="price-label">Maintenance</p>
-            <p class="price-amount">$15<span>/mo</span></p>
+            <p class="price-amount">$29<span>/mo</span></p>
             <p class="price-sub">after launch</p>
           </div>
           <ul class="price-includes">
@@ -299,12 +285,6 @@ const comingSoon = [
               </li>
             ))}
           </ul>
-          <div class="coming-soon">
-            <p class="coming-soon-label">Coming soon</p>
-            <ul>
-              {comingSoon.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
         </div>
       </div>
     </section>
@@ -314,11 +294,11 @@ const comingSoon = [
       <div class="form-intro">
         <p class="section-eyebrow">Get started</p>
         <h2>Start my site</h2>
-        <p class="form-lede">Grab a 20-minute build call. We'll cover your business, the page, and pricing — and you'll leave with a deposit invoice and a start date. Async-friendly.</p>
+        <p class="form-lede">Grab a 20-minute build call. We'll cover your business, the page, and pricing, and you'll leave with a deposit invoice and a start date.</p>
       </div>
       <div class="spark-form">
         <a class="submit-button" href="https://calendar.app.google/xroSbRWZsBiArUS2A" style="display:flex;align-items:center;justify-content:center;text-decoration:none">Book my build call →</a>
-        <p class="form-note">Pick a time that works. We'll talk through your business, the page, and pricing — and you'll leave with a deposit invoice and next steps.</p>
+        <p class="form-note">Pick a time that works. We'll talk through your business, the page, and pricing, and you'll leave with a deposit invoice and next steps.</p>
       </div>
     </section>
 
