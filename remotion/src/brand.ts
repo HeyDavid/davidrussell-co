@@ -1,14 +1,13 @@
 /**
- * Brand tokens sampled directly from public/og-2026b.png so newly rendered
- * cards sit in the same visual family as the hand-made ones.
+ * Clear Bearings tokens (davidrussell.co, 2026-09-10). Mirrors src/styles/globals.css
+ * so social cards match the live site: white ground, graphite ink, signal yellow.
  */
 export const BRAND = {
-  paper: "#FBF5EA",
-  ink: "#1B1812",
-  dim: "#5A554C",
-  faint: "rgba(27,24,18,.22)",
-  blue: "#2F2BF0",
-  lavender: "#D2CCEB",
+  paper: "#FFFFFF",
+  ink: "#252A2B",
+  dim: "#5C6468",
+  lineSoft: "#E3E6E7",
+  accent: "#F2D43D",
   site: "davidrussell.co",
 } as const;
 

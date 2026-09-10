@@ -35,11 +35,13 @@ const { post, newer, older, related } = Astro.props;
 const { Content } = await render(post);
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const metaDate =
   post.data.status === "coming-soon"
-    ? "draft, coming soon"
+    ? "Coming soon"
     : formatDate(post.data.publishDate);
 
 // Per-post social card, pre-rendered by `cd remotion && npm run og`.
@@ -48,12 +50,12 @@ const metaDate =
 const card = `/og/${post.id}.png`;
 const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, import.meta.url)))
   ? card
-  : "/og-2026.png";
+  : "/og/site.png";
 ---
 
 <BaseLayout
   title={`${post.data.title} · David Russell`}
-  description={post.data.description ?? "Short, occasional, never spam."}
+  description={post.data.description}
   image={socialImage}
 >
   <Header />
@@ -64,15 +66,12 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
 
       <aside class="essay-rail">
         <div class="essay-meta">
-          <span class="essay-format">{post.data.format}</span>
+          <span class="essay-format">{cap(post.data.format)}</span>
           <span class="sep">·</span>
-          <span>{metaDate.toLowerCase()}</span>
+          <span>{metaDate}</span>
           {post.data.readTime && <><span class="sep">·</span><span>{post.data.readTime}</span></>}
         </div>
-        {post.data.tags && post.data.tags.length > 0 && (
-          <div class="rail-tags">{post.data.tags.map((t) => <span class="rail-tag">{t}</span>)}</div>
-        )}
-        <a class="rail-reply" href={`mailto:david@letschatmarketing.com?subject=${encodeURIComponent(`Re: ${post.data.title}`)}`}>Reply to this essay →</a>
+        <a class="rail-reply" href={`mailto:david@letschatmarketing.com?subject=${encodeURIComponent(`Re: ${post.data.title}`)}`}>Reply by email →</a>
       </aside>
 
       <header class="essay-head">
@@ -85,23 +84,23 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
       </div>
 
       <aside class="essay-subscribe" aria-labelledby="inline-sub">
-        <h3 id="inline-sub">Get the next one in your inbox.</h3>
-        <p class="essay-subscribe-note">Short notes, essays, the occasional argument. No schedule, no spam.</p>
+        <h3 id="inline-sub">Get the next essay by email.</h3>
+        <p class="essay-subscribe-note">Occasional essays. No schedule, no spam.</p>
         <form class="ws-sub" id="essay-subscribe-form">
           <input type="email" name="email" autocomplete="email" placeholder="your email" aria-label="Email address" required />
-          <button type="submit" data-event="newsletter-signup">Subscribe</button>
+          <button type="submit" data-event="newsletter-signup">Get new essays</button>
         </form>
         <p class="subscribe-status" id="essay-subscribe-status" role="status" aria-live="polite" hidden></p>
       </aside>
 
       {related.length > 0 && (
         <section class="essay-related">
-          <div class="essay-sec-label">Filed nearby</div>
+          <div class="essay-sec-label">Related</div>
           <ul>
             {related.map((p) => (
               <li>
                 <a href={`/writing/${p.id}/`}>
-                  <span class="rel-format">{p.data.format}</span>
+                  <span class="rel-format">{cap(p.data.format)}</span>
                   <span class="rel-title">{p.data.title}</span>
                 </a>
               </li>
@@ -154,7 +153,7 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
         form.reset();
         status.hidden = false;
         status.textContent = "Sent. A confirmation email should arrive within a minute. If it does not, email me and I will add you by hand.";
-        if (button) { button.disabled = false; button.textContent = "Subscribe"; }
+        if (button) { button.disabled = false; button.textContent = "Get new essays"; }
       });
     });
   })();

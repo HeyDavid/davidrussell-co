@@ -7,7 +7,6 @@ const acts = [
   { tag: "magic", name: "Close-up & stage", desc: "Card and coin work, parlor sets, occasional private events around South Florida. 20+ years at it. Still the best icebreaker I've got." },
   { tag: "music", name: "Guitar & vocals", desc: "Acoustic, mostly. Original work and the songs people want to hear." },
   { tag: "comedy & acting", name: "Reels & reactions", desc: "Short-form on Instagram. Sketches and real moments." },
-  { tag: "speaking", name: "In the works", desc: "Talks on building small companies and using AI tools in a real business. Email me if you're putting a lineup together.", muted: true },
 ];
 ---
 
@@ -34,7 +33,7 @@ const acts = [
         <h2>The sideline.</h2>
         <ul class="record">
           {acts.map((a) => (
-            <li class="record-row" style={a.muted ? "opacity:0.62;" : undefined}>
+            <li class="record-row">
               <div class="record-name">{a.name}<span class="yr">{a.tag}</span></div>
               <div class="record-why">{a.desc}</div>
             </li>

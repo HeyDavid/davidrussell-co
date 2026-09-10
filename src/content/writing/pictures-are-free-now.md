@@ -14,7 +14,7 @@ themselves as characters in a Japanese animated film. The company's CEO said
 the servers were melting. That was the moment pictures stopped being scarce,
 and everything since has been the industry catching up to what that means.
 
-Here's the eighteen months in one paragraph. Google shipped a model in August
+Google shipped a model in August
 2025 that people nicknamed Nano Banana, and 200 million edits happened in a
 few weeks, mostly people turning selfies into little collectible figurines. A
 Pro version followed in November. OpenAI pushed a faster model in December.
@@ -26,8 +26,7 @@ three weeks later. A "Lite" version from Google in June makes an image in
 about four seconds. Midjourney's eighth version has been in testing since
 spring. Google now says its app alone produces 150 million images a day.
 
-I'm not going to review any of them here. I want to talk about what changed
-underneath, because it's bigger than which model is ahead this month.
+What changed underneath is bigger than which model is ahead this month.
 
 ## The three things that used to fail
 

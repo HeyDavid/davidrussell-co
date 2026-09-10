@@ -8,8 +8,6 @@ tags: ["deep-ideas", "ai", "media"]
 draft: true
 ---
 
-Some numbers from this summer, and then what I think they add up to.
-
 Google says its Gemini app now turns out more than 150 million images a day.
 Video from the same company costs ten cents a second. Trust in news hit 37
 percent worldwide in this year's Reuters Institute report, the lowest since
@@ -25,9 +23,9 @@ kind, and 60 percent said yes. This January the same question got 26 percent.
 Meanwhile the app OpenAI built to be a feed of nothing but generated video
 shut down in March.
 
-I run AI systems for a living. I use these models every day. So this isn't a
-complaint about the machines. It's an observation about what happens to the
-price of a thing when its supply goes infinite.
+I run AI systems for a living. I use these models every day. None of this is a
+complaint about the machines. It's what happens to the price of a thing when
+its supply goes infinite.
 
 ## What happens when supply goes infinite
 
@@ -111,7 +109,7 @@ past midnight, the show you saw with someone, the thing a friend told you
 they'd never told anyone. Those were valuable for the same reason a witness is
 valuable: a person was there, and it cost them something.
 
-So the practical version of all this is short. Spend your attention on people
+Spend your attention on people
 who were there. Make things the way a witness would, under your own name,
 about what you actually saw, for the ten people who'll be glad you did.
 Publish what you'd want to receive.

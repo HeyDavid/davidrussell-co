@@ -1,6 +1,6 @@
 ---
 title: "The quiet half"
-description: "The good you do stops being service the moment it becomes content. A short note on the second clause of the golden rule, and the one rule I keep about it."
+description: "The good you do stops being service the moment it becomes content. The second clause of the golden rule, and the one rule I keep about it."
 publishDate: 2026-09-04
 readTime: "3 min"
 format: "note"

@@ -17,8 +17,7 @@ directions.
 
 I've held that position for a long time. What I haven't done is argue it out
 loud, and the only way I know to find out whether a position is mine or just a
-habit is to argue the other side as hard as I can. So here are two advocates,
-each given the best case I can build, and then where it leaves me.
+habit is to argue the other side as hard as I can.
 
 ## The advocate for belief
 
@@ -75,7 +74,7 @@ this, about every god but one. The skeptic's ask is small. Be consistent.
 
 ## What neither advocate gets to claim
 
-I've now argued both, and here's what strikes me. Each side's strongest
+Each side's strongest
 material is about *effects*, peace, community, consistency, honesty, and each
 side's weakest material is the actual metaphysical claim. The believer can't
 demonstrate the being. The skeptic can't demonstrate its absence, and has to
@@ -136,5 +135,3 @@ If you believe, I'm not trying to move you; the best people I know are
 scattered across every answer. I'm trying to say that the thing you and I both
 actually have to do tomorrow morning is identical, and that's worth more than
 agreeing about the rest.
-
-Argue with me. I read every reply, and I've changed my number before.

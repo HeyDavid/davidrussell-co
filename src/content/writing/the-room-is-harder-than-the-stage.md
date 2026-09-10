@@ -33,7 +33,7 @@ the point.
 Everyone else was doing the opposite. Queueing into games they'd win,
 protecting the rating, feeling good. And staying exactly where they were.
 
-That's the insight, and it took me years to see it wasn't about games. The
+It took me years to see it wasn't about games. The
 room you practice in sets the ceiling on the room you can perform in. If
 practice is comfortable, the stage will always be harder than anything you've
 done, and you'll meet every hard moment for the first time in front of people.

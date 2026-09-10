@@ -24,7 +24,7 @@ const outDir = path.join(repo, "public", "og");
 const only = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 
 const monthYear = (d) =>
-  new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "short", timeZone: "UTC" });
+  new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 
 const posts = [];
 for (const file of (await fs.readdir(contentDir)).filter((f) => f.endsWith(".md"))) {
@@ -53,6 +53,7 @@ if (!posts.length) {
 console.log(`Bundling…`);
 const serveUrl = await bundle({
   entryPoint: path.join(here, "src", "index.ts"),
+  publicDir: path.join(repo, "public"),
   onProgress: () => {},
 });
 
@@ -73,6 +74,13 @@ for (const post of posts) {
   });
   const { size } = await fs.stat(output);
   console.log(`ok    /og/${slug}.png  ${(size / 1024).toFixed(0)} KB`);
+}
+
+if (!only.length || only.includes("site")) {
+  const composition = await selectComposition({ serveUrl, id: "OgSite", inputProps: {} });
+  const output = path.join(outDir, "site.png");
+  await renderStill({ composition, serveUrl, output, inputProps: {}, imageFormat: "png", scale: 2, overwrite: true });
+  console.log(`ok    /og/site.png`);
 }
 
 console.log(`\nRendered ${posts.length} card(s) into public/og/.`);

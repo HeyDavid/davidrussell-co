@@ -1,6 +1,6 @@
 ---
 title: "Nano Banana vs. ChatGPT Images: which one I reach for, job by job"
-description: "I pay for both. Neither is 'better.' Here's the split I've settled into, what each costs, and the one thing neither of them can do for you."
+description: "I pay for both. Neither is 'better.' The split I've settled into, what each costs, and the one thing neither of them can do for you."
 publishDate: 2026-09-04
 readTime: "4 min"
 format: "note"
@@ -12,11 +12,10 @@ I pay for the two subscriptions that matter here: OpenAI's, which gives me
 ChatGPT Images 2.0, and Google's, which gives me Nano Banana 2 inside the
 Gemini app and its video tool. I've used both this year on real jobs: brand
 stills, character sheets for short videos, posters with text on them, edits to
-photos that already existed. What follows is where I've landed, plus what the
-one head-to-head I trust found. It isn't a benchmark. Benchmarks are a
-Tuesday-old snapshot in this category; the split by job has held up longer.
+photos that already existed. Benchmarks in this category go stale in a week.
+The split by job has held up longer.
 
-## The two models, in one line each
+## The two models
 
 **ChatGPT Images 2.0** (April 2026) is the one that thinks before it draws.
 Give it a layout problem, a lot of text, or a design brief with a point of
@@ -86,7 +85,7 @@ started as three sentences about who would see it and what it had to make them
 feel, and every image I threw away started as "make something cool for the
 header."
 
-So the advice is boring. Don't pick a model. Pick per job, the way you'd pick
+Don't pick a model. Pick per job, the way you'd pick
 a screwdriver, and don't collect tools you haven't needed twice. Then spend
 the time you saved on the brief, because the brief is where the work still
 lives.

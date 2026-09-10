@@ -10,8 +10,8 @@ interface Props {
 
 const {
   title = "David Russell",
-  description = "Solo operator in South Florida. I build small, useful companies and write about the work.",
-  image = "/og-2026.png",
+  description = "Solo operator and writer in South Florida. I run a small portfolio of companies and write about what building them teaches me.",
+  image = "/og/site.png",
   noindex = false,
 } = Astro.props;
 
@@ -39,9 +39,9 @@ const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toSt
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={socialImage}>
 {noindex && <meta name="robots" content="noindex">}
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-mark-32.png">
-<link rel="icon" type="image/x-icon" href="/assets/favicon-mark.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-mark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-sig-32.png">
+<link rel="icon" type="image/x-icon" href="/assets/favicon-sig.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-sig.png">
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://fonts.googleapis.com">

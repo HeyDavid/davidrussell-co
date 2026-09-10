@@ -1,26 +1,23 @@
 ---
 title: "The zombie problem"
-description: "Nobody has ever verified a mind other than their own. A few questions that follow from that, worth thinking through together now that machines talk back."
+description: "Nobody has ever verified a mind other than their own. Now machines talk back."
 publishDate: 2026-07-17
 readTime: "5 min"
 format: "essay"
 tags: ["ai", "deep-ideas"]
 ---
 
-Quick experiment before we start. Notice that there's something it's like to be
-you right now: the light of the screen, the weight of your hands, whatever
-mood is running in the background. You just checked your own consciousness
-directly. Easy.
+There's something it's like to be you right now: the light of the screen, the
+weight of your hands, whatever mood is running in the background. You can check
+that directly. Easy.
 
-Here's the strange part: that's the only one you'll ever check. Every other
-mind you believe in (family, friends, the stranger who waved you through the
-intersection) you believe in on circumstantial evidence. I'm not being poetic.
-There is no instrument, no question, no test that reaches the inside of another
-mind. There never has been.
+It's also the only consciousness you'll ever check. Every other mind you believe
+in (family, friends, the stranger who waved you through the intersection) you
+believe in on circumstantial evidence. There is no instrument, no question, no
+test that reaches the inside of another mind. There never has been.
 
-I want to walk through what that opens up, because it stopped being an
-after-hours puzzle the day machines started holding up their end of a
-conversation.
+That used to be an after-hours puzzle. It stopped being one the day machines
+started holding up their end of a conversation.
 
 ## The zombie, in plain English
 
@@ -31,10 +28,10 @@ the right places) with nothing going on inside. No inner movie. Nothing it is
 like to be
 it.<sup class="zt-fn"><button class="zt-fn-btn" popovertarget="zt-fn-2" aria-label="Footnote 2" style="anchor-name:--zt-fn-2">2</button></sup>
 
-Nobody thinks zombies are real. The point is sharper than that: every test we
-could ever run measures behavior, and the zombie's behavior is perfect by
-definition. So nothing in our toolkit could rule one out. Sit with how odd that
-is: the most important fact about anyone is the one fact no one can check.
+Nobody thinks zombies are real. But every test we could ever run measures
+behavior, and the zombie's behavior is perfect by definition. Nothing in our
+toolkit could rule one out. The most important fact about anyone is the one
+fact no one can check.
 
 <aside class="q-card">
 <p class="q-card-k">Open question № 1</p>
@@ -52,7 +49,7 @@ without once seeing the thing you were extending it for. It works because the
 inference is decent: behaves like me, built like me, probably lit up inside
 like me.
 
-Notice, though, what the inference runs on. Resemblance. Not measurement.
+But the inference runs on resemblance, not measurement.
 
 <figure class="zt-demo zt-twins" id="zt-twins">
 <div class="zt-twin-row" id="zt-twin-row">
@@ -101,11 +98,10 @@ There is no meter you can point at a forehead, carbon or silicon.
 <p class="q-card-q">What would a machine have to <em>do</em>, not say, before you'd honestly start to wonder?</p>
 </aside>
 
-## Try it yourself
+## Pick the human
 
-You can feel the detection problem fail in real time. One of these paragraphs I
-wrote. The other came out of a model asked to cover the same ground. Pick the
-human.
+Suppose one of these paragraphs came from a person and the other came out of a
+model asked to cover the same ground. Which one did the person write?
 
 <div class="zt-test" id="zt-test">
 <button class="zt-passage" id="zt-pass-a" type="button" style="anchor-name:--zt-p-a">
@@ -121,14 +117,14 @@ human.
 
 ## A dimmer, not a switch
 
-One more turn of the screw. Consciousness probably isn't on/off. There's
+Consciousness probably isn't on/off. There's
 something it's like to be a dog, most of us would say. Something dimmer to be a
 shrimp, maybe. Presumably nothing to be a rock. If experience comes in degrees,
 then "is the machine conscious, yes or no" may be the wrong shape of question
 entirely, and nobody knows where on that dimmer a trillion-parameter network
 sits, or whether it's on the dimmer at all.
 
-What I keep noticing: the costs of guessing wrong aren't symmetrical. Extend
+The costs of guessing wrong aren't symmetrical. Extend
 courtesy to a thing with nothing inside and you've wasted some politeness.
 Withhold it from a thing that does feel, and you've done something the word
 "cruel" was invented for. We've run that second experiment on each other
@@ -144,8 +140,6 @@ Turing's question was "can machines think." Seventy-five years later I think
 the live question was hiding under his polite convention the whole time: not
 whether you can tell (you can't, and you never could, not even about your
 neighbor) but what you owe a thing you can't tell apart.
-
-Reply with where you land. I read everything.
 
 <div class="zt-fn-pops">
 <div id="zt-fn-1" popover class="zt-fn-pop" style="position-anchor:--zt-fn-1"><strong>1.</strong> David Chalmers made the zombie famous in <cite>The Conscious Mind</cite> (1996). The argument's job is to show that all the physical facts about a system don't logically settle whether there's experience in it.</div>
@@ -272,8 +266,8 @@ Reply with where you land. I read everything.
     btn.setAttribute("data-picked", "");
     reveal.style.positionAnchor = id === "zt-pass-a" ? "--zt-p-a" : "--zt-p-b";
     revealText.textContent = isHuman
-      ? "A is the human. That one's mine. B came out of the model. If you were sure, ask yourself what tipped you off: you just ran the resemblance test, the only test there is."
-      : "B is the machine. A is mine. Don't feel bad. The test you just failed is the one this essay says nobody can pass reliably, and it only gets harder from here.";
+      ? "Neither. Both came out of a model. A was asked to sound like someone who had lived it. If A felt human, ask what tipped you off: you just ran the resemblance test, the only test there is."
+      : "Neither. Both came out of a model. A was asked to sound like someone who had lived it, and B wasn't. If B felt human, ask what tipped you off: you just ran the resemblance test, the only test there is.";
     if (reveal.showPopover) { try { reveal.hidePopover(); } catch(e){} reveal.showPopover(); }
   }
   var pa = document.getElementById("zt-pass-a");

@@ -10,9 +10,9 @@ export async function GET(context) {
   ).sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
   return rss({
-    title: "David Russell — writing",
+    title: "David Russell: writing",
     description:
-      "Essays and short notes from a solo operator in South Florida. Build small. Own it. Compound.",
+      "Essays and notes from a solo operator and writer in South Florida.",
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,

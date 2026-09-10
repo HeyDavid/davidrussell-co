@@ -26,13 +26,12 @@ sometimes something good comes up, and sometimes nothing, and the
 unpredictability is the point; it's the same reward schedule that keeps a
 pigeon pecking a button for hours. The people who built it know this.
 
-And this year the supply on the other end went infinite; I've written about
-the numbers elsewhere, and they're absurd. The machine no longer has any
+And this year the supply on the other end went infinite. The machine no longer has any
 constraint on the input side; the only scarce thing left in the whole system
 is the part that's yours. Which means the machine is now competing for exactly
 one resource, and it's the resource your life is made of.
 
-I don't say that to be dramatic. I say it because it changes the math. When
+That changes the math. When
 content was scarce, being fed was a service. Now that content is infinite,
 being fed is a cost, and the only question is whether you're the one paying or
 the one being spent.

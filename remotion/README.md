@@ -37,7 +37,8 @@ description, format, readTime, publishDate — so the card can never drift from
 the post. Drafts are skipped. Output: `../public/og/<slug>.png` at 2400x1260.
 
 `src/pages/writing/[...slug].astro` picks the card up automatically if the PNG
-exists and falls back to `/og-2026.png` if it doesn't. Commit the PNGs.
+exists and falls back to `/og/site.png` if it doesn't. The same run also renders
+`/og/site.png`, the site-wide card. Commit the PNGs.
 
 ## Design it
 
@@ -46,7 +47,7 @@ npm run studio
 ```
 
 Opens Remotion Studio with live editable props. Brand tokens live in
-`src/brand.ts` (sampled from `public/og-2026b.png`).
+`src/brand.ts` (Clear Bearings, mirrored from `src/styles/globals.css`).
 
 ## Licensing
 

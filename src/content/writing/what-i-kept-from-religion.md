@@ -1,6 +1,6 @@
 ---
 title: "What I kept from religion"
-description: "Read as an operator, religion is the oldest technology for the things that never change. Meditation is the part you can keep without the metaphysics. A short experiment is included; it takes ten seconds."
+description: "Read as an operator, religion is the oldest technology for the things that never change. Meditation is the part you can keep without the metaphysics."
 publishDate: 2026-09-04
 readTime: "5 min"
 format: "essay"
@@ -8,7 +8,7 @@ tags: ["deep-ideas"]
 draft: true
 ---
 
-Try something before we start. For the next ten seconds, don't think about
+Try something. For the next ten seconds, don't think about
 anything in particular; just wait for your next thought to arrive, and try to
 catch it before it shows up.
 
@@ -19,12 +19,12 @@ thoughts. You're the one they're happening to.
 
 That's a religious observation. Buddhists have been making it for twenty-five
 hundred years, and the Christian and Jewish and Sufi mystics have their own
-versions. It's also a fully secular one; you just ran it in your browser with
-no belief required. Hold onto that overlap. Everything below is about it.
+versions. It's also a fully secular one; you just ran it with no belief
+required. That overlap is the part worth keeping.
 
 ## Religion, read as an operator
 
-I'm not a believer in the usual sense. I've written about that separately. But
+I'm not a believer in the usual sense. But
 I've come to think that dismissing religion because you doubt its metaphysics
 is like dismissing a hospital because you doubt the chaplain. You'd be
 throwing out an enormous amount of working equipment over one department.

@@ -11,14 +11,14 @@ const posts = all
 const latest = posts[0];
 const more = posts.slice(1);
 
-const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const ventures = [
-  { name: "Cura", url: "https://curadental.co", domain: "curadental.co", mark: "cura",
-    desc: "An AI front desk, website, and review engine for dental practices.", status: "Product" },
   { name: "Let’s Chat", url: "https://letschatmarketing.com", domain: "letschatmarketing.com", mark: "letschat",
     desc: "The AI front desk system for local businesses: the phone, the reviews, the follow-up texts, the monthly report.", status: "On real phone lines today" },
+  { name: "Cura", url: "https://curadental.co", domain: "curadental.co", mark: "cura",
+    desc: "The same front desk, built for dental practices, with the website and review engine around it.", status: "Dental product" },
   { name: "ScamCapital", url: "https://scamcapital.com", domain: "scamcapital.com", mark: "scamcapital",
     desc: "Plain-English case files on how specific scams work, step by step.", status: "Live case directory" },
   { name: "Computer Input", url: "https://computerinput.com", domain: "computerinput.com", mark: "computerinput",
@@ -29,7 +29,7 @@ const title = "David Russell · small, useful companies";
 const description = "Solo operator in South Florida. I run a small portfolio of companies and write about what building them teaches me.";
 ---
 
-<BaseLayout title={title} description={description} image="/og-2026b.png">
+<BaseLayout title={title} description={description}>
   <Fragment slot="head">
     <script type="application/ld+json" is:inline>{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://davidrussell.co/#person","name":"David Russell","url":"https://davidrussell.co/","jobTitle":"Solo operator and writer","sameAs":["https://www.linkedin.com/in/heydavidr/","https://x.com/heydavidr","https://github.com/HeyDavid"]},{"@type":"WebSite","@id":"https://davidrussell.co/#website","url":"https://davidrussell.co/","name":"David Russell","description":"David Russell, solo operator and writer in South Florida.","publisher":{"@id":"https://davidrussell.co/#person"}}]}</script>
   </Fragment>
@@ -54,8 +54,8 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
       <div class="hearbox reveal">
         <img src="/assets/hear-desk.jpg" alt="A front-desk phone with the handset just lifted, a notepad and a yellow pen on a light wood counter" width="1400" height="933" loading="lazy" decoding="async">
         <div class="hearcopy">
-          <h2>Hear one of them work.</h2>
-          <p>An AI front desk that answers, qualifies, and books. Enter your number at curadental.co/hear and it calls you within seconds. Ask it to book you, ask about hours, switch it to Spanish.</p>
+          <h2>Hear the front desk work.</h2>
+          <p>The AI front desk behind Let&rsquo;s Chat and Cura answers, qualifies, and books. Enter your number at curadental.co/hear and it calls you within seconds. Ask it to book you, ask about hours, switch it to Spanish.</p>
           <a class="go" href="https://curadental.co/hear" target="_blank" rel="noopener" data-umami-event="lab_click" data-umami-event-project="cura-hear">Get the call <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
@@ -63,7 +63,7 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
 
     <section class="sec" id="ventures"><div class="wrap">
       <div class="sechead reveal"><h2>Current ventures.</h2></div>
-      <p class="subnote">Four small companies. Each one is where the writing comes from.</p>
+      <p class="subnote">What I build and run right now, including the family business.</p>
       <ul class="rows">
         {ventures.map((v) => (
           <li class="row"><a href={v.url} target="_blank" rel="noopener">
@@ -106,13 +106,13 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
       <div class="subbox reveal">
         <div>
           <h2>Build small. Own it. Compound.</h2>
-          <p>Occasional essays, no schedule. Reply to any of them.</p>
+          <p>New essays by email when they&rsquo;re finished. Reply to any of them.</p>
         </div>
         <form class="form" id="sub2">
           <label for="sub-email" class="vh">Email address</label>
           <input type="email" id="sub-email" name="email" placeholder="your email" autocomplete="email" required>
           <button type="submit" data-umami-event="subscribe_submit" data-umami-event-location="footer">Get new essays</button>
-          <span class="cap">Occasional essays. No schedule, no spam. I read every reply.</span>
+          <span class="cap">Occasional essays. No schedule, no spam.</span>
         </form>
       </div>
     </div></section>

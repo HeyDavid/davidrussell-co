@@ -1,6 +1,6 @@
 ---
 title: "Capitalism is a fiction. So is everything that works."
-description: "Markets are a story we agree to believe so strangers can trust each other. I've built inside the story and documented people who exploit it. Here's the difference, and why it decides what kind of work to do."
+description: "Markets are a story we agree to believe so strangers can trust each other. I've built inside the story and documented people who exploit it. The difference between the two decides what kind of work is worth doing."
 publishDate: 2026-09-04
 readTime: "5 min"
 format: "essay"
@@ -78,10 +78,10 @@ Years later I started keeping a public directory of how specific scams
 actually work, step by step, because I kept watching people I knew fall for
 the extractive kind and I wanted a place to point them. I've never charged a
 victim and I won't. Doing that work next to the building work is what made the
-distinction above stop being theory. You can feel, in your hands, which kind
+difference between the two kinds stop being theory. You can feel, in your hands, which kind
 of thing you're making.
 
-So here's the question I'd put to anyone's business, or job: does it leave
+The question I'd put to any business, or job: does it leave
 more trust in the world after each transaction, or less? Not your intentions.
 The actual residue. The tell isn't the product. It's whether you'd be
 comfortable if the customer could see your margin and exactly how you got it.

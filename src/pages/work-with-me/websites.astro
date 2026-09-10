@@ -32,7 +32,7 @@ const portfolio = [
   },
   {
     name: "David Russell",
-    type: "Studio site, editorial layout",
+    type: "Personal site and essays",
     url: "https://davidrussell.co",
     domain: "davidrussell.co",
   },
@@ -42,29 +42,29 @@ const steps = [
   {
     num: "01",
     day: "Day 1",
-    label: "Submit the form",
-    desc: "Tell us about your business. We respond within 24 hours with a deposit invoice ($249, half upfront) and any clarifying questions.",
-    deliverable: "A clarifying call (optional) and the deposit invoice.",
+    label: "Book the build call",
+    desc: "Twenty minutes on your business and what the page needs to do. Within 24 hours I send a deposit invoice ($249, half the setup) and any questions.",
+    deliverable: "A start date and the deposit invoice.",
   },
   {
     num: "02",
     day: "Days 2 to 5",
-    label: "We build",
+    label: "I build",
     desc: "Real copy, written for your business. Real photos, sourced or placed. Real layout, designed for what you actually want a visitor to do.",
     deliverable: "A live preview link to click through.",
   },
   {
     num: "03",
-    day: "Days 5 to 7",
+    day: "Days 5 to 6",
     label: "Two revision rounds",
-    desc: "You ask for changes. We make them. Up to two rounds. After that we ship. Not unlimited revisions. That is how we stay fast.",
+    desc: "You ask for changes. I make them. Up to two rounds, then it ships. Not unlimited revisions. That is how it stays fast.",
     deliverable: "A site you have signed off on.",
   },
   {
     num: "04",
-    day: "Day 7 to 10",
+    day: "Day 7",
     label: "Live on your domain",
-    desc: "Domain, hosting, SSL, all handled on our side. We point everything to your new site and you go live.",
+    desc: "Domain, hosting, SSL, all handled on my side. I point everything to your new site and you go live.",
     deliverable: "A real website at your domain. Hosting and upkeep are $29 a month after launch.",
   },
 ];
@@ -84,15 +84,15 @@ const comparison = [
     summary: "A site that exists. Maybe.",
   },
   {
-    label: "Spark (us)",
-    tag: "Concierge, limited slots",
+    label: "Spark (me)",
+    tag: "Concierge, one builder",
     price: "$499 setup, $29 a month",
     time: "7 days",
     bullets: [
       "Real copy, written for you",
       "Real photos, sourced or curated",
       "Hosting, SSL, uptime, handled",
-      "You text us. We answer.",
+      "You text me. I answer.",
     ],
     summary: "A site that earns your first call.",
     featured: true,
@@ -122,7 +122,7 @@ const addons = [
 ---
 
 <BaseLayout
-  title="Spark: a one-page website, built in a week, $499"
+  title="Spark: a one-page website in a week · David Russell"
   description="A concierge one-page website for the dog walker, the artist, the solopreneur. $499 setup, $29 a month for hosting and upkeep. Done in seven days."
 >
   <main class="spark-page">
@@ -135,10 +135,10 @@ const addons = [
       <div class="hero-orb" aria-hidden="true"></div>
       <div class="hero-orb hero-orb--two" aria-hidden="true"></div>
 
-      <p class="eyebrow">Spark · The starting line</p>
+      <p class="eyebrow">Spark</p>
       <h1>A modern website.<br>Done in a week.<br>$499.</h1>
       <p class="lede">
-        Built for the dog walker, the artist, the solopreneur. We write the copy, ship the site, and keep it running.
+        Built for the dog walker, the artist, the solopreneur. I write the copy, ship the site, and keep it running.
       </p>
       <div class="hero-actions">
         <a class="btn-primary" href="#intake-form">Start my site →</a>
@@ -157,9 +157,9 @@ const addons = [
     <section class="how-band wrap" id="how-it-works">
       <div class="how-head">
         <p class="section-eyebrow">How it works</p>
-        <h2>From intake form to a live website. In a week.</h2>
+        <h2>From one call to a live website. In a week.</h2>
         <p class="how-lede">
-          No discovery decks. No drawn-out kickoff calls. We learn the shape of your business, build the page, and ship it in a week.
+          No discovery decks. No drawn-out kickoff calls. I learn the shape of your business, build the page, and ship it in a week.
         </p>
       </div>
 
@@ -167,7 +167,6 @@ const addons = [
         {steps.map((step) => (
           <li class="how-step">
             <div class="how-step-head">
-              <span class="step-num">{step.num}</span>
               <span class="step-day">{step.day}</span>
             </div>
             <h3>{step.label}</h3>
@@ -185,7 +184,7 @@ const addons = [
     <!-- Portfolio -->
     <section class="portfolio-band wrap" id="portfolio">
       <p class="section-eyebrow">Proof</p>
-      <h2>Sites we've shipped</h2>
+      <h2>Sites I&rsquo;ve shipped</h2>
       <div class="portfolio-grid">
         {portfolio.map((site) => (
           <a class="portfolio-card" href={site.url} target="_blank" rel="noopener noreferrer">
@@ -293,17 +292,17 @@ const addons = [
       <div class="form-intro">
         <p class="section-eyebrow">Get started</p>
         <h2>Start my site</h2>
-        <p class="form-lede">Grab a 20-minute build call. We'll cover your business, the page, and pricing, and you'll leave with a deposit invoice and a start date.</p>
+        <p class="form-lede">Grab a 20-minute build call. We&rsquo;ll cover your business, the page, and pricing, and you&rsquo;ll leave with a deposit invoice and a start date.</p>
       </div>
       <div class="spark-form">
         <a class="submit-button" href="https://calendar.app.google/xroSbRWZsBiArUS2A" style="display:flex;align-items:center;justify-content:center;text-decoration:none">Book my build call →</a>
-        <p class="form-note">Pick a time that works. We'll talk through your business, the page, and pricing, and you'll leave with a deposit invoice and next steps.</p>
+        <p class="form-note">Pick any open time on my calendar. No prep needed.</p>
       </div>
     </section>
 
     <!-- Tom referral banner (shown only with ?ref=tom-steed) -->
     <div class="referral-banner" id="referral-banner" style="display:none" aria-hidden="true">
-      <p>Referred by Tom Steed? You get a complimentary domain transfer + $25 off setup. Just mention it on the intake form.</p>
+      <p>Referred by Tom Steed? You get a complimentary domain transfer + $25 off setup. Just mention it on the build call.</p>
     </div>
 
     <!-- Footer -->
@@ -361,8 +360,8 @@ const addons = [
     :global(body) {
       margin: 0;
       background:
-        radial-gradient(circle at 10% 8%, rgba(37, 99, 235, 0.22), transparent 32%),
-        radial-gradient(circle at 88% 20%, rgba(37, 99, 235, 0.18), transparent 28%),
+        radial-gradient(circle at 10% 8%, rgba(242, 212, 61, 0.11), transparent 32%),
+        radial-gradient(circle at 88% 20%, rgba(242, 212, 61, 0.09), transparent 28%),
         #0d1117;
       color: #f1f5f9;
       font-family: var(--grot);
@@ -419,7 +418,7 @@ const addons = [
     .nav-links a:hover { color: #f1f5f9; }
 
     .nav-cta {
-      border: 1px solid rgba(37, 99, 235, 0.5);
+      border: 1px solid rgba(242, 212, 61, 0.25);
       border-radius: 999px;
       padding: 10px 18px;
       color: #F2D43D;
@@ -428,16 +427,27 @@ const addons = [
       text-decoration: none;
       transition: background 0.18s;
     }
-    @media (hover: hover) { .nav-cta:hover { background: rgba(37, 99, 235, 0.1); } }
+    @media (hover: hover) { .nav-cta:hover { background: rgba(242, 212, 61, 0.05); } }
 
     /* Shared */
-    .section-eyebrow {
-      margin: 0 0 12px;
-      color: #F2D43D;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+    .section-eyebrow, .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 14px;
+      color: #f1f5f9;
+      font-family: var(--grot);
+      font-size: 15.5px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .section-eyebrow::before, .eyebrow::before {
+      content: "";
+      width: 64px;
+      height: 10px;
+      background: #F2D43D;
+      flex: none;
     }
 
     h2 {
@@ -468,13 +478,14 @@ const addons = [
 
     /* Soft glowing orbs behind the hero, warmer, less "tech bro" */
     .hero-orb {
+      display: none;
       position: absolute;
       top: 8%;
       right: -10%;
       width: 520px;
       height: 520px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.32), transparent 65%);
+      background: radial-gradient(circle, rgba(242, 212, 61, 0.16), transparent 65%);
       filter: blur(60px);
       z-index: -1;
       animation: orbDrift 22s ease-in-out infinite alternate;
@@ -486,7 +497,7 @@ const addons = [
       left: -8%;
       width: 480px;
       height: 480px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.28), transparent 65%);
+      background: radial-gradient(circle, rgba(242, 212, 61, 0.14), transparent 65%);
       animation: orbDrift 28s ease-in-out infinite alternate-reverse;
     }
     @keyframes orbDrift {
@@ -501,9 +512,9 @@ const addons = [
       gap: 10px;
       padding: 8px 14px;
       margin-bottom: 28px;
-      border: 1px solid rgba(37, 99, 235, 0.32);
+      border: 1px solid rgba(242, 212, 61, 0.16);
       border-radius: 999px;
-      background: rgba(37, 99, 235, 0.08);
+      background: rgba(242, 212, 61, 0.04);
       font-size: 0.84rem;
       color: #F2D43D;
     }
@@ -531,14 +542,7 @@ const addons = [
     }
     .hero-meta span { color: #94a3b8; }
 
-    .eyebrow {
-      margin: 0 0 20px;
-      color: #F2D43D;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
+    .eyebrow { margin: 0 0 20px; }
 
     h1 {
       margin: 0;
@@ -630,7 +634,7 @@ const addons = [
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
       transition: border-color 0.2s, transform 0.2s;
     }
-    @media (hover: hover) { .how-step:hover { border-color: rgba(37, 99, 235, 0.32); transform: translateY(-2px); } }
+    @media (hover: hover) { .how-step:hover { border-color: rgba(242, 212, 61, 0.16); transform: translateY(-2px); } }
 
     .how-step-head {
       display: flex;
@@ -646,7 +650,7 @@ const addons = [
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(37, 99, 235, 0.12);
+      background: rgba(242, 212, 61, 0.06);
       border: 1px solid rgba(242, 212, 61, 0.55);
       color: #F2D43D;
       font-family: var(--grot);
@@ -657,10 +661,10 @@ const addons = [
     .how-step .step-day {
       color: #F2D43D;
       font-family: var(--grot);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
     }
 
     .how-step h3 {
@@ -692,8 +696,8 @@ const addons = [
       margin: 8px 0 0;
       padding: 20px 24px;
       border-radius: 10px;
-      background: rgba(37, 99, 235, 0.06);
-      border: 1px solid rgba(37, 99, 235, 0.18);
+      background: rgba(242, 212, 61, 0.03);
+      border: 1px solid rgba(242, 212, 61, 0.09);
       color: #F2D43D;
       font-size: 0.95rem;
       line-height: 1.55;
@@ -720,7 +724,7 @@ const addons = [
       color: inherit;
       transition: border-color 0.18s, transform 0.18s;
     }
-    @media (hover: hover) { .portfolio-card:hover { border-color: rgba(37, 99, 235, 0.4); transform: translateY(-3px); } }
+    @media (hover: hover) { .portfolio-card:hover { border-color: rgba(242, 212, 61, 0.2); transform: translateY(-3px); } }
 
     .portfolio-frame {
       height: 240px;
@@ -773,8 +777,8 @@ const addons = [
     }
 
     .price-card--main {
-      border-color: rgba(37, 99, 235, 0.4);
-      background: rgba(37, 99, 235, 0.05);
+      border-color: rgba(242, 212, 61, 0.2);
+      background: rgba(242, 212, 61, 0.025);
     }
 
     .price-top {
@@ -865,9 +869,9 @@ const addons = [
     .coming-soon {
       margin: 8px 24px 20px;
       padding: 14px 16px;
-      border: 1px dashed rgba(37, 99, 235, 0.32);
+      border: 1px dashed rgba(242, 212, 61, 0.16);
       border-radius: 8px;
-      background: rgba(37, 99, 235, 0.05);
+      background: rgba(242, 212, 61, 0.025);
     }
     .coming-soon-label {
       margin: 0 0 8px;
@@ -938,9 +942,9 @@ const addons = [
       position: relative;
     }
     .compare-card--featured {
-      border-color: rgba(37, 99, 235, 0.5);
-      background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0.02));
-      box-shadow: 0 20px 60px rgba(37, 99, 235, 0.12);
+      border-color: rgba(242, 212, 61, 0.25);
+      background: linear-gradient(180deg, rgba(242, 212, 61, 0.04), rgba(242, 212, 61, 0.01));
+      box-shadow: 0 20px 60px rgba(242, 212, 61, 0.06);
       transform: translateY(-6px);
     }
     @media (max-width: 920px) {
@@ -1104,7 +1108,7 @@ const addons = [
     }
 
     input:focus, select:focus, textarea:focus {
-      outline: 3px solid rgba(37, 99, 235, 0.24);
+      outline: 3px solid rgba(242, 212, 61, 0.12);
       border-color: #0891b2;
     }
 
@@ -1129,9 +1133,9 @@ const addons = [
 
     /* Tom referral banner */
     .referral-banner {
-      background: rgba(37, 99, 235, 0.1);
-      border-top: 1px solid rgba(37, 99, 235, 0.3);
-      border-bottom: 1px solid rgba(37, 99, 235, 0.3);
+      background: rgba(242, 212, 61, 0.05);
+      border-top: 1px solid rgba(242, 212, 61, 0.15);
+      border-bottom: 1px solid rgba(242, 212, 61, 0.15);
       padding: 16px clamp(20px, 5vw, 56px);
       text-align: center;
     }

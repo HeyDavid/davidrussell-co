@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://davidrussell.co',
   output: 'static',
-  integrations: [sitemap()],
+  // noindexed pages stay out of the sitemap
+  integrations: [sitemap({ filter: (page) => !/\/(lets-chat|performing)\/$/.test(page) })],
   build: {
     format: 'directory',
   },

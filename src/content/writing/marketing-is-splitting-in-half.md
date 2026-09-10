@@ -8,8 +8,8 @@ tags: ["operator-notes", "ai"]
 ---
 
 Marketing is splitting into two halves that can't share a strategy. I build AI
-systems for a living and I'm betting my own brands on craft, so this isn't
-theory from the bleachers. I run tools from both sides every working day.
+systems for a living and I'm betting my own brands on craft. I run tools from
+both sides every working day.
 
 ## The slop half
 
@@ -51,8 +51,8 @@ inside. And the audiences sniff each other out in about a minute.
 Pick one. If you don't pick, the market picks for you, and it picks slop,
 because slop is what most people in the room are quietly defaulting to.
 
-Where I might be wrong: maybe more operators than I think will pull off scaled
-craft: AI trained on a real voice, drafted fast, edited hard. I doubt it,
+Maybe more operators than I think will pull off scaled craft: AI trained on a
+real voice, drafted fast, edited hard. I doubt it,
 because the editing is itself a craft most marketers never built. But I'm
 watching.
 

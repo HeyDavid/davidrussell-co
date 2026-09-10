@@ -10,17 +10,18 @@ const posts = allPosts.sort(
 );
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const dateOf = (post: (typeof posts)[number]) =>
-  post.data.status === "coming-soon" ? "coming soon" : formatDate(post.data.publishDate);
+  post.data.status === "coming-soon" ? "Coming soon" : formatDate(post.data.publishDate);
 
 const hasPosts = posts.length > 0;
 ---
 
 <BaseLayout
   title="Writing · David Russell"
-  description="Essays and short notes. Occasional, no schedule, never spam."
+  description="Essays and notes from David Russell. What I tried, what it cost, what I still don't know."
 >
   <Header />
   <main>
@@ -28,11 +29,11 @@ const hasPosts = posts.length > 0;
       <a href="/" class="back">← Home</a>
 
       <header class="reading-head">
-        <div class="level"><span class="bar" aria-hidden="true"></span><span class="lbl">Essays and short notes</span></div>
+        <div class="level"><span class="bar" aria-hidden="true"></span><span class="lbl">Essays and notes</span></div>
         <h1>Writing.</h1>
         <p class="reading-lede">
           Essays and notes. What I tried, what it cost, what I still
-          don&rsquo;t know. Newest first. Reply to any of them.
+          don&rsquo;t know. Newest first.
         </p>
         <p class="feed-note">Follow by <a href="/#subscribe">email</a> or <a href="/rss.xml">RSS</a>.</p>
       </header>
@@ -43,7 +44,7 @@ const hasPosts = posts.length > 0;
             <li class="entry">
               <a href={`/writing/${post.id}/`}>
                 <div class="entry-dateline">
-                  <span class="entry-format">{post.data.format}</span>
+                  <span class="entry-format">{cap(post.data.format)}</span>
                   <span class="sep">·</span>
                   <span>{dateOf(post)}</span>
                   {post.data.readTime && <><span class="sep">·</span><span>{post.data.readTime}</span></>}
@@ -56,7 +57,7 @@ const hasPosts = posts.length > 0;
         </ul>
       ) : (
         <p class="empty-note">
-          Nothing published here yet. <a href="/#subscribe">Leave your email on the home page</a> and you&rsquo;ll get the first one whenever it lands.
+          Nothing published here yet. <a href="/#subscribe">Leave your email on the home page</a> to get the first one.
         </p>
       )}
     </article>

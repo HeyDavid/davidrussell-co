@@ -16,15 +16,15 @@ even if it's fun, even if it's mine. The filter has killed more of my own
 ideas than anyone else's.
 
 I built it for business. What I didn't expect is that it's the most useful
-thing I own for deciding how to spend a life, and I want to walk through why,
-because the business version is the easy one.
+thing I own for deciding how to spend a life. The business version is the easy
+one.
 
 ## What compounding actually means
 
 Compounding is when the output of a thing becomes an input to the same thing.
 Money earns money. But the money version is the least interesting case,
-because money compounds at market rates and the things I'm about to list
-compound faster.
+because money compounds at market rates and skills, reputations, and
+friendships compound faster.
 
 A skill compounds: every hour of practice makes the next hour more productive.
 Writing compounds: every essay makes you a clearer thinker for the next one,
