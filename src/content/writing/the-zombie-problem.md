@@ -156,7 +156,7 @@ Reply with where you land. I read everything.
 
 <style>
 /* ── zombie-problem demos (scoped by .zt- prefix) ──────────────────────── */
-.zt-demo{margin:34px 0;padding:clamp(20px,3vw,28px);background:var(--card);border:1px solid var(--line);border-radius:18px}
+.zt-demo{margin:34px 0;padding:clamp(20px,3vw,28px);background:var(--card);border:2px solid var(--ink);border-left:10px solid var(--accent)}
 .zt-demo figcaption{font-size:14.5px;line-height:1.6;color:var(--dim);margin-top:14px;text-wrap:pretty}
 
 /* twins */
@@ -172,15 +172,15 @@ Reply with where you land. I read everything.
   .zt-lid{animation:zt-blink 6.4s infinite}
   @keyframes zt-blink{0%,96.4%,100%{opacity:0}96.9%,99.4%{opacity:1}}
 }
-.zt-swap{border:0;background:var(--ink);color:#fff;font:inherit;font-size:13.5px;font-weight:600;padding:7px 16px;border-radius:100px;cursor:pointer;margin-left:8px;transition:background .3s}
-.zt-swap:hover{background:var(--cobalt)}
+.zt-swap{border:0;background:var(--ink);color:#fff;font:inherit;font-size:13.5px;font-weight:600;padding:7px 16px;cursor:pointer;margin-left:8px;transition:background .3s}
+.zt-swap:hover{background:var(--cobalt-deep)}
 
 /* certainty meter (scroll-driven) */
 .zt-meter-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px}
 .zt-meter-num{font-variant-numeric:tabular-nums;color:var(--cobalt);font-size:15px}
 .zt-meter-num::after{content:"unmeasurable"}
-.zt-meter-track{height:14px;border-radius:100px;background:var(--paper);border:1px solid var(--line);overflow:hidden}
-.zt-meter-fill{height:100%;width:37%;border-radius:inherit;background:linear-gradient(90deg,var(--cobalt-deep),var(--cobalt))}
+.zt-meter-track{height:14px;background:var(--paper);border:1px solid var(--line);overflow:hidden}
+.zt-meter-fill{height:100%;width:37%;border-radius:inherit;background:var(--accent)}
 @property --zt-conf{syntax:"<integer>";inherits:true;initial-value:100}
 @supports (animation-timeline: view()){
   @media (prefers-reduced-motion: no-preference){
@@ -195,20 +195,20 @@ Reply with where you land. I read everything.
 /* which-is-human test */
 .zt-test{display:grid;gap:14px;margin:26px 0 10px}
 @media(min-width:700px){.zt-test{grid-template-columns:1fr 1fr}}
-.zt-passage{display:block;text-align:left;font:inherit;font-size:16px;line-height:1.6;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:20px;cursor:pointer;transition:border-color .3s,transform .3s var(--ease),box-shadow .3s}
-.zt-passage:hover{border-color:var(--cobalt);transform:translateY(-2px);box-shadow:0 14px 34px rgba(14,22,38,.08)}
-.zt-passage[data-picked]{border-color:var(--cobalt);box-shadow:0 0 0 4px rgba(37,99,235,.12)}
-.zt-pass-tag{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-size:13px;font-weight:700;margin-bottom:10px}
-.zt-passage[data-picked] .zt-pass-tag{background:var(--cobalt)}
+.zt-passage{display:block;text-align:left;font:inherit;font-size:16px;line-height:1.6;color:var(--ink);background:var(--card);border:2px solid var(--line);padding:20px;cursor:pointer;transition:border-color .3s,transform .3s var(--ease),box-shadow .3s}
+.zt-passage:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 14px 34px rgba(14,22,38,.08)}
+.zt-passage[data-picked]{border-color:var(--ink);box-shadow:inset 0 0 0 4px var(--accent)}
+.zt-pass-tag{display:inline-grid;place-items:center;width:26px;height:26px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;margin-bottom:10px}
+.zt-passage[data-picked] .zt-pass-tag{background:var(--accent);color:var(--ink)}
 .zt-pass-text{display:block}
 
 /* reveal + footnote popovers (Popover API + anchor positioning + @starting-style) */
-.zt-reveal,.zt-fn-pop{margin:auto;width:min(400px,calc(100vw - 40px));background:var(--paper);color:var(--ink);border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15px;line-height:1.6;box-shadow:0 24px 70px rgba(14,22,38,.18)}
+.zt-reveal,.zt-fn-pop{margin:auto;width:min(400px,calc(100vw - 40px));background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:18px 20px;font-size:15px;line-height:1.6;box-shadow:0 24px 70px rgba(14,22,38,.18)}
 .zt-fn-pop{font-size:14px;color:var(--ink-soft);width:min(360px,calc(100vw - 40px))}
 .zt-fn-pop cite{font-style:italic}
 .zt-fn{line-height:0}
-.zt-fn-btn{border:0;background:var(--accent-soft);color:var(--cobalt);font:inherit;font-size:12px;font-weight:700;width:20px;height:20px;border-radius:50%;cursor:pointer;vertical-align:super;transition:background .3s,color .3s}
-.zt-fn-btn:hover{background:var(--cobalt);color:#fff}
+.zt-fn-btn{border:0;background:var(--accent-soft);color:var(--cobalt);font:inherit;font-size:12px;font-weight:700;width:20px;height:20px;cursor:pointer;vertical-align:super;transition:background .3s,color .3s}
+.zt-fn-btn:hover{background:var(--accent);color:var(--ink)}
 @supports (position-area: block-end){
   .zt-fn-pop{position-area:block-start span-all;position-try-fallbacks:flip-block;margin:10px}
   .zt-reveal{position-area:block-end span-all;position-try-fallbacks:flip-block;margin:12px}

@@ -28,8 +28,8 @@ const hasPosts = posts.length > 0;
       <a href="/" class="back">← Home</a>
 
       <header class="reading-head">
-        <div class="w-eyebrow">Essays and short notes</div>
-        <h1>Writing<span class="d">.</span></h1>
+        <div class="level"><span class="bar" aria-hidden="true"></span><span class="lbl">Essays and short notes</span></div>
+        <h1>Writing.</h1>
         <p class="reading-lede">
           Essays and notes. What I tried, what it cost, what I still
           don&rsquo;t know. Newest first. Reply to any of them.
@@ -67,13 +67,14 @@ const hasPosts = posts.length > 0;
 <style>
   .reading{max-width:760px;margin:0 auto;padding:clamp(34px,6vw,72px) var(--pad) clamp(72px,10vw,120px)}
   .reading-head{margin-bottom:clamp(28px,4vw,44px)}
-  .w-eyebrow{font-size:14px;font-weight:600;color:var(--cobalt);margin-bottom:14px}
-  .reading-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(48px,9vw,96px);letter-spacing:-.04em;line-height:.95;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:18px}
-  .reading-head h1 .d{color:var(--cobalt)}
+  .level{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .level .bar{width:64px;height:10px;background:var(--accent);flex:none}
+  .level .lbl{font-weight:600;font-size:15.5px;color:var(--ink)}
+  .reading-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(48px,8vw,88px);letter-spacing:-.012em;line-height:1;color:var(--ink);border-bottom:3px solid var(--ink);padding-bottom:18px}
   .reading-lede{font-family:var(--grot);font-size:clamp(18px,2vw,21px);line-height:1.55;color:var(--ink-soft);max-width:54ch;margin-top:18px}
   .feed-note{font-size:14px;color:var(--ink-faint);margin-top:14px}
-  .feed-note a{color:var(--cobalt);border-bottom:1px solid rgba(47,43,240,.3)}
+  .feed-note a{color:var(--ink);border-bottom:2px solid var(--accent)}
   .index-entries .entry>a{padding:26px 0}
   .empty-note{font-size:18px;color:var(--ink-soft);padding:24px 0;border-top:1px solid var(--line)}
-  .empty-note a{color:var(--cobalt);border-bottom:1px solid rgba(47,43,240,.3)}
+  .empty-note a{color:var(--ink);border-bottom:2px solid var(--accent)}
 </style>

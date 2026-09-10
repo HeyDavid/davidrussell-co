@@ -1,32 +1,62 @@
 ---
+// Current section for the nav slit on inner pages; the homepage sets it by scroll.
+const path = Astro.url.pathname;
+const current =
+  path.startsWith("/writing") ? "writing" :
+  path.startsWith("/background") || path.startsWith("/performing") ? "about" :
+  path.startsWith("/work-with-me") ? "work" : "";
 ---
 
 <header class="runhead" id="runhead">
   <div class="runhead-inner">
     <a href="/" class="runhead-brand" aria-label="David Russell, home">
-      <img class="dr-sig" src="/assets/signature.png" alt="" width="45" height="40" decoding="async">
+      <img class="dr-sig" src="/assets/signature-2026.png" alt="" width="141" height="84" decoding="async">
     </a>
     <button class="rh-menu" id="rh-menu" type="button" aria-label="Open menu" aria-controls="rh-nav" aria-expanded="false"><span class="ic" aria-hidden="true"></span></button>
-    <nav id="rh-nav" aria-label="Primary">
-      <a href="/writing/">Writing</a>
-      <a href="/#built">Work</a>
-      <a href="/#about">About</a>
-      <a href="/#subscribe" class="cta">Subscribe</a>
+    <nav id="rh-nav" aria-label="Primary" data-current={current}>
+      <a href="/writing/" data-sec="writing" class={current === "writing" ? "active" : ""}>Writing</a>
+      <a href="/#ventures" data-sec="ventures">Ventures</a>
+      <a href="/background/" data-sec="about" class={current === "about" ? "active" : ""}>About</a>
+      <a href="/work-with-me/marketing/" data-sec="work" class={"cta" + (current === "work" ? " active" : "")}>Work with me</a>
+      <span class="slit" aria-hidden="true"></span>
     </nav>
   </div>
+  <div class="levelrule" aria-hidden="true"></div>
 </header>
 
 <script is:inline>
   (function(){
-    var h=document.getElementById("runhead");
     var m=document.getElementById("rh-menu");
     var n=document.getElementById("rh-nav");
-    if(h){ var s=function(){ h.classList.toggle("is-scrolled", window.scrollY>8); }; addEventListener("scroll", s, {passive:true}); s(); }
     if(m&&n){
       function set(open){ m.classList.toggle("open",open); n.classList.toggle("open",open); m.setAttribute("aria-expanded",String(open)); m.setAttribute("aria-label",open?"Close menu":"Open menu"); }
       m.addEventListener("click",function(){ set(!n.classList.contains("open")); });
       n.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",function(){ set(false); }); });
       document.addEventListener("keydown",function(e){ if(e.key==="Escape") set(false); });
     }
+    /* yellow slit settles under the current section (sections render after this script, so wait for the DOM) */
+    if(!n) return;
+    function initSlit(){
+    var slit=n.querySelector(".slit"), links=Array.prototype.slice.call(n.querySelectorAll("a[data-sec]"));
+    function place(sec){
+      var a=links.filter(function(l){ return l.dataset.sec===sec && l.offsetParent; })[0];
+      if(!a||!slit){ if(slit) slit.classList.remove("on"); return; }
+      links.forEach(function(l){ l.classList.toggle("active", l===a); });
+      slit.style.width=a.offsetWidth+"px"; slit.style.transform="translateX("+a.offsetLeft+"px)"; slit.classList.add("on");
+    }
+    var current=n.dataset.current||"";
+    var isHome=location.pathname==="/";
+    if(isHome){
+      current="writing"; place(current);
+      if("IntersectionObserver" in window){
+        var map={top:"writing",ventures:"ventures",writing:"writing",about:"about"};
+        var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var id=map[e.target.id]||"writing"; if(id!==current){ current=id; place(id); } } }); },{rootMargin:"-40% 0px -55% 0px",threshold:0});
+        ["top","ventures","writing","about"].forEach(function(id){ var el=document.getElementById(id); if(el) io.observe(el); });
+      }
+    } else if(current){ place(current); }
+    window.addEventListener("resize",function(){ if(current) place(current); });
+    if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(function(){ if(current) place(current); }); }
+    }
+    if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded",initSlit); } else { initSlit(); }
   })();
 </script>

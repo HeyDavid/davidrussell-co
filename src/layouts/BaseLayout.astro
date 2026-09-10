@@ -46,12 +46,13 @@ const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toSt
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <script is:inline type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "374371c09f5d4d4b83fe5e0a2f55cbc6"}'></script>
 <!-- Umami analytics, self-hosted; CF beacon kept as redundancy -->
 <script is:inline defer src="https://umami-nine-gilt.vercel.app/script.js" data-website-id="944e0f3c-fc3f-4251-95fe-e70ee25234d4"></script>
 <title>{title}</title>
+<slot name="head" />
 </head>
 <body>
 
@@ -60,10 +61,17 @@ const socialImage = new URL(image, Astro.site ?? "https://davidrussell.co").toSt
 </div>
 
 <script is:inline>
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll(".reveal").forEach(function(el){ obs.observe(el); });
+  /* gentle reveal from a visible resting state: nothing is hidden if this never runs */
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    var els = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+    els.forEach(function(el){ if (el.getBoundingClientRect().top > window.innerHeight * 0.92) el.classList.add("pending"); });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.remove("pending"); obs.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+    els.forEach(function(el){ if (el.classList.contains("pending")) obs.observe(el); });
+  })();
 </script>
 
 </body>

@@ -165,7 +165,7 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
      hidden elsewhere). No scroll listeners, runs off-main-thread. */
   .read-progress{display:none}
   @supports (animation-timeline: scroll()){
-    .read-progress{display:block;position:fixed;top:0;left:0;right:0;height:3px;z-index:70;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--cobalt-deep),var(--cobalt));animation:read-grow linear both;animation-timeline:scroll(root)}
+    .read-progress{display:block;position:fixed;top:0;left:0;right:0;height:3px;z-index:70;transform-origin:0 50%;transform:scaleX(0);background:var(--accent);animation:read-grow linear both;animation-timeline:scroll(root)}
     @keyframes read-grow{to{transform:scaleX(1)}}
   }
   @media (prefers-reduced-motion: reduce){.read-progress{display:none}}
@@ -179,57 +179,57 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
   .essay-read{max-width:var(--max);margin:0 auto;padding:clamp(34px,6vw,72px) var(--pad) clamp(72px,10vw,120px)}
   .essay-head{margin-bottom:clamp(30px,5vw,48px)}
   .essay-meta{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:13.5px;font-weight:500;color:var(--faint);margin-bottom:16px}
-  .essay-meta .essay-format{color:var(--cobalt);font-weight:600}
+  .essay-meta .essay-format{color:var(--dim);font-weight:600}
   .essay-meta .sep{color:var(--line-strong)}
-  .essay-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(38px,6.8vw,84px);letter-spacing:-.04em;line-height:1.0;color:var(--ink);margin-bottom:18px;max-width:15ch}
+  .essay-head h1{font-family:var(--disp);font-weight:700;font-size:clamp(38px,6.4vw,80px);letter-spacing:-.012em;line-height:1.04;color:var(--ink);margin-bottom:18px;max-width:16ch}
   .essay-dek{font-family:var(--grot);font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink-soft);max-width:56ch}
   .rail-tags,.rail-reply{display:none}
   .essay-read .post-body,.essay-subscribe,.essay-related,.essay-nav{max-width:680px}
   @media(min-width:1080px){
     .essay-read{display:grid;grid-template-columns:250px minmax(0,680px);column-gap:clamp(56px,7vw,110px);align-items:start}
-    .essay-read>.back{grid-column:1/-1;grid-row:1}
+    .essay-read>.back{grid-column:1/-1;grid-row:1;justify-self:start}
     .essay-head{grid-column:1/-1;grid-row:2;margin-bottom:clamp(40px,5vw,64px)}
     .essay-rail{grid-column:1;grid-row:3;position:sticky;top:110px;display:grid;gap:20px;align-content:start;border-top:1px solid var(--line);padding-top:22px}
     .essay-rail .essay-meta{display:grid;gap:7px;margin-bottom:0;font-size:14.5px}
     .essay-rail .sep{display:none}
     .rail-tags{display:flex;flex-wrap:wrap;gap:8px}
-    .rail-tag{font-size:12px;font-weight:600;color:var(--dim);border:1px solid var(--line);border-radius:100px;padding:4px 12px}
-    .rail-reply{display:inline-block;font-size:14.5px;font-weight:600;color:var(--cobalt);width:fit-content}
+    .rail-tag{font-size:12.5px;font-weight:600;color:var(--dim);border:1px solid var(--line);padding:4px 10px}
+    .rail-reply{display:inline-block;font-size:14.5px;font-weight:600;color:var(--ink);width:fit-content;border-bottom:2px solid var(--accent)}
     .essay-read .post-body{grid-column:2;grid-row:3}
     .essay-subscribe,.essay-related,.essay-nav{grid-column:2}
   }
   .essay-read .post-body{font-size:19px;line-height:1.78}
-  .essay-read .post-body>p:first-of-type::first-letter{initial-letter:3;-webkit-initial-letter:3;font-weight:700;color:var(--cobalt);margin-right:.08em;font-family:var(--disp)}
+  .essay-read .post-body>p:first-of-type::first-letter{initial-letter:3;-webkit-initial-letter:3;font-weight:700;color:var(--ink);margin-right:.08em;font-family:var(--disp)}
   .essay-read .post-body h2{font-size:28px}
 
   .essay-subscribe{margin:clamp(52px,8vw,76px) 0 clamp(44px,6vw,60px);padding:clamp(26px,4vw,34px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .essay-subscribe h3{font-family:var(--disp);font-weight:700;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em;color:var(--ink);margin-bottom:6px}
   .essay-subscribe-note{font-size:14.5px;color:var(--dim);margin-bottom:16px}
-  .ws-sub{display:flex;background:var(--card);border:1.5px solid var(--line);border-radius:100px;padding:6px 6px 6px 22px;max-width:440px;transition:border-color .3s,box-shadow .3s}
-  .ws-sub:focus-within{border-color:var(--cobalt);box-shadow:0 0 0 4px rgba(47,43,240,.12)}
+  .ws-sub{display:flex;background:#fff;border:2px solid var(--ink);padding:5px 5px 5px 16px;max-width:440px;transition:box-shadow .3s}
+  .ws-sub:focus-within{box-shadow:0 0 0 4px var(--accent-soft)}
   .ws-sub input{flex:1;min-width:0;border:0;background:transparent;outline:none;font:inherit;font-size:16px;color:var(--ink)}
   .ws-sub input::placeholder{color:var(--faint)}
-  .ws-sub button{border:0;background:var(--ink);color:var(--paper);border-radius:100px;padding:11px 22px;font-weight:600;font-size:15px;cursor:pointer;white-space:nowrap;transition:background .3s}
-  .ws-sub button:hover{background:var(--cobalt)}
+  .ws-sub button{border:0;background:var(--accent);color:var(--ink);padding:11px 18px;font-weight:600;font-size:15px;cursor:pointer;white-space:nowrap;transition:background .3s}
+  .ws-sub button:hover{background:var(--accent-deep)}
   .ws-sub button:disabled{opacity:.6;cursor:default}
-  .subscribe-status{font-size:14px;color:var(--cobalt);font-weight:600;margin-top:12px}
+  .subscribe-status{font-size:14px;color:var(--ink);font-weight:600;margin-top:12px}
 
   .essay-related{margin-bottom:clamp(44px,6vw,56px)}
-  .essay-sec-label{font-size:13px;font-weight:600;color:var(--cobalt);margin-bottom:6px}
+  .essay-sec-label{font-size:14px;font-weight:600;color:var(--dim);margin-bottom:6px}
   .essay-related ul{list-style:none}
   .essay-related li{border-top:1px solid var(--line-soft)}
   .essay-related li:first-child{border-top:0}
   .essay-related a{display:flex;align-items:baseline;gap:14px;padding:14px 0;transition:padding-left .3s var(--ease)}
   .essay-related a:hover{padding-left:6px}
-  .rel-format{font-size:12px;font-weight:600;color:var(--cobalt);white-space:nowrap}
-  .rel-title{font-family:var(--disp);font-weight:600;font-size:18px;color:var(--ink);letter-spacing:-.01em}
-  .essay-related a:hover .rel-title{color:var(--cobalt)}
+  .rel-format{font-size:12.5px;font-weight:600;color:var(--dim);white-space:nowrap}
+  .rel-title{font-family:var(--disp);font-weight:700;font-size:18px;color:var(--ink);letter-spacing:-.01em}
+  .essay-related a:hover .rel-title{box-shadow:inset 0 -.3em 0 var(--accent)}
 
   .essay-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .essay-nav-link{display:grid;gap:6px;padding:18px 0;border-top:1px solid var(--line);transition:color .3s}
   .essay-nav-link.next{text-align:right}
   .nav-lab{font-size:12px;font-weight:600;color:var(--faint)}
-  .nav-title{font-family:var(--disp);font-weight:600;font-size:17px;color:var(--ink);line-height:1.25;letter-spacing:-.01em}
-  .essay-nav-link:hover .nav-title{color:var(--cobalt)}
+  .nav-title{font-family:var(--disp);font-weight:700;font-size:17px;color:var(--ink);line-height:1.25;letter-spacing:-.01em}
+  .essay-nav-link:hover .nav-title{box-shadow:inset 0 -.3em 0 var(--accent)}
   @media(max-width:600px){.essay-nav{grid-template-columns:1fr}.essay-nav-link.next{text-align:left}}
 </style>
