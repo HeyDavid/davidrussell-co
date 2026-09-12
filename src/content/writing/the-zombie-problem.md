@@ -34,7 +34,6 @@ toolkit could rule one out. The most important fact about anyone is the one
 fact no one can check.
 
 <aside class="q-card">
-<p class="q-card-k">Open question № 1</p>
 <p class="q-card-q">If a test is impossible in principle (not hard, impossible), is the question meaningless, or the most important one we can't answer?</p>
 </aside>
 
@@ -70,7 +69,7 @@ But the inference runs on resemblance, not measurement.
 </svg>
 </div>
 </div>
-<figcaption id="zt-twin-cap">Their eyes run on the same twelve lines of code. Suppose I told you exactly one of them is having an experience. <button class="zt-swap" id="zt-swap" type="button">Swap them</button></figcaption>
+<figcaption id="zt-twin-cap">Same face, same eyes, same instructions behind both. Suppose I told you exactly one of them is having an experience. <button class="zt-swap" id="zt-swap" type="button">Swap them</button></figcaption>
 </figure>
 
 ## Then the machines started talking
@@ -90,11 +89,10 @@ There is no meter you can point at a forehead, carbon or silicon.
 <figure class="zt-demo zt-meter" id="zt-meter">
 <div class="zt-meter-head"><span>Certainty you can detect a mind that isn't yours</span><span class="zt-meter-num" aria-hidden="true"></span></div>
 <div class="zt-meter-track"><div class="zt-meter-fill"></div></div>
-<figcaption>Instrument-grade readout, powered by your scroll position, which is exactly as connected to the truth as every other consciousness meter ever built.</figcaption>
+<figcaption>The needle moves. It is exactly as connected to the truth as every other consciousness meter ever built.</figcaption>
 </figure>
 
 <aside class="q-card">
-<p class="q-card-k">Open question № 2</p>
 <p class="q-card-q">What would a machine have to <em>do</em>, not say, before you'd honestly start to wonder?</p>
 </aside>
 
@@ -132,7 +130,6 @@ before, always downhill of the same confident claim: *it doesn't really feel
 the way we do.*
 
 <aside class="q-card">
-<p class="q-card-k">Open question № 3</p>
 <p class="q-card-q">If consciousness is a dimmer rather than a switch, where on it does "deserves kindness" begin?</p>
 </aside>
 

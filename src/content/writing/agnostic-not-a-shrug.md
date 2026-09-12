@@ -89,9 +89,8 @@ Agnosticism is the same practice pointed at the largest question. Not "I can't
 decide." "Here is how much I'd bet, and here is why it's not more."
 
 <aside class="q-card">
-<p class="q-card-k">Open question</p>
 <p class="q-card-q">If you had to put a number on it, what would you bet, and what evidence would move the number?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> Low on any specific god anyone has described; higher than zero, and not lower than the number I'd put on other minds existing, on the universe having some order I don't have the instruments for. What would move me: nothing I could say in a sentence, which is itself part of the number.</p>
+<p class="q-card-take">Mine is low on any specific god anyone has described; higher than zero, and not lower than the number I'd put on other minds existing, on the universe having some order I don't have the instruments for. What would move it: nothing I could say in a sentence, which is itself part of the number.</p>
 </aside>
 
 ## The two questions people never separate

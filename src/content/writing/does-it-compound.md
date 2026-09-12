@@ -87,9 +87,8 @@ margin on one deal. It's about whether the deal leaves you holding something
 that keeps paying after the deal is over.
 
 <aside class="q-card">
-<p class="q-card-k">Open question</p>
 <p class="q-card-q">Take your last week. Which hours will still be paying you something in five years? Be exact.</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> Fewer than I'd like, more than last year. The writing, the runs, the long dinners, and the practice sessions I didn't want to do. Everything else was rent.</p>
+<p class="q-card-take">For me, fewer than I'd like and more than last year: the writing, the runs, the long dinners, and the practice sessions I didn't want to do. Everything else was rent.</p>
 </aside>
 
 ## The failure mode

@@ -96,9 +96,8 @@ practice habit turns into a shopping habit. If the streak breaks, nothing gets
 bought until it's rebuilt.
 
 <aside class="q-card">
-<p class="q-card-k">Open question</p>
 <p class="q-card-q">What's the thing you're waiting to be ready for? And what would the harder-than-the-stage version of practicing it look like, this week?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> For me it's being on camera, cold, doing real work with no script. The practice version is exactly that, weekly, one take, with a rule that I'm not allowed to re-record. It's uncomfortable in precisely the way that makes everything else comfortable.</p>
+<p class="q-card-take">For me it's being on camera, cold, doing real work with no script. The practice version is exactly that, weekly, one take, with a rule that I'm not allowed to re-record. It's uncomfortable in precisely the way that makes everything else comfortable.</p>
 </aside>
 
 ## Readiness is a memory
@@ -110,8 +109,7 @@ room. If you don't have the memory, no amount of preparation substitutes for
 it, and you'll spend your life over-preparing for things that only reps could
 have prepared you for.
 
-And because the room is where the fulfillment is. This is the thing I most
-want to get across. I used to think the good feeling lived on the stage, in
+And the room is where the fulfillment is. I used to think the good feeling lived on the stage, in
 the win, the applause, the number going up. It doesn't. The stage is a
 readout. The good feeling lives in the rep, in the hour where the pressure is
 off and you're fully trying at something hard, and every time I've chased it

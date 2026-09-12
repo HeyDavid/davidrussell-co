@@ -8,11 +8,11 @@ tags: ["deep-ideas"]
 draft: true
 ---
 
-Try something. For the next ten seconds, don't think about
-anything in particular; just wait for your next thought to arrive, and try to
+For the next ten seconds, don't think about anything in
+particular; just wait for your next thought to arrive, and try to
 catch it before it shows up.
 
-Done? You didn't catch it. Nobody does. A thought appeared, fully formed, and
+You didn't catch it. Nobody does. A thought appeared, fully formed, and
 only afterward did the feeling of "I thought that" get attached. Do it enough
 times and you notice the strange part: you aren't the one thinking your
 thoughts. You're the one they're happening to.
@@ -83,9 +83,8 @@ phone, nothing to accomplish, is harder than any sales call or stage I've been
 on. Every one of those was easier than the chair.
 
 <aside class="q-card">
-<p class="q-card-k">Open question</p>
 <p class="q-card-q">What's the ritual you'd keep if you lost the belief behind it? And what does that tell you the ritual was actually for?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> I'd keep the funerals and the sitting. Which tells me the parts I actually needed were the ones about being present for people, and being present for myself, and everything else was the packaging that got those two to happen.</p>
+<p class="q-card-take">I'd keep the funerals and the sitting. Which tells me the parts I actually needed were the ones about being present for people, and being present for myself, and everything else was the packaging that got those two to happen.</p>
 </aside>
 
 ## The practice, without the ceremony

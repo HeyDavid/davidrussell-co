@@ -189,6 +189,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 .q-card p.q-card-k{font-size:14px;font-weight:600;color:var(--dim);margin:0 0 10px}
 .q-card p.q-card-q{font-family:var(--disp);font-weight:700;font-size:clamp(20px,2.6vw,26px);line-height:1.28;letter-spacing:-.02em;color:var(--ink);margin:0 0 14px;text-wrap:balance}
 .q-card p.q-card-take{font-size:16px;line-height:1.65;color:var(--ink-soft);margin:0}
+.q-card p.q-card-q:last-child{margin-bottom:0}
 .q-card .q-who{font-weight:700;color:var(--ink)}
 
 /* Interactive figures + question cards break into the right whitespace on wide screens */

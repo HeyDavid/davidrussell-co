@@ -57,9 +57,8 @@ in the first half hour your hand reaches for a thing that isn't there. That
 reaching is the machine, still running.
 
 <aside class="q-card">
-<p class="q-card-k">Open question</p>
 <p class="q-card-q">Where did your attention go yesterday? Not what you did. What you were actually attending to, hour by hour. Could you account for half of it?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> I can account for the blocks I built on purpose and almost nothing in between them. The gaps are where the machine eats. The fix hasn't been more discipline; it's been fewer gaps.</p>
+<p class="q-card-take">I can account for the blocks I built on purpose and almost nothing in between them. The gaps are where the machine eats. The fix hasn't been more discipline; it's been fewer gaps.</p>
 </aside>
 
 ## Upstream of everything
@@ -70,8 +69,8 @@ roughly the sum of what they've paid attention to for twenty years, and most
 people never chose the list. It was chosen for them by whichever feed got
 there first. That's not a small thing to hand over.
 
-And because there's a version of this that isn't about productivity at all,
-and it's the version I actually care about. Simone Weil said attention is the
+There's a version of this that isn't about productivity at all, and it's
+the version I actually care about. Simone Weil said attention is the
 rarest and purest form of generosity. Think about the last time someone gave
 you theirs, fully, no phone, no half-listening, just there. It's rare enough
 now that you can probably remember the specific conversation. It's the most

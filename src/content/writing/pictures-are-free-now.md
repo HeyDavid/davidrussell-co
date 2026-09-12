@@ -103,9 +103,8 @@ of finished things. The evidence that you can take a brief from an idea to a
 published piece, repeatedly, without a team.
 
 <aside class="q-card">
-<p class="q-card-k">Open question</p>
 <p class="q-card-q">If you could make any image for free, instantly, forever, what would you actually make more of? Be honest about whether the answer is "more."</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> Fewer things, finished. I'd rather ship one visual idea a month that a specific person needed than a hundred that looked good in the folder.</p>
+<p class="q-card-take">For me: fewer things, finished. I'd rather ship one visual idea a month that a specific person needed than a hundred that looked good in the folder.</p>
 </aside>
 
 ## Make fewer, for someone

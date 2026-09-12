@@ -54,7 +54,7 @@ something to lose if they are.
 
 You can't generate that. You can generate a face and a voice and a confident
 paragraph, and increasingly you can't tell it from the real thing on
-inspection, which I've written about before. But the value of a witness never
+inspection. But the value of a witness never
 came from inspection. It came from the track record and the stake. It's the
 difference between a recipe and your grandmother telling you the recipe is
 wrong.
@@ -67,12 +67,11 @@ told Digiday in January that brands have started asking for the unmade bed in
 the background on purpose. That's a price signal, not a style.
 
 <aside class="q-card">
-<p class="q-card-k">Open question</p>
 <p class="q-card-q">Name five people whose word you'd still take if you could never see their face again. What do they have in common?</p>
-<p class="q-card-take"><span class="q-who">Where I land:</span> Mine all have a track record I can check, a name attached to it, and something they'd lose by lying to me. None of them are the most polished person I follow. Several are the least.</p>
+<p class="q-card-take">Mine all have a track record I can check, a name attached to it, and something they'd lose by lying to me. None of them are the most polished person I follow. Several are the least.</p>
 </aside>
 
-## Why this is worth thinking about
+## Both sides of the screen
 
 Two reasons, depending on which side of the screen you're on.
 
