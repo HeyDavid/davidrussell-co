@@ -106,14 +106,9 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
       <div class="subbox reveal">
         <div>
           <h2>Build small. Own it. Compound.</h2>
-          <p>New essays by email when they&rsquo;re finished. Reply to any of them.</p>
+          <p>New essays appear on the writing page.</p>
         </div>
-        <form class="form" id="sub2">
-          <label for="sub-email" class="vh">Email address</label>
-          <input type="email" id="sub-email" name="email" placeholder="your email" autocomplete="email" required>
-          <button type="submit" data-umami-event="subscribe_submit" data-umami-event-location="footer">Get new essays</button>
-          <span class="cap">Occasional essays. No schedule, no spam.</span>
-        </form>
+        <p>Email signups are paused for now.</p>
       </div>
     </div></section>
 
@@ -124,19 +119,6 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
 <script is:inline>
 (function(){
   if(!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){ document.documentElement.classList.add('js'); }
-  var f=document.getElementById('sub2'); if(!f) return;
-  f.addEventListener('submit',function(ev){
-    ev.preventDefault();
-    var input=f.querySelector('input'), btn=f.querySelector('button'), cap=f.querySelector('.cap');
-    var email=(input.value||'').trim(); if(!email) return;
-    btn.disabled=true; var old=btn.textContent; btn.textContent='Sending…';
-    var d=new FormData();
-    d.set('email',email); d.set('utm_source','davidrussell.co'); d.set('utm_medium','footer'); d.set('tags','dr-subscriber'); d.set('referring_site','davidrussell.co');
-    fetch('https://embeds.beehiiv.com/pub_ed495df0-b44a-47ba-939c-eeb46089e27b',{method:'POST',mode:'no-cors',body:d}).finally(function(){
-      f.reset(); btn.disabled=false; btn.textContent=old;
-      if(cap){ cap.textContent='Sent. A confirmation email should arrive within a minute. If it does not, email me and I will add you by hand.'; cap.classList.add('done'); }
-    });
-  });
 })();
 </script>
 
@@ -144,7 +126,6 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
   .home .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
   .home h1,.home h2{font-family:var(--disp);font-weight:700;line-height:1.05;letter-spacing:-.012em;text-wrap:balance}
   .home h2{font-size:clamp(28px,3.4vw,40px)}
-  .vh{position:absolute;left:-9999px}
 
   /* hero */
   .hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:center;padding-block:clamp(28px,5vw,60px) clamp(24px,4vw,48px)}
@@ -233,12 +214,5 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
   .subbox>*{min-width:0}
   .subbox h2{font-size:clamp(30px,4vw,46px);max-width:14ch}
   .subbox p{margin-top:10px;color:var(--ink);max-width:40ch}
-  .form{display:flex;gap:10px;flex-wrap:wrap}
-  .form input{flex:1 1 200px;min-width:0;font:inherit;padding:13px 14px;border:2px solid var(--ink);background:#fff;color:var(--ink)}
-  .form button{font:inherit;font-weight:600;padding:13px 20px;border:0;background:var(--ink);color:#fff;cursor:pointer}
-  .form button:hover{background:#000}
-  .form button:disabled{opacity:.6;cursor:default}
-  .form .cap{flex-basis:100%;font-size:14px;color:var(--ink);opacity:.8}
-  .form .cap.done{opacity:1;font-weight:600}
   @media (max-width:720px){.subbox{grid-template-columns:1fr}}
 </style>
