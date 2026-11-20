@@ -84,13 +84,8 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
       </div>
 
       <aside class="essay-subscribe" aria-labelledby="inline-sub">
-        <h3 id="inline-sub">Get the next essay by email.</h3>
-        <p class="essay-subscribe-note">Occasional essays. No schedule, no spam.</p>
-        <form class="ws-sub" id="essay-subscribe-form">
-          <input type="email" name="email" autocomplete="email" placeholder="your email" aria-label="Email address" required />
-          <button type="submit" data-event="newsletter-signup">Get new essays</button>
-        </form>
-        <p class="subscribe-status" id="essay-subscribe-status" role="status" aria-live="polite" hidden></p>
+        <h3 id="inline-sub">Essays by email</h3>
+        <p class="essay-subscribe-note">Email signups are paused for now.</p>
       </aside>
 
       {related.length > 0 && (
@@ -129,35 +124,6 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
   </main>
   <Footer />
 </BaseLayout>
-
-<script is:inline>
-  (function(){
-    var form = document.getElementById("essay-subscribe-form");
-    var status = document.getElementById("essay-subscribe-status");
-    if (!form || !status) return;
-    var PUB = "pub_ed495df0-b44a-47ba-939c-eeb46089e27b";
-    form.addEventListener("submit", function(event){
-      event.preventDefault();
-      var input = form.querySelector("input");
-      var email = (input.value || "").trim();
-      if (!email) return;
-      var button = form.querySelector("button");
-      if (button) { button.disabled = true; button.textContent = "Sending…"; }
-      var data = new FormData();
-      data.set("email", email);
-      data.set("utm_source", "davidrussell.co");
-      data.set("utm_medium", "essay-inline");
-      data.set("tags", "dr-subscriber");
-      data.set("referring_site", window.location.pathname);
-      fetch("https://embeds.beehiiv.com/" + PUB, { method:"POST", mode:"no-cors", body:data }).finally(function(){
-        form.reset();
-        status.hidden = false;
-        status.textContent = "Sent. A confirmation email should arrive within a minute. If it does not, email me and I will add you by hand.";
-        if (button) { button.disabled = false; button.textContent = "Get new essays"; }
-      });
-    });
-  })();
-</script>
 
 <style>
   /* Reading progress: pure CSS scroll-driven animation (Chromium + Safari 26;
@@ -204,14 +170,6 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
   .essay-subscribe{margin:clamp(52px,8vw,76px) 0 clamp(44px,6vw,60px);padding:clamp(26px,4vw,34px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .essay-subscribe h3{font-family:var(--disp);font-weight:700;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em;color:var(--ink);margin-bottom:6px}
   .essay-subscribe-note{font-size:14.5px;color:var(--dim);margin-bottom:16px}
-  .ws-sub{display:flex;background:#fff;border:2px solid var(--ink);padding:5px 5px 5px 16px;max-width:440px;transition:box-shadow .3s}
-  .ws-sub:focus-within{box-shadow:0 0 0 4px var(--accent-soft)}
-  .ws-sub input{flex:1;min-width:0;border:0;background:transparent;outline:none;font:inherit;font-size:16px;color:var(--ink)}
-  .ws-sub input::placeholder{color:var(--faint)}
-  .ws-sub button{border:0;background:var(--accent);color:var(--ink);padding:11px 18px;font-weight:600;font-size:15px;cursor:pointer;white-space:nowrap;transition:background .3s}
-  .ws-sub button:hover{background:var(--accent-deep)}
-  .ws-sub button:disabled{opacity:.6;cursor:default}
-  .subscribe-status{font-size:14px;color:var(--ink);font-weight:600;margin-top:12px}
 
   .essay-related{margin-bottom:clamp(44px,6vw,56px)}
   .essay-sec-label{font-size:14px;font-weight:600;color:var(--dim);margin-bottom:6px}
