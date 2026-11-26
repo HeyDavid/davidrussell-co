@@ -21,7 +21,7 @@ const hasPosts = posts.length > 0;
 
 <BaseLayout
   title="Writing · David Russell"
-  description="Essays and notes from David Russell. What I tried, what it cost, what I still don't know."
+  description="Writing by David Russell."
 >
   <Header />
   <main>
@@ -29,13 +29,8 @@ const hasPosts = posts.length > 0;
       <a href="/" class="back">← Home</a>
 
       <header class="reading-head">
-        <div class="level"><span class="bar" aria-hidden="true"></span><span class="lbl">Essays and notes</span></div>
-        <h1>Writing.</h1>
-        <p class="reading-lede">
-          Essays and notes. What I tried, what it cost, what I still
-          don&rsquo;t know. Newest first.
-        </p>
-        <p class="feed-note">Follow by <a href="/rss.xml">RSS</a>. <a href="/#subscribe">Email signup status</a>.</p>
+        <h1>Writing</h1>
+        <p class="feed-note"><a href="/rss.xml">RSS</a></p>
       </header>
 
       {hasPosts ? (
@@ -57,7 +52,7 @@ const hasPosts = posts.length > 0;
         </ul>
       ) : (
         <p class="empty-note">
-          Nothing published here yet. <a href="/#subscribe">Check email signup status</a>.
+          No posts yet.
         </p>
       )}
     </article>

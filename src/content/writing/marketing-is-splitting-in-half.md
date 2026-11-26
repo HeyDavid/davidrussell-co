@@ -1,60 +1,20 @@
 ---
-title: "Marketing in 2026 is splitting in half"
-description: "AI-amplified slop on one side, craft-driven trust on the other. I run tools from both sides daily, and you still have to pick."
+title: "What I want AI to do"
+description: "A missed call is a better example than a marketing pitch."
 publishDate: 2026-05-23
-readTime: "3 min"
+readTime: "1 min"
 format: "note"
 tags: ["operator-notes", "ai"]
 ---
 
-Marketing is splitting into two halves that can't share a strategy. I build AI
-systems for a living and I'm betting my own brands on craft. I run tools from
-both sides every working day.
+I build AI phone agents, and I use AI when I write. The jobs are different.
+On a missed call, I want the agent to get the caller's number and find out
+what they need. When I write about the call, I want to tell you what actually
+happened: did we get the number right, and did anyone call back?
 
-## The slop half
+It's easy to turn that into a post about “transforming the customer
+experience.” I'd rather show you the part where the caller had to repeat
+their number. That's where I can see what needs fixing. It's also the part
+I'd want to read if I were deciding whether to use the thing.
 
-AI-generated landing pages, AI-generated emails, AI-generated thought
-leadership. Volume is up 100x and trust is down by about the same. Anyone
-running that playbook is racing a hundred thousand people running the identical
-one, and the marginal value of the output is falling toward its marginal cost:
-zero.
-
-That's not a moral objection. It's an operator one. Slop works on Tuesday and
-dies by Friday, because by Friday everyone with a credit card has the same
-machine.
-
-## The craft half
-
-Brands that are recognizably made by people. Slower output, stronger trust, a
-smaller funnel up top, much higher conversion at the bottom. The economics work
-because conversion compounds and attention doesn't.
-
-You can tell when writing has a real person behind it: the specific weird
-example, the willingness to hedge, the sentence that risks something. Your
-audience can tell too. Models don't produce those tells on their own.
-
-## The part people get wrong
-
-The split isn't "AI versus humans." I build AI phone agents. I use these models
-every day, on almost everything. The split is about who's the voice.
-
-AI underneath a human voice is leverage. It makes my hands faster and my
-output more mine, not less. AI *as* the voice is slop. It makes everyone's
-output identical. Same tools. Opposite bets.
-
-## Why you still have to pick
-
-You can't run the ten-posts-a-day engine and still defend the post that took
-six hours. Once volume becomes the metric, the slop eats the craft from the
-inside. And the audiences sniff each other out in about a minute.
-
-Pick one. If you don't pick, the market picks for you, and it picks slop,
-because slop is what most people in the room are quietly defaulting to.
-
-Maybe more operators than I think will pull off scaled craft: AI trained on a
-real voice, drafted fast, edited hard. I doubt it,
-because the editing is itself a craft most marketers never built. But I'm
-watching.
-
-I picked craft, with AI doing the heavy lifting underneath. Ask me in two years
-whether the line held.
+AI can help me cut a paragraph. The example still has to come from somewhere.

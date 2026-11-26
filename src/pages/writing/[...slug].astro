@@ -48,7 +48,7 @@ const metaDate =
 // Fall back to the site-wide card for any post that hasn't been rendered yet,
 // so a missing PNG can never ship a broken og:image.
 const card = `/og/${post.id}.png`;
-const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, import.meta.url)))
+const socialImage = post.id !== "marketing-is-splitting-in-half" && existsSync(fileURLToPath(new URL(`../../../public${card}`, import.meta.url)))
   ? card
   : "/og/site.png";
 ---
@@ -82,11 +82,6 @@ const socialImage = existsSync(fileURLToPath(new URL(`../../../public${card}`, i
       <div class="post-body">
         <Content />
       </div>
-
-      <aside class="essay-subscribe" aria-labelledby="inline-sub">
-        <h3 id="inline-sub">Essays by email</h3>
-        <p class="essay-subscribe-note">Email signups are paused for now.</p>
-      </aside>
 
       {related.length > 0 && (
         <section class="essay-related">
