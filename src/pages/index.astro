@@ -26,7 +26,7 @@ const ventures = [
 ];
 
 const title = "David Russell · small, useful companies";
-const description = "Solo operator in South Florida. I run a small portfolio of companies and write about what building them teaches me.";
+const description = "Solo operator in South Florida. I run Let’s Chat Marketing.";
 ---
 
 <BaseLayout title={title} description={description}>
@@ -39,8 +39,8 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
 
     <section class="hero" id="top"><div class="wrap">
       <div class="hero-copy">
-        <p class="intro">David Russell, solo operator in South Florida. I run a small portfolio of companies and write about what building them teaches me.</p>
-        <div class="level"><span class="bar" aria-hidden="true"></span><span class="lbl">Latest essay</span><span class="meta">{cap(latest.data.format)} · {fmt(latest.data.publishDate)}{latest.data.readTime ? ` · ${latest.data.readTime}` : ""}</span></div>
+        <p class="intro">David Russell, solo operator in South Florida. I run Let’s Chat Marketing.</p>
+        <div class="level"><span class="bar" aria-hidden="true"></span><span class="lbl">Latest</span><span class="meta">{cap(latest.data.format)} · {fmt(latest.data.publishDate)}{latest.data.readTime ? ` · ${latest.data.readTime}` : ""}</span></div>
         <h1><a href={`/writing/${latest.id}/`} style={`view-transition-name: vt-${latest.id}`}>{latest.data.title}</a></h1>
         <p class="excerpt">{latest.data.description}</p>
         <a class="read" href={`/writing/${latest.id}/`} data-umami-event="hero_read_click">Read the essay <span class="arr" aria-hidden="true">&rarr;</span></a>
@@ -76,10 +76,9 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
       </ul>
     </div></section>
 
-    <section class="sec writing" id="writing"><div class="wrap">
+    {more.length > 0 && <section class="sec writing" id="writing"><div class="wrap">
       <div>
-        <div class="sechead reveal"><h2>More writing.</h2><a class="all" href="/writing/">Read everything <span aria-hidden="true">&rarr;</span></a></div>
-        <p class="subnote">Essays and notes. What I tried, what it cost, what I still don&rsquo;t know.</p>
+        <div class="sechead reveal"><h2>Writing</h2><a class="all" href="/writing/">All posts <span aria-hidden="true">&rarr;</span></a></div>
         <ul class="rows">
           {more.map((post) => (
             <li class="row wrow"><a href={`/writing/${post.id}/`}>
@@ -90,7 +89,7 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
         </ul>
       </div>
       <img class="wimg reveal" src="/assets/forest-lights.jpg" alt="A forest path at night, lit blue and green, Whistler" width="900" height="1200" loading="lazy" decoding="async">
-    </div></section>
+    </div></section>}
 
     <section class="sec about" id="about"><div class="wrap">
       <img src="/assets/headshot.jpg" alt="David Russell" width="600" height="750" loading="lazy" decoding="async">
@@ -105,8 +104,8 @@ const description = "Solo operator in South Florida. I run a small portfolio of 
     <section class="sub" id="subscribe"><div class="wrap">
       <div class="subbox reveal">
         <div>
-          <h2>Build small. Own it. Compound.</h2>
-          <p>New essays appear on the writing page.</p>
+          <h2>Follow my writing</h2>
+          <p><a href="/rss.xml">RSS feed</a></p>
         </div>
         <p>Email signups are paused for now.</p>
       </div>

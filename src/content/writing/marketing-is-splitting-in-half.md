@@ -4,6 +4,7 @@ description: "AI-amplified slop on one side, craft-driven trust on the other. I 
 publishDate: 2026-05-23
 readTime: "3 min"
 format: "note"
+draft: true
 tags: ["operator-notes", "ai"]
 ---
 
