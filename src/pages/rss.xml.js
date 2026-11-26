@@ -12,7 +12,7 @@ export async function GET(context) {
   return rss({
     title: "David Russell: writing",
     description:
-      "Essays and notes from a solo operator and writer in South Florida.",
+      "Writing by David Russell.",
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
